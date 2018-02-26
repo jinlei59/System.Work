@@ -7,6 +7,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UIControls", "UIControls", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Work.UI.WinControl", "System.Work.UI.WinControl\System.Work.UI.WinControl.csproj", "{A22D14A6-7232-44CB-A3B9-FB61C06E5ADA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test_ImageBox", "Test_ImageBox\Test_ImageBox.csproj", "{36DF5A70-A7BF-4845-8D02-BBE6F017705F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,12 +19,17 @@ Global
 		{A22D14A6-7232-44CB-A3B9-FB61C06E5ADA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A22D14A6-7232-44CB-A3B9-FB61C06E5ADA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A22D14A6-7232-44CB-A3B9-FB61C06E5ADA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36DF5A70-A7BF-4845-8D02-BBE6F017705F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36DF5A70-A7BF-4845-8D02-BBE6F017705F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36DF5A70-A7BF-4845-8D02-BBE6F017705F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36DF5A70-A7BF-4845-8D02-BBE6F017705F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{A22D14A6-7232-44CB-A3B9-FB61C06E5ADA} = {84BDFF6D-E15B-4AE8-A861-2C65C4CB9BF8}
+		{36DF5A70-A7BF-4845-8D02-BBE6F017705F} = {84BDFF6D-E15B-4AE8-A861-2C65C4CB9BF8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8F80D575-589F-487E-B4FA-9833BF754686}
