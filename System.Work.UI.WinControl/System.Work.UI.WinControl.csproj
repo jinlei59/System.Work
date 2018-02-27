@@ -67,6 +67,12 @@
     </Compile>
     <Compile Include="ImageBox\ZoomLevelCollection.cs" />
     <Compile Include="ImageBox\ZoomLevelCollectionConverter.cs" />
+    <Compile Include="ImageViewer\ImageViewer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ImageViewer\ImageViewer.Designer.cs">
+      <DependentUpon>ImageViewer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
