@@ -28,18 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.imageBox1 = new System.Work.UI.WinControl.ImageBox();
             this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
+            this.imageViewer1 = new System.Work.UI.WinControl.ImageViewer();
             this.SuspendLayout();
-            // 
-            // imageBox1
-            // 
-            this.imageBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.imageBox1.Location = new System.Drawing.Point(0, 0);
-            this.imageBox1.Name = "imageBox1";
-            this.imageBox1.Size = new System.Drawing.Size(678, 628);
-            this.imageBox1.TabIndex = 0;
-            this.imageBox1.Text = "imageBox1";
             // 
             // propertyGrid1
             // 
@@ -47,16 +38,26 @@
             this.propertyGrid1.LineColor = System.Drawing.SystemColors.ControlDark;
             this.propertyGrid1.Location = new System.Drawing.Point(678, 0);
             this.propertyGrid1.Name = "propertyGrid1";
-            this.propertyGrid1.SelectedObject = this.imageBox1;
+            this.propertyGrid1.SelectedObject = this.imageViewer1;
             this.propertyGrid1.Size = new System.Drawing.Size(284, 628);
             this.propertyGrid1.TabIndex = 1;
+            // 
+            // imageViewer1
+            // 
+            this.imageViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.imageViewer1.Location = new System.Drawing.Point(0, 0);
+            this.imageViewer1.Name = "imageViewer1";
+            this.imageViewer1.Size = new System.Drawing.Size(678, 628);
+            this.imageViewer1.StatusStripVisible = true;
+            this.imageViewer1.TabIndex = 2;
+            this.imageViewer1.ToolStripVisible = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(962, 628);
-            this.Controls.Add(this.imageBox1);
+            this.Controls.Add(this.imageViewer1);
             this.Controls.Add(this.propertyGrid1);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -65,9 +66,8 @@
         }
 
         #endregion
-
-        private System.Work.UI.WinControl.ImageBox imageBox1;
         private System.Windows.Forms.PropertyGrid propertyGrid1;
+        private System.Work.UI.WinControl.ImageViewer imageViewer1;
     }
 }
 

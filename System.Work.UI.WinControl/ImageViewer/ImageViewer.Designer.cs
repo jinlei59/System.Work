@@ -32,15 +32,16 @@
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.tssLocation = new System.Windows.Forms.ToolStripStatusLabel();
             this.tssRGB = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.imageBox1 = new System.Work.UI.WinControl.ImageBox();
+            this.tssImageInfo = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.tsOpen = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tsNormal = new System.Windows.Forms.ToolStripButton();
+            this.tsZoomIn = new System.Windows.Forms.ToolStripButton();
+            this.tsZoomOut = new System.Windows.Forms.ToolStripButton();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tssZoom = new System.Windows.Forms.ToolStripStatusLabel();
+            this.imageBox = new System.Work.UI.WinControl.ImageBox();
             this.statusStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -50,9 +51,10 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel2,
             this.tssLocation,
-            this.tssRGB,
             this.toolStripStatusLabel1,
-            this.toolStripStatusLabel3});
+            this.tssRGB,
+            this.tssImageInfo,
+            this.tssZoom});
             this.statusStrip1.Location = new System.Drawing.Point(0, 340);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(447, 22);
@@ -62,7 +64,7 @@
             // toolStripStatusLabel2
             // 
             this.toolStripStatusLabel2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripStatusLabel2.Image = global::System.Work.UI.WinControl.Properties.Resources.cursor;
+            this.toolStripStatusLabel2.Image = global::System.Work.UI.WinControl.Properties.Resources.Position;
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
             this.toolStripStatusLabel2.Size = new System.Drawing.Size(16, 17);
             this.toolStripStatusLabel2.Text = "toolStripStatusLabel2";
@@ -72,102 +74,121 @@
             this.tssLocation.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.tssLocation.Image = global::System.Work.UI.WinControl.Properties.Resources.cursor;
             this.tssLocation.Name = "tssLocation";
-            this.tssLocation.Size = new System.Drawing.Size(229, 17);
+            this.tssLocation.Size = new System.Drawing.Size(137, 17);
             this.tssLocation.Spring = true;
             this.tssLocation.Text = "X:0 Y:0";
             this.tssLocation.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // tssRGB
             // 
+            this.tssRGB.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.tssRGB.Image = global::System.Work.UI.WinControl.Properties.Resources.map;
             this.tssRGB.Name = "tssRGB";
-            this.tssRGB.Size = new System.Drawing.Size(87, 17);
+            this.tssRGB.Size = new System.Drawing.Size(137, 17);
+            this.tssRGB.Spring = true;
             this.tssRGB.Text = "R:0 G:0 B:0";
+            this.tssRGB.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // toolStripStatusLabel1
+            // tssImageInfo
             // 
-            this.toolStripStatusLabel1.Image = global::System.Work.UI.WinControl.Properties.Resources.Size;
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(69, 17);
-            this.toolStripStatusLabel1.Text = "W:0 H:0";
-            this.toolStripStatusLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // imageBox1
-            // 
-            this.imageBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.imageBox1.Location = new System.Drawing.Point(0, 0);
-            this.imageBox1.Name = "imageBox1";
-            this.imageBox1.Size = new System.Drawing.Size(447, 340);
-            this.imageBox1.TabIndex = 3;
+            this.tssImageInfo.Image = global::System.Work.UI.WinControl.Properties.Resources.Size;
+            this.tssImageInfo.Name = "tssImageInfo";
+            this.tssImageInfo.Size = new System.Drawing.Size(69, 17);
+            this.tssImageInfo.Text = "W:0 H:0";
+            this.tssImageInfo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // toolStrip1
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton1,
+            this.tsOpen,
             this.toolStripSeparator1,
-            this.toolStripButton2,
-            this.toolStripButton3,
-            this.toolStripButton4});
+            this.tsNormal,
+            this.tsZoomIn,
+            this.tsZoomOut});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(447, 25);
             this.toolStrip1.TabIndex = 4;
             this.toolStrip1.Text = "toolStrip1";
             // 
-            // toolStripButton1
+            // tsOpen
             // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = global::System.Work.UI.WinControl.Properties.Resources.Open;
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton1.Text = "toolStripButton1";
+            this.tsOpen.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsOpen.Image = global::System.Work.UI.WinControl.Properties.Resources.Open;
+            this.tsOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsOpen.Name = "tsOpen";
+            this.tsOpen.Size = new System.Drawing.Size(23, 22);
+            this.tsOpen.Text = "toolStripButton1";
+            this.tsOpen.Click += new System.EventHandler(this.tsOpen_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
-            // toolStripButton2
+            // tsNormal
             // 
-            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton2.Image = global::System.Work.UI.WinControl.Properties.Resources.image_resize_actual;
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton2.Text = "toolStripButton2";
+            this.tsNormal.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsNormal.Image = global::System.Work.UI.WinControl.Properties.Resources.image_resize_actual;
+            this.tsNormal.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsNormal.Name = "tsNormal";
+            this.tsNormal.Size = new System.Drawing.Size(23, 22);
+            this.tsNormal.Text = "toolStripButton2";
+            this.tsNormal.Click += new System.EventHandler(this.tsNormal_Click);
             // 
-            // toolStripButton3
+            // tsZoomIn
             // 
-            this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton3.Image = global::System.Work.UI.WinControl.Properties.Resources.magnifier_zoom_in;
-            this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton3.Name = "toolStripButton3";
-            this.toolStripButton3.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton3.Text = "toolStripButton3";
+            this.tsZoomIn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsZoomIn.Image = global::System.Work.UI.WinControl.Properties.Resources.magnifier_zoom_in;
+            this.tsZoomIn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsZoomIn.Name = "tsZoomIn";
+            this.tsZoomIn.Size = new System.Drawing.Size(23, 22);
+            this.tsZoomIn.Text = "toolStripButton3";
+            this.tsZoomIn.Click += new System.EventHandler(this.tsZoomIn_Click);
             // 
-            // toolStripButton4
+            // tsZoomOut
             // 
-            this.toolStripButton4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton4.Image = global::System.Work.UI.WinControl.Properties.Resources.magnifier_zoom_out;
-            this.toolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton4.Name = "toolStripButton4";
-            this.toolStripButton4.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton4.Text = "toolStripButton4";
+            this.tsZoomOut.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.tsZoomOut.Image = global::System.Work.UI.WinControl.Properties.Resources.magnifier_zoom_out;
+            this.tsZoomOut.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsZoomOut.Name = "tsZoomOut";
+            this.tsZoomOut.Size = new System.Drawing.Size(23, 22);
+            this.tsZoomOut.Text = "toolStripButton4";
+            this.tsZoomOut.Click += new System.EventHandler(this.tsZoomOut_Click);
             // 
-            // toolStripStatusLabel3
+            // toolStripStatusLabel1
             // 
-            this.toolStripStatusLabel3.Image = global::System.Work.UI.WinControl.Properties.Resources.magnifier_zoom;
-            this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
-            this.toolStripStatusLabel3.Size = new System.Drawing.Size(56, 17);
-            this.toolStripStatusLabel3.Text = "100%";
+            this.toolStripStatusLabel1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripStatusLabel1.Image = global::System.Work.UI.WinControl.Properties.Resources.map;
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(16, 17);
+            this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
+            // 
+            // tssZoom
+            // 
+            this.tssZoom.Image = global::System.Work.UI.WinControl.Properties.Resources.magnifier_zoom;
+            this.tssZoom.Name = "tssZoom";
+            this.tssZoom.Size = new System.Drawing.Size(56, 17);
+            this.tssZoom.Text = "100%";
+            // 
+            // imageBox
+            // 
+            this.imageBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.imageBox.Location = new System.Drawing.Point(0, 0);
+            this.imageBox.Name = "imageBox";
+            this.imageBox.Size = new System.Drawing.Size(447, 340);
+            this.imageBox.TabIndex = 3;
+            this.imageBox.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.imageBox_MouseWheel);
+            this.imageBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.imageBox_MouseDown);
+            this.imageBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.imageBox_MouseMove);
+            this.imageBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.imageBox_MouseUp);
             // 
             // ImageViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.toolStrip1);
-            this.Controls.Add(this.imageBox1);
+            this.Controls.Add(this.imageBox);
             this.Controls.Add(this.statusStrip1);
             this.Name = "ImageViewer";
             this.Size = new System.Drawing.Size(447, 362);
@@ -183,17 +204,18 @@
         #endregion
 
         private Windows.Forms.StatusStrip statusStrip1;
-        private ImageBox imageBox1;
+        private ImageBox imageBox;
         private Windows.Forms.ToolStrip toolStrip1;
-        private Windows.Forms.ToolStripButton toolStripButton1;
+        private Windows.Forms.ToolStripButton tsOpen;
         private Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private Windows.Forms.ToolStripButton toolStripButton2;
-        private Windows.Forms.ToolStripButton toolStripButton3;
-        private Windows.Forms.ToolStripButton toolStripButton4;
+        private Windows.Forms.ToolStripButton tsNormal;
+        private Windows.Forms.ToolStripButton tsZoomIn;
+        private Windows.Forms.ToolStripButton tsZoomOut;
         private Windows.Forms.ToolStripStatusLabel tssLocation;
         private Windows.Forms.ToolStripStatusLabel tssRGB;
         private Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
+        private Windows.Forms.ToolStripStatusLabel tssImageInfo;
         private Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
-        private Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
+        private Windows.Forms.ToolStripStatusLabel tssZoom;
     }
 }
