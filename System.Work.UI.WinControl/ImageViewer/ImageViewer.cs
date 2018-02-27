@@ -12,9 +12,23 @@ namespace System.Work.UI.WinControl
 {
     public partial class ImageViewer : UserControl
     {
+        #region 变量
+
+        #endregion
+        #region 属性
+
+        #endregion
+        #region 事件
+
+        #endregion
+        #region 构造函数
         public ImageViewer()
         {
             InitializeComponent();
         }
+        #endregion
+        #region 自定义方法
+
+        #endregion
     }
 }
