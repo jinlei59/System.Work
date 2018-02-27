@@ -72,5 +72,8 @@
   <ItemGroup>
     <Folder Include="Common\" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="ImageBox\ImageBox.bmp" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
