@@ -28,7 +28,8 @@ namespace System.Work.UI.WinControl
             if (string.IsNullOrEmpty(_str))
                 return;
             Font f = new Font(_font.FontFamily, (float)(_font.Size * zoomScale), _font.Style);
-            e.Graphics.DrawString(_str, f, _brush, _x, _y);
+            PointF pf = ImageBox.GetOffsetPoint(_x, _y);
+            e.Graphics.DrawString(_str, f, _brush, pf.X, pf.Y);
         }
     }
 }

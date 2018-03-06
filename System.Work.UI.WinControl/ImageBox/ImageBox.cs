@@ -4806,6 +4806,7 @@ namespace System.Work.UI.WinControl
 
         public void AddElement(Element element)
         {
+            element.ImageBox = this;
             _elements = _elements ?? new List<Element>();
             _elements.Add(element);
         }
