@@ -3,6 +3,8 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace System.Work.UI.WinControl
 {
@@ -213,6 +215,8 @@ namespace System.Work.UI.WinControl
         {
             this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.ResizeRedraw, true);
             this.SetStyle(ControlStyles.StandardDoubleClick, false);
+
+            _elements = new List<Element>();
 
             // ReSharper disable DoNotCallOverridableMethodsInConstructor
             this.BeginUpdate();
@@ -3918,6 +3922,13 @@ namespace System.Work.UI.WinControl
                     this.DrawText(e);
                 }
 
+                // draw lines、Rectangles、strings
+                if (_elements != null && _elements.Count > 0)
+                {
+                    foreach (var element in _elements)
+                        element.Draw(e, Zoom);
+                }
+
                 base.OnPaint(e);
             }
         }
@@ -4785,6 +4796,18 @@ namespace System.Work.UI.WinControl
 
                 this.OnZoomed(new ImageBoxZoomEventArgs(actions, source, previousZoom, this.Zoom));
             }
+        }
+
+        #endregion
+
+        #region Extensions
+
+        private IList<Element> _elements;
+
+        public void AddElement(Element element)
+        {
+            _elements = _elements ?? new List<Element>();
+            _elements.Add(element);
         }
 
         #endregion

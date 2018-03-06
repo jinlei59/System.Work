@@ -16,5 +16,10 @@ namespace Test_ImageBox
         {
             InitializeComponent();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            imageViewer1.DrawString("ddd", new Font(FontFamily.Families.First(), 12), Brushes.Red, 100, 100);
+        }
     }
 }

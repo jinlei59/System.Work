@@ -15,6 +15,7 @@ namespace System.Work.UI.WinControl
     {
         #region 变量
         #endregion
+
         #region 属性
 
         public bool ToolStripVisible
@@ -40,10 +41,21 @@ namespace System.Work.UI.WinControl
             get { return imageBox.Image; }
             set { imageBox.Image = value; }
         }
+
+        public ImageBoxGridDisplayMode GridDisplayMode
+        {
+            get { return imageBox.GridDisplayMode; }
+            set
+            {
+                imageBox.GridDisplayMode = value;
+            }
+        }
         #endregion
+
         #region 事件
 
         #endregion
+
         #region 构造函数
         public ImageViewer()
         {
@@ -51,7 +63,7 @@ namespace System.Work.UI.WinControl
         }
         #endregion
 
-        #region 自定义方法
+        #region private&protected method
 
         #region Protected Members
 
@@ -138,6 +150,18 @@ namespace System.Work.UI.WinControl
 
         #endregion
 
+        #region 公共方法
+
+        public void DrawString(string s, Font font, Brush brush, float x, float y)
+        {
+            imageBox.AddElement(new StringElement(s, font, brush, x, y));
+        }
+
+        public void UpdateElement()
+        { }
+        #endregion
+
+        #region 窗体按钮事件
         private void tsOpen_Click(object sender, EventArgs e)
         {
             using (FileDialog dialog = new OpenFileDialog())
@@ -199,5 +223,6 @@ namespace System.Work.UI.WinControl
             UpdateRGB(e.Location);
             UpdateStatusBar();
         }
+        #endregion
     }
 }
