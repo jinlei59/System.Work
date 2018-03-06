@@ -4811,6 +4811,21 @@ namespace System.Work.UI.WinControl
             _elements.Add(element);
         }
 
+        public void ClearElement(ElementType type)
+        {
+            if (_elements != null)
+            {
+                foreach (var e in _elements)
+                {
+                    if (e.Type == type)
+                    {
+                        e.ImageBox = null;
+                        _elements.Remove(e);
+                    }
+                }
+            }
+        }
+
         #endregion
     }
 }

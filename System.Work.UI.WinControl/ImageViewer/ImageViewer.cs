@@ -152,13 +152,56 @@ namespace System.Work.UI.WinControl
 
         #region 公共方法
 
+        #region 添加&删除字符串
         public void DrawString(string s, Font font, Brush brush, float x, float y)
         {
             imageBox.AddElement(new StringElement(s, font, brush, x, y));
         }
+        public void ClearString()
+        {
+            imageBox.ClearElement(ElementType.String);
+        }
+        #endregion
+
+        #region 添加&删除直线
+        public void DrawLine(Pen pen, float x1, float y1, float x2, float y2)
+        {
+            imageBox.AddElement(new LineElement(pen, x1, y1, x2, y2));
+        }
+        public void ClearLine()
+        {
+            imageBox.ClearElement(ElementType.Line);
+        }
+        #endregion
+
+        #region 添加&删除矩形框
+        public void DrawRectangle(Pen pen, float x, float y, float width, float height)
+        {
+            imageBox.AddElement(new RectangleElement(pen, x, y, width, height));
+        }
+
+        public void ClearRectangle()
+        {
+            imageBox.ClearElement(ElementType.Rectangle);
+        }
+        #endregion
+
+        #region 添加&删除圆
+        public void DrawEllipse(Pen pen, float x, float y, float width, float height)
+        {
+            imageBox.AddElement(new EllipseElement(pen, x, y, width, height));
+        }
+
+        public void ClearEllipse()
+        {
+            imageBox.ClearElement(ElementType.Ellipse);
+        }
+        #endregion
 
         public void UpdateElement()
-        { }
+        {
+            imageBox.Invalidate();
+        }
         #endregion
 
         #region 窗体按钮事件

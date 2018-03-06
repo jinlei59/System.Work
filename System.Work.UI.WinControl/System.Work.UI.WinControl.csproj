@@ -43,6 +43,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\Element.cs" />
+    <Compile Include="Common\LineElement.cs" />
+    <Compile Include="Common\EllipseElement.cs" />
+    <Compile Include="Common\RectangleElement.cs" />
     <Compile Include="Common\StringElement.cs" />
     <Compile Include="ImageBox\ImageBox.cs">
       <SubType>Component</SubType>

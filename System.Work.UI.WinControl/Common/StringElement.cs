@@ -8,16 +8,17 @@ using System.Windows.Forms;
 
 namespace System.Work.UI.WinControl
 {
-    public class StringElement : Element
+    internal class StringElement : Element
     {
-        private string _str = string.Empty;
-        Font _font = new Font(FontFamily.Families.First(), 8);
-        Brush _brush = Brushes.Black;
+        string _str = string.Empty;
+        Font _font;
+        Brush _brush;
         float _x = 0f, _y = 0f;
         public StringElement(string s, Font font, Brush brush, float x, float y)
         {
+            this.Type = ElementType.String;
             _str = s;
-            _font = font;
+            _font = new Font(font, font.Style);
             _brush = brush;
             _x = x;
             _y = y;
@@ -27,7 +28,7 @@ namespace System.Work.UI.WinControl
         {
             if (string.IsNullOrEmpty(_str))
                 return;
-            Font f = new Font(_font.FontFamily, (float)(_font.Size * zoomScale), _font.Style);
+            Font f = new Font(_font.FontFamily, (float)(_font.Size * zoomScale / 100), _font.Style);
             PointF pf = ImageBox.GetOffsetPoint(_x, _y);
             e.Graphics.DrawString(_str, f, _brush, pf.X, pf.Y);
         }
