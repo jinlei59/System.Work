@@ -5,6 +5,7 @@ using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace System.Work.UI.WinControl
 {
@@ -4815,13 +4816,11 @@ namespace System.Work.UI.WinControl
         {
             if (_elements != null)
             {
-                foreach (var e in _elements)
+                var es = _elements.Where(x => x.Type == type).ToList();
+                foreach (var e in es)
                 {
-                    if (e.Type == type)
-                    {
-                        e.ImageBox = null;
-                        _elements.Remove(e);
-                    }
+                    e.ImageBox = null;
+                    _elements.Remove(e);
                 }
             }
         }

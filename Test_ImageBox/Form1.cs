@@ -36,5 +36,18 @@ namespace Test_ImageBox
         {
             imageViewer1.DrawEllipse(Pens.Red, 1100, 1100, 100, 200);
         }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            imageViewer1.ClearLine();
+            imageViewer1.ClearEllipse();
+            imageViewer1.ClearString();
+            imageViewer1.ClearRectangle();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            imageViewer1.UpdateElement();
+        }
     }
 }
