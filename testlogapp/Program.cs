@@ -12,6 +12,13 @@ namespace testlogapp
         static void Main(string[] args)
         {
             LoggerFactory.SetLoggerFactory(new NLogFactory());
+
+            LoggerFactory.CreateInstance("records").Debug("test debug");
+            LoggerFactory.CreateInstance("records").LogInfo("test info");
+            LoggerFactory.CreateInstance("records").LogWarning("test warning");
+            LoggerFactory.CreateInstance("records").LogError("test error");
+            LoggerFactory.CreateInstance("records").Fatal("test Fatal");
+
             LoggerFactory.CreateInstance().Debug("test debug");
             LoggerFactory.CreateInstance().LogInfo("test info");
             LoggerFactory.CreateInstance().LogWarning("test warning");
