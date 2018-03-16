@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Work.MVP.Core;
-using System.Work.MVP.WinModule;
+using System.Work.Shell.MVP.Krypton;
 using WinFormsMvp.Unity;
 
 namespace mvptest
@@ -29,7 +29,8 @@ namespace mvptest
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+            //Application.Run(new MainForm());
+            Application.Run(new System.Work.Shell.MVP.Krypton.MainForm());
         }
     }
 }

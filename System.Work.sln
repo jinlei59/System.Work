@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "testlogapp", "testlogapp\te
 EndProject
 Project("{F088123C-0E9E-452A-89E6-6BA2F21D5CAC}") = "System.Work.ModelProject", "System.Work.ModelProject\System.Work.ModelProject.modelproj", "{FD8D78F9-CD41-4F5E-A84A-F0237884BE95}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Work.Shell.MVP.Krypton", "System.Work.Shell.MVP.Krypton\System.Work.Shell.MVP.Krypton.csproj", "{DE2952D4-333A-4D45-97E3-3E0691284016}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,10 @@ Global
 		{FD8D78F9-CD41-4F5E-A84A-F0237884BE95}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD8D78F9-CD41-4F5E-A84A-F0237884BE95}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD8D78F9-CD41-4F5E-A84A-F0237884BE95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE2952D4-333A-4D45-97E3-3E0691284016}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE2952D4-333A-4D45-97E3-3E0691284016}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE2952D4-333A-4D45-97E3-3E0691284016}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE2952D4-333A-4D45-97E3-3E0691284016}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -84,6 +90,7 @@ Global
 		{3BC2B838-0146-48E3-843C-063F397924D2} = {D5C05A98-89CD-47F7-81AE-0142E5FA4C18}
 		{C23BF05A-4315-4A74-A741-49B7641F33F1} = {EA1127E5-208A-4B54-B5CE-1BF98CFC9A01}
 		{4E17EEB8-7826-4734-B75A-2E4E2AAEE16D} = {0D42AB48-FDA6-4B35-89A9-9128F17E916C}
+		{DE2952D4-333A-4D45-97E3-3E0691284016} = {D5C05A98-89CD-47F7-81AE-0142E5FA4C18}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8F80D575-589F-487E-B4FA-9833BF754686}

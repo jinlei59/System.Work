@@ -32,6 +32,24 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ComponentFactory.Krypton.Design">
+      <HintPath>..\Dlls\ComponentFactory.Krypton.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="ComponentFactory.Krypton.Docking">
+      <HintPath>..\Dlls\ComponentFactory.Krypton.Docking.dll</HintPath>
+    </Reference>
+    <Reference Include="ComponentFactory.Krypton.Navigator">
+      <HintPath>..\Dlls\ComponentFactory.Krypton.Navigator.dll</HintPath>
+    </Reference>
+    <Reference Include="ComponentFactory.Krypton.Ribbon">
+      <HintPath>..\Dlls\ComponentFactory.Krypton.Ribbon.dll</HintPath>
+    </Reference>
+    <Reference Include="ComponentFactory.Krypton.Toolkit">
+      <HintPath>..\Dlls\ComponentFactory.Krypton.Toolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="ComponentFactory.Krypton.Workspace">
+      <HintPath>..\Dlls\ComponentFactory.Krypton.Workspace.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
@@ -97,9 +115,9 @@
       <Project>{25e559bf-363a-49a1-bb97-e9f8e517d405}</Project>
       <Name>System.Work.MVP.IocUnity</Name>
     </ProjectReference>
-    <ProjectReference Include="..\System.Work.MVP.Winform\System.Work.MVP.WinModule.csproj">
-      <Project>{f4b8a672-6a8f-474e-8e6a-7f42403f1b2e}</Project>
-      <Name>System.Work.MVP.WinModule</Name>
+    <ProjectReference Include="..\System.Work.Shell.MVP.Krypton\System.Work.Shell.MVP.Krypton.csproj">
+      <Project>{de2952d4-333a-4d45-97e3-3e0691284016}</Project>
+      <Name>System.Work.Shell.MVP.Krypton</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

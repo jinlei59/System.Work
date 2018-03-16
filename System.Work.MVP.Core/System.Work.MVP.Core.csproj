@@ -61,8 +61,6 @@
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DevControls\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
