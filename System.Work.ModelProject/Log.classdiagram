@@ -1,0 +1,465 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="e635b7e8-7176-4a65-9f70-db0ebd26d9c6" name="Log" linkedPackageId="4aaee9e5-218b-4344-89ad-f059789c527d" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
+  <ownedCommentsInternal>
+    <comment Id="a301b7cd-624a-4db4-9a85-99cb9a188ea6">
+      <elementDefinition Id="6181b0fb-08ff-4b67-9ad0-178abaff5067" />
+      <body>日志工厂Wrapper</body>
+      <annotatedElements>
+        <classMoniker Id="5cfb94fd-374c-4c7a-beba-df8f00331887" LastKnownName="LoggerFactory" />
+      </annotatedElements>
+    </comment>
+  </ownedCommentsInternal>
+  <profileInstances>
+    <packageHasProfileInstances Id="dbe17ad0-056c-4551-bf28-52353df7278a">
+      <profileInstance Id="66e703ad-8179-4fd6-9ac8-0a623a71d295" name="StandardProfileL2">
+        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+      </profileInstance>
+      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="5d75fd7f-bc0a-40fa-b400-e34e6743b120">
+      <profileInstance Id="4e57c601-9bb0-4511-a394-08e3944795bb" name="StandardProfileL3">
+        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+      </profileInstance>
+      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="5cfb94fd-374c-4c7a-beba-df8f00331887" name="LoggerFactory" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="eedc4335-91ea-44be-9395-a12eefe65c34" />
+        <ownedAttributesInternal>
+          <property Id="a96973aa-742c-4ea3-9177-25cdb287cf8b" name="_factory：ILoggerFactory" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="fc5256c8-4da3-43a2-b4f1-d786b72c5e74" />
+          </property>
+        </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation Id="cfcbd36d-4c50-4a9d-a01b-40f16357db8b" name="SetLoggerFactory" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="cdaa29be-391b-4420-9193-065bbf6c7023" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="5bc48334-0c34-4623-acdd-7505a5229058" name="ILoggerFactory factory) ;void(" direction="In" isUnique="false">
+                  <elementDefinition Id="82f7e885-1c91-4610-aae0-f1e14d90cc44" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="df0a13c2-61fe-45b4-ae53-a6dee514e39c" name="CreateInstance" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="475ed70f-50ff-4335-940f-429a6c8bf094" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="56b9a4b9-de47-434b-a515-8242323bcdaa" name="); ILogger(" direction="In" isUnique="false">
+                  <elementDefinition Id="bc7b48ba-5efc-4efe-a2fd-7bd011d1d8fb" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="b394fbef-4f84-4ea5-bd76-493f1590959b" name="CreateInstance" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="26ff97ed-96d7-4cf5-bf1a-35ec40954871" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="4f5146e4-433c-4969-9170-a0cae0ba20a6" name="string appsettingString);ILogger(" direction="In" isUnique="false">
+                  <elementDefinition Id="30b5affd-c0b7-4dbf-ac18-c03c9fa2a3a9" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <Interface Id="3e959372-3ac4-466d-a4e0-480d5a39777f" name="ILoggerFactory" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="bb848700-e110-45f7-819a-755d10c9aaf5" />
+        <targetEnds>
+          <association Id="7a0d31a2-57e2-4db0-963d-8f629f003c79" isDerived="false" sourceEndRoleName="ILoggerFactory" targetEndRoleName="LoggerFactory" isLeaf="false" isAbstract="false">
+            <classMoniker Id="5cfb94fd-374c-4c7a-beba-df8f00331887" LastKnownName="LoggerFactory" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="e369b388-21af-41ed-a9fc-8cedf25885ad" name="ILoggerFactory" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="9241fff1-50fb-406d-9532-4a004b7c3f55" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="89836c00-0824-451d-863e-598633360931" name="LoggerFactory" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="e53aa9cd-e477-4723-8e1c-470343139678" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="173b7257-f72f-4dc7-a3a2-2bfdbd084ddc" />
+          </association>
+        </targetEnds>
+        <ownedOperations>
+          <operation Id="29a69a74-cc8d-4c73-a6a0-0fed1b684a1a" name="ILogger CreateInstance" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="e38de37b-dcb7-42e4-ab21-1af87597cb59" />
+          </operation>
+          <operation Id="91ac99f3-cd58-4553-984b-fa99444e1910" name="ILogger CreateInstance" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="941fcfc1-51ef-421d-92a3-b27b54c86878" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="4491d89c-08db-4391-a7a3-fcf89bf7cb22" name="string appsettingString" direction="In" isUnique="false">
+                  <elementDefinition Id="d2b0beba-e4fa-428c-9aba-aed7ed921360" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperations>
+      </Interface>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="3db7e97e-a9ac-4952-893d-c71f2608cf30" name="NLogFactory" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="1e0af74c-0f1b-493b-8c27-fced44b56c8a" />
+        <suppliersInternal>
+          <interfaceRealization Id="043b8158-7191-483c-ab31-351e8c862849">
+            <interfaceMoniker Id="3e959372-3ac4-466d-a4e0-480d5a39777f" LastKnownName="ILoggerFactory" />
+            <elementDefinition Id="37126b8c-ed3f-4990-8be2-10ee19e2a535" />
+          </interfaceRealization>
+        </suppliersInternal>
+        <ownedOperationsInternal>
+          <operation Id="b0e47386-186d-4196-b754-1efa9bcfb4c7" name="ILogger CreateInstance" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="2274bca0-b8b1-4b4d-8e80-7ab1b3c4e672" />
+          </operation>
+          <operation Id="9305441e-2823-49d3-aa83-ff0980a23bc1" name="ILogger CreateInstance" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="8d51aad7-ea98-498d-b590-a4b7925346a6" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="0461be17-f710-4a75-afc8-54ef6ac85f52" name="string appsettingString" direction="In" isUnique="false">
+                  <elementDefinition Id="7b36e128-a65c-4cd2-9bfc-8854beb95f3b" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <Interface Id="d90dbb09-d37f-4fcb-bc72-f1b893141aba" name="ILogger" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="17e06594-72ef-4bfc-bcf2-d2e4c6422449" />
+        <targetEnds>
+          <association Id="858cba4a-e58c-42b4-ac21-6e3b0639ad6c" isDerived="false" sourceEndRoleName="ILogger" targetEndRoleName="ILoggerFactory" isLeaf="false" isAbstract="false">
+            <interfaceMoniker Id="3e959372-3ac4-466d-a4e0-480d5a39777f" LastKnownName="ILoggerFactory" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="ce72fd45-4e41-4cfe-8b7d-eb134e7e5e81" name="ILogger" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="6f2eee69-4558-4dec-bf25-fc31f56b2a3b" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="d2ffc383-9ddf-44e4-8a2f-6dd337c69529" name="ILoggerFactory" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="a8f782f9-382c-4947-88ad-4b63a12cae14" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="3337a105-739e-4dff-aba7-42977cab6b75" />
+          </association>
+        </targetEnds>
+        <ownedOperations>
+          <operation Id="6137665b-fd73-41e2-869c-fd9184355a51" name="void Debug" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="b86931a1-33ac-48b1-803b-0490e3c26e69" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="7737f58b-c140-4488-94c6-1575ec3f2bc9" name="string message" direction="In" isUnique="false">
+                  <elementDefinition Id="8e9d8c89-ab13-41d6-89e9-d26120a8622f" />
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="086d74b8-e9cf-4d5e-ae37-73cec230c076" name="params object[] args" direction="In" isUnique="false">
+                  <elementDefinition Id="82d2af84-4fe0-4000-a0ac-15999f738967" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="35c0d200-1f20-44c5-bef0-7121adf66f1a" name="void Debug" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="9d8869d5-a91e-49f5-b491-70b6285abdeb" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="6538c265-8635-46df-b1e6-2bfa24f6bc57" name="string message" direction="In" isUnique="false">
+                  <elementDefinition Id="69f4337a-d29c-4e6d-908b-63c0bfa1bd86" />
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="9bbb012c-ffc6-48d9-a3c7-58133e0b5801" name="Exception exception" direction="In" isUnique="false">
+                  <elementDefinition Id="f2006e4e-c143-4307-bb72-844d0b3e0716" />
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="1daaa3ae-8ed0-47bf-b9f8-30d1df732002" name="params object[] args" direction="In" isUnique="false">
+                  <elementDefinition Id="e53dda4c-0ef9-4cef-a444-09489e312a61" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="98c07b06-4c62-4220-b6fb-510695806724" name="void Debug" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="8d9a758e-84c5-4ad1-929e-5f906a6a1462" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="485beb76-8da8-4f42-8996-2a819b105c00" name="object item" direction="In" isUnique="false">
+                  <elementDefinition Id="4e797765-f55b-4886-9a63-8c6b7680bd26" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="7a8b20c5-0f9f-451a-9163-b5d8ed27858a" name="void Fatal" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="197dbb7f-8f69-48bf-b486-cd6045a56219" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="9963a71f-bdc2-4df6-8930-b87acd5af8b3" name="string message" direction="In" isUnique="false">
+                  <elementDefinition Id="9404de6b-477c-4954-a1c3-d788d9a351ed" />
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="d8086a8f-2696-4eb3-a16a-17c719756a58" name="params object[] args" direction="In" isUnique="false">
+                  <elementDefinition Id="b598438a-dbb2-4dcb-8928-a100e53f866e" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="f0237d73-346c-481f-b456-6d6a076888a6" name="void Fatal" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="f6f93c50-de50-45b4-9540-338f55be8de1" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="0b12c143-1855-4cbf-85a8-bcb1b08f2e64" name="string message" direction="In" isUnique="false">
+                  <elementDefinition Id="d9767902-f6d7-4c24-9810-6d915f81c2d4" />
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="d66caecf-08ab-415d-9774-8165a693d1c6" name="Exception exception" direction="In" isUnique="false">
+                  <elementDefinition Id="b65d0513-9d68-40b0-ba0f-362a715c332c" />
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="25e989e2-6240-4eec-afc1-eac37f545bc2" name="params object[] args" direction="In" isUnique="false">
+                  <elementDefinition Id="9602f175-e63d-4c3d-89c0-5b7811df2339" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="af1ae1a8-3bd0-440d-927b-fc3288f6feca" name="void LogInfo" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="c40f91b0-1e82-48ef-9a38-4777fc5c8a84" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="cafcec06-9cf3-45fb-bf44-2fadb309dc80" name="string message" direction="In" isUnique="false">
+                  <elementDefinition Id="87b78d26-4e6e-4c2d-b82a-08c603c1229b" />
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="87bacf90-a8a1-4b95-8422-67ee51c5181c" name="params object[] args" direction="In" isUnique="false">
+                  <elementDefinition Id="27404991-82df-4a0d-a9fc-0e5c51d06b71" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="8ff0b1ea-b256-40e0-8936-cc58bc594753" name="void LogWarning" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="7fb55053-d80e-42c2-89e4-ef787dd210ce" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="d390de71-da23-4790-bb00-69d19b4b1be5" name="string message" direction="In" isUnique="false">
+                  <elementDefinition Id="ca368c45-0782-43e0-bcb1-e31f38626063" />
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="670edbbd-2c2a-475b-a70c-622bdc48f884" name="params object[] args" direction="In" isUnique="false">
+                  <elementDefinition Id="69164d03-da68-4bfa-9959-bbfa95dc9c34" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="5a508fb3-0430-4d49-a73f-d4db483237d6" name="void LogError" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="cc1f27f2-c758-4f9f-b436-a8bb10e24431" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="6f735c2c-ed99-4d2d-9054-1cbf42716b9d" name="string message" direction="In" isUnique="false">
+                  <elementDefinition Id="edfb1293-b9df-4e55-abc0-6d672349662b" />
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="2bbe7680-8660-4f32-a7a2-1d4372736c40" name="params object[] args" direction="In" isUnique="false">
+                  <elementDefinition Id="74dc638d-8e4d-496c-9bba-e7baa9bb32ac" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="f8b926e1-0b73-4f4f-82f7-dfaa7186b70e" name="void LogError" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="b2c274f4-ad53-436e-a830-4156446254ab" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="f88d6646-e32c-4cc3-b182-32b7be14072f" name="string message" direction="In" isUnique="false">
+                  <elementDefinition Id="25b599dc-f62a-477b-a8c5-6d324822ce7c" />
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="aaf76000-a1d6-45b5-9703-6e9d9ac4d0a9" name="Exception exception" direction="In" isUnique="false">
+                  <elementDefinition Id="c326dcfa-28bd-4fb0-a551-13212c52c09c" />
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="46587e8e-fcbb-454c-a18f-8ba814574c79" name="params object[] args" direction="In" isUnique="false">
+                  <elementDefinition Id="f6640643-ec68-4144-9ff5-45b921e3b4a2" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperations>
+      </Interface>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="0aca2d36-4a14-4ac4-8117-1f3412cf0f1e" name="NLogLogger" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="e3827c10-8335-4d47-9480-330730284cb2" />
+        <suppliersInternal>
+          <interfaceRealization Id="12f38513-f12b-4572-93e2-7c4e3b40eacc">
+            <interfaceMoniker Id="d90dbb09-d37f-4fcb-bc72-f1b893141aba" LastKnownName="ILogger" />
+            <elementDefinition Id="5f2b30c6-0773-4379-8b7a-dca6d030dedd" />
+          </interfaceRealization>
+        </suppliersInternal>
+        <ownedOperationsInternal>
+          <operation Id="6d0ca7cf-ea12-4a85-85c6-16bfd0832662" name="void Debug" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="16c5f657-854a-4080-baa1-2d96dd152460" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="b10551a9-4a23-41a2-b43f-a94384283a10" name="string message" direction="In" isUnique="false">
+                  <elementDefinition Id="44e0c8d5-a5cb-4024-9054-3ad159e3ea90" />
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="6984efb8-5202-4aa2-ab28-c9a910c837aa" name="params object[] args" direction="In" isUnique="false">
+                  <elementDefinition Id="761addce-c7d6-431b-8c42-e685397afcbd" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="b4ac1dd4-1eed-47e0-944e-f81c54ea9024" name="void Debug" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="0ced3b8d-d20b-4569-b8e8-7659437f6fbf" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="5161d5a2-5e39-41e8-a0e3-2836b418136d" name="string message" direction="In" isUnique="false">
+                  <elementDefinition Id="6f776d37-c032-4086-b987-70fa62c37eed" />
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="37671ed2-080b-48b8-a0ab-2a3a03fb1dca" name="Exception exception" direction="In" isUnique="false">
+                  <elementDefinition Id="d19a1ddc-6188-4a71-b76e-a682d7bc8347" />
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="ae5d7de8-f669-4755-a0c3-020a14edbfa0" name="params object[] args" direction="In" isUnique="false">
+                  <elementDefinition Id="ff59b496-7599-4816-8501-9c1b928c814e" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="78b32d44-2fec-4f80-afbf-6feb7e84694f" name="void Debug" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="4b7fe888-b40f-40c1-949b-8021ea0984bb" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="73260498-8c60-469b-ab55-1edb4ae728cb" name="object item" direction="In" isUnique="false">
+                  <elementDefinition Id="ba2ba96b-cc3e-4aa7-8083-c16383027bab" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="6461f419-cb51-4537-8452-e46bdbfc2680" name="void Fatal" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="95787407-5f7d-4594-beb2-c7a3fa26c9a7" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="56ef3d84-0f39-4b22-8d62-081417d95053" name="string message" direction="In" isUnique="false">
+                  <elementDefinition Id="e9371b08-3eb6-416e-815a-0cf5622683e8" />
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="5750cca5-b16a-484c-8a13-1e6617f49185" name="params object[] args" direction="In" isUnique="false">
+                  <elementDefinition Id="2db69f75-e04a-4b00-9eeb-92bccf9bb48b" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="d2ae178a-bd9c-4ea9-beeb-045a196696e5" name="void Fatal" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="fe5858d9-a2b8-42bb-85a8-af502ab3403f" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="1064899a-12b0-48f4-a856-81a6442e8238" name="string message" direction="In" isUnique="false">
+                  <elementDefinition Id="15a282c4-32ba-4759-9d94-aa435e5e1bd0" />
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="0c8cdef5-826f-4cb5-ab76-c2d21d3754dc" name="Exception exception" direction="In" isUnique="false">
+                  <elementDefinition Id="b4244a18-7f17-4677-9eb5-6b317ecc59bd" />
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="8ebc0206-16f3-437b-8528-a092d2c30b62" name="params object[] args" direction="In" isUnique="false">
+                  <elementDefinition Id="436cd09f-81ba-46c0-9293-38196eb8e5ed" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="43d6ff8c-2919-4723-a5c3-492c98a942fe" name="void LogInfo" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="cd5f7171-57b8-471a-88a8-10bc6508fd22" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="8e66231c-845c-4a0b-b11d-beb48975fabb" name="string message" direction="In" isUnique="false">
+                  <elementDefinition Id="bffb2046-dc0d-4cf4-92bd-95eb31c4651d" />
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="b6e30f50-f981-48d7-addd-fc5ce1a9f19e" name="params object[] args" direction="In" isUnique="false">
+                  <elementDefinition Id="615e549e-ba76-4461-857b-d69ece4038a4" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="e48bb7ff-2e79-472b-b06a-191ff8760370" name="void LogWarning" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="4d2bd64b-2380-4355-b972-4b3aeb178f5a" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="16ba189d-88b1-4f47-9c9e-aa8e3a6a3e22" name="string message" direction="In" isUnique="false">
+                  <elementDefinition Id="694316b0-4c8c-4c7a-b8f4-49f2ea327ff5" />
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="b4f2c952-35e4-499f-b3c8-36d865b260fb" name="params object[] args" direction="In" isUnique="false">
+                  <elementDefinition Id="42836715-7452-4611-be7e-5822cb8df3a2" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="78aaf610-1cce-4df9-9dbd-5b840cb0c93a" name="void LogError" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="a928c6dd-b285-4999-b4d2-52aa08aeaf8b" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="ba377a09-ab56-4400-a09e-084d635d583a" name="string message" direction="In" isUnique="false">
+                  <elementDefinition Id="0c0bcdf6-10a7-459d-b06e-33579b57e700" />
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="dfd3784b-a4ef-44b2-b12e-e2085ba34faf" name="params object[] args" direction="In" isUnique="false">
+                  <elementDefinition Id="053faed6-53b1-4987-a640-e55508d68d84" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="ac487ccd-20ff-4414-9643-703d04e322dd" name="void LogError" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="b77e90c7-d89d-41a5-bb2d-04bb5447208c" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="5ef12a2e-b3f2-4ae6-a2ff-de93915c2b74" name="string message" direction="In" isUnique="false">
+                  <elementDefinition Id="5b6262bc-0634-4e96-bf81-d9904f9a5a7d" />
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="13f760a0-18ca-42ef-a242-c8701ac413a9" name="Exception exception" direction="In" isUnique="false">
+                  <elementDefinition Id="dd7a97c7-be0f-4dfb-b33e-93eb48c11922" />
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="2c9ef69e-d9a2-4baf-9dab-5b85d64f1655" name="params object[] args" direction="In" isUnique="false">
+                  <elementDefinition Id="4daa630f-22e4-42d9-858c-396b0556b29c" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+  </packagedElements>
+  <package Id="4aaee9e5-218b-4344-89ad-f059789c527d" name="System.Work.ModelProject">
+    <elementDefinition Id="03a573f8-e73a-4a0b-b233-f81e20a4b961" />
+  </package>
+</logicalClassDesignerModel>
