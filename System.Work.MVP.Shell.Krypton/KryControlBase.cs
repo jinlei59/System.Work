@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Work.MVP.Core;
 
-namespace System.Work.Shell.MVP.Krypton
+namespace System.Work.MVP.Shell.Krypton
 {
     public class KryControlBase : UserControl, IView
     {

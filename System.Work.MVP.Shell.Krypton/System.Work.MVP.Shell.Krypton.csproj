@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{DE2952D4-333A-4D45-97E3-3E0691284016}</ProjectGuid>
+    <ProjectGuid>{2C54EEF4-985E-4525-9DDE-A250AADAD8D1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>System.Work.Shell.MVP.Krypton</RootNamespace>
-    <AssemblyName>System.Work.Shell.MVP.Krypton</AssemblyName>
+    <RootNamespace>System.Work.MVP.Shell.Krypton</RootNamespace>
+    <AssemblyName>System.Work.MVP.Shell.Krypton</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -51,7 +50,6 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -61,17 +59,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IMainForm.cs" />
-    <Compile Include="IMainService.cs" />
-    <Compile Include="MainForm.cs">
+    <Compile Include="KryControlBase.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="KryViewBase.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MainFormPresenter.cs" />
-    <Compile Include="MainFormVM.cs" />
-    <Compile Include="MainService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -79,11 +72,6 @@
       <Project>{a97c0007-351d-484b-af05-c87b4184d20d}</Project>
       <Name>System.Work.MVP.Core</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

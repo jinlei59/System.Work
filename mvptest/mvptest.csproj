@@ -117,9 +117,13 @@
       <Project>{25e559bf-363a-49a1-bb97-e9f8e517d405}</Project>
       <Name>System.Work.MVP.IocUnity</Name>
     </ProjectReference>
-    <ProjectReference Include="..\System.Work.Shell.MVP.Krypton\System.Work.Shell.MVP.Krypton.csproj">
-      <Project>{de2952d4-333a-4d45-97e3-3e0691284016}</Project>
-      <Name>System.Work.Shell.MVP.Krypton</Name>
+    <ProjectReference Include="..\System.Work.MVP.Shell.Krypton\System.Work.MVP.Shell.Krypton.csproj">
+      <Project>{2c54eef4-985e-4525-9dde-a250aadad8d1}</Project>
+      <Name>System.Work.MVP.Shell.Krypton</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\System.Work.MVP.Startup.Krypton\System.Work.MVP.Startup.Krypton.csproj">
+      <Project>{5b03341d-2624-4f44-a1f2-7ab2a5a5d816}</Project>
+      <Name>System.Work.MVP.Startup.Krypton</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

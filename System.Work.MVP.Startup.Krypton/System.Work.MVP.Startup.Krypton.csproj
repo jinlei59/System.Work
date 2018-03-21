@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{DE2952D4-333A-4D45-97E3-3E0691284016}</ProjectGuid>
+    <ProjectGuid>{5B03341D-2624-4F44-A1F2-7AB2A5A5D816}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>System.Work.Shell.MVP.Krypton</RootNamespace>
-    <AssemblyName>System.Work.Shell.MVP.Krypton</AssemblyName>
+    <RootNamespace>System.Work.MVP.Startup.Krypton</RootNamespace>
+    <AssemblyName>System.Work.MVP.Startup.Krypton</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -75,15 +74,19 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\System.Work.MVP.Core\System.Work.MVP.Core.csproj">
       <Project>{a97c0007-351d-484b-af05-c87b4184d20d}</Project>
       <Name>System.Work.MVP.Core</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </EmbeddedResource>
+    <ProjectReference Include="..\System.Work.MVP.Shell.Krypton\System.Work.MVP.Shell.Krypton.csproj">
+      <Project>{2c54eef4-985e-4525-9dde-a250aadad8d1}</Project>
+      <Name>System.Work.MVP.Shell.Krypton</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

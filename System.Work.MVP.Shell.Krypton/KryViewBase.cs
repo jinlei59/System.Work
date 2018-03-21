@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Work.MVP.Core;
 
-namespace System.Work.Shell.MVP.Krypton
+namespace System.Work.MVP.Shell.Krypton
 {
     public class KryViewBase : KryptonForm, IView
     {
