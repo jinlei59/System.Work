@@ -120,29 +120,4 @@
   <metadata name="kryptonManager1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AACncVeMmlxAVgAAAAAAAAAAroBsfKd2YHAAAAAArX5phqhzX2ihaUuonWNDrKJrTay2jHNaAAAAAAAA
-        AAAAAAAAomhLyJZUNJoAAAAAAAAAAJVRMp6haEzQAAAAAJpbPbycX0C0kEsi4Ik/D/+JPg7/iT8Y/6Zv
-        VywAAAAAAAAAAJZUMZalbU/GAAAAAAAAAACUUi50oWdH7ruUdwKYVzOcpW1P3L6Xgpy9lXz/wp2H/7+a
-        hv+TUCycAAAAAAAAAACRSyZupWxO8tG3owQAAAAAlFEtQptdOv+/m4Mml1YzcKFnR/iSTiuKiD4P/4g+
-        Ef+MRB7/ompN4s2wngIAAAAAomlJTJtdPP+9lHoiAAAAALiNcCKaXDr/nWJBTqBkQ0CaWzr/topvSMeo
-        kD7KrJU+omlJlp5iQ/+vf2IgAAAAAL2WfyScXz7/oGVERgAAAADYw7EKomlK9JBIIm7BmoQgnGA//5td
-        OloAAAAAAAAAAK58XUCdYD3/llYxSgAAAADHqpQCo2xM7pRSLeCaWjrKm1xAtKRtTsaVUyzkoWdKpKVt
-        Tu6RSiV+wJmFGJ5iQbqYWTTYnmI8/5VTLGgAAAAAAAAAAKNqS8yZWTr/kEom5I5IJtScXj2wpG1P/5pd
-        QPyufGH2nWBArptfQGiPSh//mFg2/6l1V/+PSCBuAAAAAAAAAACaXDqmvZSB/657Y+SpdFvUnF9AsLqS
-        fP+zhG3/mVk0/6ZuT9aWVSqIsYFn/7SHb/+YVy//k08rYAAAAAAAAAAAllQxfp9iPv+STSX/k08m/6Jo
-        S7qbXDr/lVQo/5FOIP+iaEj2l1cvhqRqSP+UUCb/llQs8LOIbyIAAAAAAAAAAJxePE6cXz3/zK6aQtK2
-        pCC8lX02nF49/659YGCqeFpknF48/5pcOYSiaEj/za+bLNa9rBYAAAAAAAAAAAAAAAC2iG0qm1w7/65+
-        YG7BnIA+z7OhFKNpSfqZWjd4pm5MHJ1fPv+hZkaMnF8//6t5WWbAmn0+wZuAKgAAAAAAAAAA0rajCKJo
-        SfiHOhH/hzwU/5pcRHamblDWlVMunNK1oAKjakv4lVQxhqNrUPSJPhf/iD4S/45HI+DFrJUCAAAAAAAA
-        AAClbE3OvZZ8/7+Yff/EoIu4m1w7qqBlRboAAAAAomlI0ptePZ6WVTa0vpd//7ySdf+7knf/07upOAAA
-        AAAAAAAAjUUcootAFv+LQBX/iT4X/JFNLZikbE/y3sy+BJNPLqiXVzeoqXNaWIg9F/+NRSP/i0Ec/49K
-        K6AAAAAAAAAAAKp3XFykbEmspGtJrKRsSKyqeF2CqnZZmNO6pwqiaEhWq3hdgtG1pwKxgmiSqnVWrKhz
-        Uqyqd1mWfo8AADIHAAA6AwAAuwMAALtzAAC7ewAAgGMAAIAjAACAAwAAwAMAAN2PAADdjwAAxIEAAMCB
-        AADAkAAA4NAAAA==
-</value>
-  </data>
 </root>
