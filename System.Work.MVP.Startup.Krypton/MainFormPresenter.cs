@@ -20,8 +20,6 @@ namespace System.Work.MVP.Startup.Krypton
         private void View_Load(object sender, EventArgs e)
         {
             View.Model = new MainFormVM();
-            var re = _service.SayHello("jinlei");
-            MessageBox.Show(re);
         }
     }
 }
