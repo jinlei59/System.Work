@@ -9,6 +9,10 @@ namespace System.Work.MVP.Core
     public interface IView
     {
         event EventHandler Load;
+        object Invoke(Delegate method);
+        object Invoke(Delegate method, params object[] args);
+        IAsyncResult BeginInvoke(Delegate method);
+        IAsyncResult BeginInvoke(Delegate method, params object[] args);
 
         bool ThrowExceptionIfNoPresenterBound
         {
