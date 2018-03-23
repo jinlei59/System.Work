@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ComponentFactory.Krypton.Toolkit;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,19 @@ namespace System.Work.MVP.Startup.Krypton
     [PresenterBinding(typeof(MainFormPresenter))]
     public partial class MainForm : KryViewBase, IMainForm
     {
+        public PaletteModeManager GlobalPaletteMode
+        {
+            set
+            {
+                if (kryptonManager1 != null)
+                    kryptonManager1.GlobalPaletteMode = value;
+            }
+            get
+            {
+                return kryptonManager1 != null ? kryptonManager1.GlobalPaletteMode : PaletteModeManager.Office2010Blue;
+            }
+        }
+
         public MainForm()
         {
             InitializeComponent();

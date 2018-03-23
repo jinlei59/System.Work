@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Work.MVP.Startup.Kry
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Work.Common.Plugin", "System.Work.Common.Plugin\System.Work.Common.Plugin.csproj", "{6705F70D-C23F-42D2-A473-BD560614AB11}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Work.Config.MenuConfig", "System.Work.Config.MenuConfig\System.Work.Config.MenuConfig.csproj", "{BAD8B274-E5C7-40D7-9E8B-B73CABB6E55E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,6 +85,10 @@ Global
 		{6705F70D-C23F-42D2-A473-BD560614AB11}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6705F70D-C23F-42D2-A473-BD560614AB11}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6705F70D-C23F-42D2-A473-BD560614AB11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BAD8B274-E5C7-40D7-9E8B-B73CABB6E55E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAD8B274-E5C7-40D7-9E8B-B73CABB6E55E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BAD8B274-E5C7-40D7-9E8B-B73CABB6E55E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BAD8B274-E5C7-40D7-9E8B-B73CABB6E55E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -98,6 +104,7 @@ Global
 		{2C54EEF4-985E-4525-9DDE-A250AADAD8D1} = {D5C05A98-89CD-47F7-81AE-0142E5FA4C18}
 		{5B03341D-2624-4F44-A1F2-7AB2A5A5D816} = {D5C05A98-89CD-47F7-81AE-0142E5FA4C18}
 		{6705F70D-C23F-42D2-A473-BD560614AB11} = {EA1127E5-208A-4B54-B5CE-1BF98CFC9A01}
+		{BAD8B274-E5C7-40D7-9E8B-B73CABB6E55E} = {EA1127E5-208A-4B54-B5CE-1BF98CFC9A01}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8F80D575-589F-487E-B4FA-9833BF754686}
