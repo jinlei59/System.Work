@@ -9,55 +9,56 @@ namespace System.Work.Config.MenuConfig
 {
     public class MenuSection : ConfigurationSection
     {
-        #region 变量
-
-        private const string SectionName = "MenuItems";
-
-        private static MenuSection _instance = null;
-        public static MenuSection Instance
+        [ConfigurationProperty("Items", IsDefaultCollection = true)]
+        public MenuItemElementCollection Items
         {
-            get
+            get { return (MenuItemElementCollection)base["Items"]; }
+            set { base["Items"] = value; }
+        }
+        #region Test Method
+
+        /// <summary>
+        /// 例子
+        /// </summary>
+        public static void Save()
+        {
+            MenuSection sectionGroup = new MenuSection();
+            sectionGroup.Items.Add(new MenuItemElement()
             {
-                if (_instance == null)
+                Name = "123",
+                DisplayName = "系统",
+                DisplayType = DisplayType.View,
+                SourceType = "ffff"
+            });
+            var sec = new MenuItemElementCollection()
+            {
+                new MenuItemElement()
                 {
-                    var config = GetConfiguration();
-                    if (config.Sections[SectionName] == null)
-                    {
-                        _instance = new MenuSection();
-                        config.Sections.Add(SectionName, Instance);
-                        config.Save(ConfigurationSaveMode.Modified);
-                    }
-                    else
-                        _instance = (MenuSection)config.Sections[SectionName];
+                    Name = "eee",
+                    DisplayName = "eee",
+                    DisplayType = DisplayType.View,
+                    SourceType = "ee"
                 }
-                return _instance;
-            }
+            };
+            sectionGroup.Items.Add(new MenuItemElement()
+            {
+                Name = "",
+                DisplayName = "设置",
+                DisplayType = DisplayType.Form,
+                SourceType = "",
+                SecondMenuItems = sec
+            });
+            System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            config.Sections.Add("Menu", sectionGroup);
+            config.Save();
         }
-
-        #endregion
-
-        #region 属性
-
-        [ConfigurationProperty("", IsDefaultCollection = true)]
-        public MenuItemElementCollection MenuItems
+        /// <summary>
+        /// 例子
+        /// </summary>
+        public static MenuSection Read()
         {
-            get { return (MenuItemElementCollection)base[""]; }
-            set { base[""] = value; }
-        }
-        
-        #endregion
-
-        #region 构造函数
-
-        public MenuSection()
-        { }
-        #endregion
-
-        #region 自定义方法
-
-        private static System.Configuration.Configuration GetConfiguration()
-        {
-            return ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            return (MenuSection)config.GetSection("Menu");
         }
 
         #endregion

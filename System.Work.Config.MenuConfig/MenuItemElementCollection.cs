@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace System.Work.Config.MenuConfig
 {
-    [ConfigurationCollection(typeof(MenuItemElement), AddItemName = "MenuItem")]
+    [ConfigurationCollection(typeof(MenuItemElement), AddItemName = "Item")]
     public class MenuItemElementCollection : ConfigurationElementCollection
     {
         protected override ConfigurationElement CreateNewElement()
