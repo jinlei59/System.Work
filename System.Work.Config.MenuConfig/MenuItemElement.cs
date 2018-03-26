@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,13 @@ namespace System.Work.Config.MenuConfig
             set { base["DisplayName"] = value; }
         }
 
+        [ConfigurationProperty("IconPath", IsRequired = true)]
+        public string IconPath
+        {
+            get { return (string)base["IconPath"]; }
+            set { base["IconPath"] = value; }
+        }
+
         [ConfigurationProperty("DisplayType", IsRequired = true)]
         public DisplayType DisplayType
         {
@@ -38,7 +46,7 @@ namespace System.Work.Config.MenuConfig
         }
 
         [ConfigurationProperty("Items", IsDefaultCollection = true)]
-        public MenuItemElementCollection SecondMenuItems
+        public MenuItemElementCollection Items
         {
             get { return (MenuItemElementCollection)base["Items"]; }
             set { base["Items"] = value; }
@@ -47,8 +55,11 @@ namespace System.Work.Config.MenuConfig
 
     public enum DisplayType
     {
-        Form = 0,
-        View = 1,
-        Tool = 2
+        None = 0,
+        Form = 1,
+        View = 2,
+        Tool = 3,
+        Partition = 4,
+        Func = 5
     }
 }

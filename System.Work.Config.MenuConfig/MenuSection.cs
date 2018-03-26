@@ -46,7 +46,7 @@ namespace System.Work.Config.MenuConfig
                 DisplayName = "设置",
                 DisplayType = DisplayType.Form,
                 SourceType = "",
-                SecondMenuItems = sec
+                Items = sec
             });
             System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             config.Sections.Add("Menu", sectionGroup);

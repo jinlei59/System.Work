@@ -49,6 +49,7 @@
       <HintPath>..\Dlls\ComponentFactory.Krypton.Workspace.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
@@ -60,6 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FontFactory.cs" />
     <Compile Include="IMainForm.cs" />
     <Compile Include="IMainService.cs" />
     <Compile Include="MainForm.cs">
@@ -79,6 +81,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\System.Work.Config.MenuConfig\System.Work.Config.MenuConfig.csproj">
+      <Project>{bad8b274-e5c7-40d7-9e8b-b73cabb6e55e}</Project>
+      <Name>System.Work.Config.MenuConfig</Name>
+    </ProjectReference>
     <ProjectReference Include="..\System.Work.MVP.Core\System.Work.MVP.Core.csproj">
       <Project>{a97c0007-351d-484b-af05-c87b4184d20d}</Project>
       <Name>System.Work.MVP.Core</Name>
