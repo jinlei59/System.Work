@@ -297,15 +297,22 @@ namespace System.Work.UI.WinControl
             var imagepoint = imageBox.PointToImage(e.Location);
             if (e.Button == MouseButtons.Left)
             {
-                if (imageBox.SelectionMode == ImageBoxSelectionMode.Rectangle)
+                var rect = _roiElements.Where(x => x.Contains(imagepoint.X, imagepoint.Y)).OrderBy(x => x.AreaValue()).FirstOrDefault();
+                if (rect != null)
                 {
-                    var rect = _roiElements.Where(x => x.Contains(imagepoint.X, imagepoint.Y)).OrderBy(x => x.AreaValue()).FirstOrDefault();
-                    if (rect != null)
+                    if (rect.IsSelected)
+                        rect.IsSelected = false;
+                    else
                     {
                         _roiElements.ForEach(x => x.IsSelected = false);
                         rect.IsSelected = true;
-                        imageBox.Invalidate();
                     }
+                    imageBox.Invalidate();
+                }
+                else
+                {
+                    _roiElements.ForEach(x => x.IsSelected = false);
+                    imageBox.Invalidate();
                 }
             }
         }
