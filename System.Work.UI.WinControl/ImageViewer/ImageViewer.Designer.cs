@@ -31,16 +31,16 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.tssLocation = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.tssRGB = new System.Windows.Forms.ToolStripStatusLabel();
             this.tssImageInfo = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tssZoom = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.tsOpen = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.tsNormal = new System.Windows.Forms.ToolStripButton();
             this.tsZoomIn = new System.Windows.Forms.ToolStripButton();
             this.tsZoomOut = new System.Windows.Forms.ToolStripButton();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.tssZoom = new System.Windows.Forms.ToolStripStatusLabel();
             this.imageBox = new System.Work.UI.WinControl.ImageBox();
             this.statusStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -79,6 +79,14 @@
             this.tssLocation.Text = "X:0 Y:0";
             this.tssLocation.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripStatusLabel1.Image = global::System.Work.UI.WinControl.Properties.Resources.map;
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(16, 17);
+            this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
+            // 
             // tssRGB
             // 
             this.tssRGB.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
@@ -97,8 +105,16 @@
             this.tssImageInfo.Text = "W:0 H:0";
             this.tssImageInfo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // tssZoom
+            // 
+            this.tssZoom.Image = global::System.Work.UI.WinControl.Properties.Resources.magnifier_zoom;
+            this.tssZoom.Name = "tssZoom";
+            this.tssZoom.Size = new System.Drawing.Size(56, 17);
+            this.tssZoom.Text = "100%";
+            // 
             // toolStrip1
             // 
+            this.toolStrip1.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsOpen,
             this.toolStripSeparator1,
@@ -156,26 +172,14 @@
             this.tsZoomOut.Text = "toolStripButton4";
             this.tsZoomOut.Click += new System.EventHandler(this.tsZoomOut_Click);
             // 
-            // toolStripStatusLabel1
-            // 
-            this.toolStripStatusLabel1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripStatusLabel1.Image = global::System.Work.UI.WinControl.Properties.Resources.map;
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(16, 17);
-            this.toolStripStatusLabel1.Text = "toolStripStatusLabel1";
-            // 
-            // tssZoom
-            // 
-            this.tssZoom.Image = global::System.Work.UI.WinControl.Properties.Resources.magnifier_zoom;
-            this.tssZoom.Name = "tssZoom";
-            this.tssZoom.Size = new System.Drawing.Size(56, 17);
-            this.tssZoom.Text = "100%";
-            // 
             // imageBox
             // 
+            this.imageBox.BackColor = System.Drawing.Color.Gray;
             this.imageBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.imageBox.Location = new System.Drawing.Point(0, 0);
             this.imageBox.Name = "imageBox";
+            this.imageBox.SelectionColor = System.Drawing.Color.OrangeRed;
+            this.imageBox.SelectionMode = System.Work.UI.WinControl.ImageBoxSelectionMode.Zoom;
             this.imageBox.Size = new System.Drawing.Size(447, 340);
             this.imageBox.TabIndex = 3;
             this.imageBox.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.imageBox_MouseWheel);

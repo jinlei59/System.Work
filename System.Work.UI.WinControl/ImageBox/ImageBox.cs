@@ -226,7 +226,7 @@ namespace System.Work.UI.WinControl
             this.LimitSelectionToImage = true;
             this.DropShadowSize = 3;
             this.ImageBorderStyle = ImageBoxBorderStyle.None;
-            this.BackColor = Color.White;
+            this.BackColor = Color.Gray;
             this.AutoSize = false;
             this.AutoScroll = true;
             this.GridScale = ImageBoxGridScale.Small;
@@ -237,7 +237,7 @@ namespace System.Work.UI.WinControl
             this.AutoPan = true;
             this.InterpolationMode = InterpolationMode.NearestNeighbor;
             this.AutoCenter = true;
-            this.SelectionColor = SystemColors.Highlight;
+            this.SelectionColor = Color.OrangeRed;
             this.ActualSize();
             this.ShortcutsEnabled = true;
             this.ZoomLevels = ZoomLevelCollection.Default;
@@ -3260,16 +3260,16 @@ namespace System.Work.UI.WinControl
             e.Graphics.SetClip(this.GetInsideViewPort(true));
 
             rect = this.GetOffsetRectangle(this.SelectionRegion);
-
-            using (Brush brush = new SolidBrush(Color.FromArgb(128, this.SelectionColor)))
-            {
-                e.Graphics.FillRectangle(brush, rect);
-            }
-
-            using (Pen pen = new Pen(this.SelectionColor))
-            {
-                e.Graphics.DrawRectangle(pen, rect.X, rect.Y, rect.Width, rect.Height);
-            }
+            if (this.SelectionMode == ImageBoxSelectionMode.Zoom)
+                using (Brush brush = new SolidBrush(Color.FromArgb(128, this.SelectionColor)))
+                {
+                    e.Graphics.FillRectangle(brush, rect);
+                }
+            else
+                using (Pen pen = new Pen(this.SelectionColor, 2f))
+                {
+                    e.Graphics.DrawRectangle(pen, rect.X, rect.Y, rect.Width, rect.Height);
+                }
 
             e.Graphics.ResetClip();
         }
@@ -3798,8 +3798,11 @@ namespace System.Work.UI.WinControl
 
             if (e.Button == MouseButtons.Left)
             {
-                this.ProcessPanning(e);
                 this.ProcessSelection(e);
+            }
+            if (e.Button == MouseButtons.Right)
+            {
+                this.ProcessPanning(e);
             }
         }
 
@@ -3888,28 +3891,28 @@ namespace System.Work.UI.WinControl
         {
             if (this.AllowPainting)
             {
-                // draw the background
-                this.DrawBackground(e);
+                //// draw the background
+                //this.DrawBackground(e);
 
-                // draw the image
-                if (!this.ViewSize.IsEmpty)
-                {
-                    this.DrawImageBorder(e.Graphics);
-                }
-                if (this.VirtualMode)
-                {
-                    this.OnVirtualDraw(e);
-                }
-                else if (this.Image != null)
+                //// draw the image
+                //if (!this.ViewSize.IsEmpty)
+                //{
+                //    this.DrawImageBorder(e.Graphics);
+                //}
+                //if (this.VirtualMode)
+                //{
+                //    this.OnVirtualDraw(e);
+                //}
+                if (this.Image != null)
                 {
                     this.DrawImage(e.Graphics);
                 }
 
-                // draw the grid
-                if (this.ShowPixelGrid && !this.VirtualMode)
-                {
-                    this.DrawPixelGrid(e.Graphics);
-                }
+                //// draw the grid
+                //if (this.ShowPixelGrid && !this.VirtualMode)
+                //{
+                //    this.DrawPixelGrid(e.Graphics);
+                //}
 
                 // draw the selection
                 if (this.SelectionRegion != Rectangle.Empty)
@@ -4432,7 +4435,7 @@ namespace System.Work.UI.WinControl
         /// </param>
         protected virtual void ProcessPanning(MouseEventArgs e)
         {
-            if (this.AutoPan && !this.ViewSize.IsEmpty && this.SelectionMode == ImageBoxSelectionMode.None)
+            if (this.AutoPan && !this.ViewSize.IsEmpty/* && this.SelectionMode == ImageBoxSelectionMode.None*/)
             {
                 if (!this.IsPanning && this.HScroll | this.VScroll)
                 {
