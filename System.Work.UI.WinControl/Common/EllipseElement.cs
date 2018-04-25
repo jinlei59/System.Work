@@ -22,12 +22,18 @@ namespace System.Work.UI.WinControl
             _width = width;
             _height = height;
         }
-        public override void Draw(PaintEventArgs e, int zoomScale)
+
+        public override bool Contains(float x, float y)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Draw(PaintEventArgs e, double zoomScale)
         {
             if (_width == 0 || _height == 0)
                 return;
             RectangleF rect = this.ImageBox.GetOffsetRectangle(_x, _y, _width, _height);
-            Pen p = new Pen(_pen.Brush, _pen.Width * zoomScale / 100);
+            Pen p = new Pen(_pen.Brush, (float)(_pen.Width * zoomScale));
             e.Graphics.DrawEllipse(p, rect.X, rect.Y, rect.Width, rect.Height);
         }
     }

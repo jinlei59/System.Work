@@ -237,7 +237,7 @@ namespace System.Work.UI.WinControl
             this.AutoPan = true;
             this.InterpolationMode = InterpolationMode.NearestNeighbor;
             this.AutoCenter = true;
-            this.SelectionColor = Color.OrangeRed;
+            this.SelectionColor = Color.Orange;
             this.ActualSize();
             this.ShortcutsEnabled = true;
             this.ZoomLevels = ZoomLevelCollection.Default;
@@ -1685,7 +1685,7 @@ namespace System.Work.UI.WinControl
         /// <value>
         ///   <c>true</c> if painting of the control is allowed; otherwise, <c>false</c>.
         /// </value>
-        protected virtual bool AllowPainting
+        public virtual bool AllowPainting
         {
             get { return _updateCount == 0; }
         }
@@ -3266,7 +3266,7 @@ namespace System.Work.UI.WinControl
                     e.Graphics.FillRectangle(brush, rect);
                 }
             else
-                using (Pen pen = new Pen(this.SelectionColor, 2f))
+                using (Pen pen = new Pen(this.SelectionColor))
                 {
                     e.Graphics.DrawRectangle(pen, rect.X, rect.Y, rect.Width, rect.Height);
                 }

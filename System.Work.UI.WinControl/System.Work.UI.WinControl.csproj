@@ -43,6 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\DragHandle.cs" />
+    <Compile Include="Common\DragHandleAnchor.cs" />
+    <Compile Include="Common\DragHandleCollection.cs" />
     <Compile Include="Common\Element.cs" />
     <Compile Include="Common\LineElement.cs" />
     <Compile Include="Common\EllipseElement.cs" />

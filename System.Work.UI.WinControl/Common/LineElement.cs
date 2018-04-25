@@ -23,11 +23,16 @@ namespace System.Work.UI.WinControl
             _y2 = y2;
         }
 
-        public override void Draw(PaintEventArgs e, int zoomScale)
+        public override bool Contains(float x, float y)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Draw(PaintEventArgs e, double zoomScale)
         {
             PointF p1 = this.ImageBox.GetOffsetPoint(_x1, _y1);
             PointF p2 = this.ImageBox.GetOffsetPoint(_x2, _y2);
-            Pen p = new Pen(_pen.Brush, _pen.Width * zoomScale / 100);
+            Pen p = new Pen(_pen.Brush, (float)(_pen.Width * zoomScale));
             e.Graphics.DrawLine(p, p1, p2);
         }
     }

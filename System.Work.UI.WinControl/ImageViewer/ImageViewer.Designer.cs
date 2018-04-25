@@ -176,13 +176,15 @@
             // 
             this.imageBox.BackColor = System.Drawing.Color.Gray;
             this.imageBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.imageBox.Location = new System.Drawing.Point(0, 0);
+            this.imageBox.Location = new System.Drawing.Point(0, 25);
             this.imageBox.Name = "imageBox";
             this.imageBox.SelectionColor = System.Drawing.Color.OrangeRed;
             this.imageBox.SelectionMode = System.Work.UI.WinControl.ImageBoxSelectionMode.Zoom;
-            this.imageBox.Size = new System.Drawing.Size(447, 340);
+            this.imageBox.Size = new System.Drawing.Size(447, 315);
             this.imageBox.TabIndex = 3;
+            this.imageBox.Selected += new System.EventHandler<System.EventArgs>(this.imageBox_Selected);
             this.imageBox.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.imageBox_MouseWheel);
+            this.imageBox.Paint += new System.Windows.Forms.PaintEventHandler(this.imageBox_Paint);
             this.imageBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.imageBox_MouseDown);
             this.imageBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.imageBox_MouseMove);
             this.imageBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.imageBox_MouseUp);
@@ -191,8 +193,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.imageBox);
+            this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.statusStrip1);
             this.Name = "ImageViewer";
             this.Size = new System.Drawing.Size(447, 362);

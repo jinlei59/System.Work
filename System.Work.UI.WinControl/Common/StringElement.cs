@@ -24,13 +24,18 @@ namespace System.Work.UI.WinControl
             _y = y;
         }
 
-        public override void Draw(PaintEventArgs e, int zoomScale)
+        public override void Draw(PaintEventArgs e, double zoomScale)
         {
             if (string.IsNullOrEmpty(_str))
                 return;
-            Font f = new Font(_font.FontFamily, (float)(_font.Size * zoomScale / 100), _font.Style);
+            Font f = new Font(_font.FontFamily, (float)(_font.Size * zoomScale ), _font.Style);
             PointF pf = ImageBox.GetOffsetPoint(_x, _y);
             e.Graphics.DrawString(_str, f, _brush, pf.X, pf.Y);
+        }
+
+        public override bool Contains(float x, float y)
+        {
+            throw new NotImplementedException();
         }
     }
 }

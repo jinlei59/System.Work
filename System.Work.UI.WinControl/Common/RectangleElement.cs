@@ -11,24 +11,36 @@ namespace System.Work.UI.WinControl
     internal class RectangleElement : Element
     {
         Pen _pen;
-        float _x = 0, _y = 0, _width = 0, _height = 0;
 
-        public RectangleElement(Pen pen, float x, float y, float width, float height)
+
+        public RectangleElement(Pen pen, RectangleF rect)
         {
             Type = ElementType.Rectangle;
             _pen = new Pen(pen.Brush, pen.Width);
-            _x = x;
-            _y = y;
-            _width = width;
-            _height = height;
+            _rect = rect;
         }
-        public override void Draw(PaintEventArgs e, int zoomScale)
+        public RectangleElement(Pen pen, float x, float y, float width, float height) : this(pen, new RectangleF(x, y, width, height))
         {
-            if (_width == 0 || _height == 0)
+        }
+
+        public override bool Contains(float x, float y)
+        {
+            return _rect.Contains(x, y);
+        }
+
+        public override void Draw(PaintEventArgs e, double zoomScale)
+        {
+            if (_rect.IsEmpty)
                 return;
-            RectangleF rect = this.ImageBox.GetOffsetRectangle(_x, _y, _width, _height);
-            Pen p = new Pen(_pen.Brush, _pen.Width * zoomScale / 100);
+            RectangleF rect = this.ImageBox.GetOffsetRectangle(_rect);
+            Pen p = new Pen(_pen.Brush);
             e.Graphics.DrawRectangle(p, rect.X, rect.Y, rect.Width, rect.Height);
+            base.Draw(e, zoomScale);
+        }
+
+        public override string ToString()
+        {
+            return _rect.ToString();
         }
     }
 }

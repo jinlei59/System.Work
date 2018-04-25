@@ -14,6 +14,7 @@ namespace System.Work.UI.WinControl
     public partial class ImageViewer : UserControl
     {
         #region 变量
+        private List<Element> _roiElements = null;
         #endregion
 
         #region 属性
@@ -50,6 +51,23 @@ namespace System.Work.UI.WinControl
                 imageBox.GridDisplayMode = value;
             }
         }
+
+        /// <summary>
+        ///   Gets or sets the selection mode.
+        /// </summary>
+        /// <value>
+        ///   The selection mode.
+        /// </value>
+        [Category("Behavior")]
+        [DefaultValue(typeof(ImageBoxSelectionMode), "None")]
+        public virtual ImageBoxSelectionMode SelectionMode
+        {
+            get { return imageBox.SelectionMode; }
+            set
+            {
+                imageBox.SelectionMode = value;
+            }
+        }
         #endregion
 
         #region 事件
@@ -60,6 +78,7 @@ namespace System.Work.UI.WinControl
         public ImageViewer()
         {
             InitializeComponent();
+            _roiElements = new List<Element>();
         }
         #endregion
 
@@ -197,11 +216,39 @@ namespace System.Work.UI.WinControl
             imageBox.ClearElement(ElementType.Ellipse);
         }
         #endregion
-
         public void UpdateElement()
         {
             imageBox.Invalidate();
         }
+        #region 添加/删除ROI
+
+        public void AddRoi(Element roi)
+        {
+            roi.ImageBox = this.imageBox;
+            _roiElements.Add(roi);
+        }
+
+        public void ClearRoi(ElementType type)
+        {
+            var rois = _roiElements.Where(x => x.Type == type);
+            foreach (var roi in rois)
+            {
+                roi.ImageBox = null;
+                _roiElements.Remove(roi);
+            }
+        }
+
+        public void ClearAllRoi()
+        {
+            foreach (var roi in _roiElements)
+            {
+                roi.ImageBox = null;
+            }
+
+            _roiElements.Clear();
+        }
+        #endregion
+
         #endregion
 
         #region 窗体按钮事件
@@ -247,7 +294,20 @@ namespace System.Work.UI.WinControl
 
         private void imageBox_MouseDown(object sender, MouseEventArgs e)
         {
-
+            var imagepoint = imageBox.PointToImage(e.Location);
+            if (e.Button == MouseButtons.Left)
+            {
+                if (imageBox.SelectionMode == ImageBoxSelectionMode.Rectangle)
+                {
+                    var rect = _roiElements.Where(x => x.Contains(imagepoint.X, imagepoint.Y)).OrderBy(x => x.AreaValue()).FirstOrDefault();
+                    if (rect != null)
+                    {
+                        _roiElements.ForEach(x => x.IsSelected = false);
+                        rect.IsSelected = true;
+                        imageBox.Invalidate();
+                    }
+                }
+            }
         }
         private void imageBox_MouseMove(object sender, MouseEventArgs e)
         {
@@ -265,6 +325,22 @@ namespace System.Work.UI.WinControl
             UpdateCursorPosition(e.Location);
             UpdateRGB(e.Location);
             UpdateStatusBar();
+        }
+
+        private void imageBox_Paint(object sender, PaintEventArgs e)
+        {
+            if (!imageBox.AllowPainting)
+                return;
+            foreach (var roi in _roiElements)
+                roi.Draw(e, imageBox.ZoomFactor);
+        }
+
+        private void imageBox_Selected(object sender, EventArgs e)
+        {
+            if (imageBox.SelectionMode == ImageBoxSelectionMode.Rectangle && !imageBox.SelectionRegion.IsEmpty)
+            {
+                AddRoi(new RectangleElement(Pens.Red, imageBox.SelectionRegion));
+            }
         }
         #endregion
     }
