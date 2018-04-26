@@ -12,6 +12,9 @@ namespace System.Work.ImageBoxLib
         public RoiRectangleElement()
         {
             Type = ElementType.Rectangle;
+
+            this.DragHandleCollection[DragHandleAnchor.Rotation].Enabled = false;
+            this.DragHandleCollection[DragHandleAnchor.Rotation].Visible = false;
         }
 
         public override void DrawElement(Graphics g, float zoomScale, RectangleF rect)

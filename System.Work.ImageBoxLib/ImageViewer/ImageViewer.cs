@@ -465,6 +465,7 @@ namespace System.Work.ImageBoxLib
                 }
                 else
                 {
+                    #region Resize & Ratate
                     float left = this._lastRoiRegion.Left;
                     float top = this._lastRoiRegion.Top;
                     float right = this._lastRoiRegion.Right;
@@ -475,6 +476,7 @@ namespace System.Work.ImageBoxLib
 
                     switch (_leftMouseDownAnchor)
                     {
+                        #region Resize
                         case DragHandleAnchor.TopLeft:
                             top += offy;
                             if (bottom - top < MinimumRoiSize)
@@ -527,13 +529,18 @@ namespace System.Work.ImageBoxLib
                             if (right - left < MinimumRoiSize)
                                 right = left + MinimumRoiSize;
                             break;
+                        #endregion
+                        #region Ratate
                         case DragHandleAnchor.Rotation:
-                            break;
+
+                            break; 
+                        #endregion
                         default:
                             break;
                     }
 
-                    this.CurRoi.Region = new RectangleF(left, top, right - left, bottom - top);
+                    this.CurRoi.Region = new RectangleF(left, top, right - left, bottom - top); 
+                    #endregion
                 }
                 PositionDragHandles();
                 imageBox.Invalidate();
