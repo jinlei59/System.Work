@@ -14,8 +14,12 @@ namespace System.Work.ImageBoxLib
     public partial class ImageViewer : UserControl
     {
         #region 变量
-        List<Element> _elements = null;
-        List<Element> _roiElements = null;
+        private List<Element> _elements = null;
+        private List<Element> _roiElements = null;
+        private bool _isLeftMouseDown = false;
+        private DragHandleAnchor _leftMouseDownAnchor = DragHandleAnchor.None;
+        private Point _lastMousePoint = Point.Empty;
+        private PointF _lastImagePoint = PointF.Empty;
         #endregion
 
         #region 属性
@@ -47,10 +51,7 @@ namespace System.Work.ImageBoxLib
 
         protected Element CurRoi
         {
-            get
-            {
-                return _roiElements == null ? null : _roiElements.FirstOrDefault(x => x.Selected);
-            }
+            get { return _roiElements.FirstOrDefault(x => x.Selected); }
         }
 
         public int DragHandleSize { get; private set; } = 8;
@@ -330,18 +331,17 @@ namespace System.Work.ImageBoxLib
             graphics.DrawLine(outerPen, left + width - 1, top + 1, left + width - 1, top + height - 2);
         }
 
-        protected virtual void SetCursor(Point point)
+        protected virtual DragHandleAnchor SetCursor(Point point)
         {
             Cursor cursor;
-
+            DragHandleAnchor handleAnchor;
             if (this.CurRoi == null || !this.CurRoi.Selected || this.CurRoi.Region.IsEmpty)
             {
                 cursor = Cursors.Default;
+                handleAnchor = DragHandleAnchor.None;
             }
             else
             {
-                DragHandleAnchor handleAnchor;
-
                 handleAnchor = this.CurRoi.HitTest(point);
                 if (handleAnchor != DragHandleAnchor.None && this.CurRoi.DragHandleCollection[handleAnchor].Enabled)
                 {
@@ -373,6 +373,7 @@ namespace System.Work.ImageBoxLib
                 else if (this.CurRoi.Region.Contains(this.imageBox.PointToImage(point)))
                 {
                     cursor = Cursors.SizeAll;
+                    handleAnchor = DragHandleAnchor.Move;
                 }
                 else
                 {
@@ -381,6 +382,7 @@ namespace System.Work.ImageBoxLib
             }
 
             this.Cursor = cursor;
+            return handleAnchor;
         }
 
         #endregion
@@ -430,33 +432,58 @@ namespace System.Work.ImageBoxLib
         {
             if (e.Button == MouseButtons.Left)
             {
+                _isLeftMouseDown = true;
+                _leftMouseDownAnchor = SetCursor(e.Location);
                 var imagePt = imageBox.PointToImage(e.Location);
-                var element = _roiElements.Where(x => x.Contains(imagePt.X, imagePt.Y)).OrderBy(x => x.AreaValue()).FirstOrDefault();
+                var element = _roiElements.Where(x => x.Contains(imagePt.X, imagePt.Y) || x.HitTest(imagePt) != DragHandleAnchor.None).OrderBy(x => x.AreaValue()).FirstOrDefault();
                 _roiElements.ForEach(x => x.Selected = false);
                 if (element != null)
                 {
                     element.Selected = true;
                     PositionDragHandles();
+                    _lastMousePoint = e.Location;
+                    _lastImagePoint = element.Region.Location;
                 }
                 imageBox.Invalidate();
-
             }
         }
         private void imageBox_MouseMove(object sender, MouseEventArgs e)
         {
-            SetCursor(e.Location);
             UpdateCursorPosition(e.Location);
             UpdateRGB(e.Location);
+            if (_isLeftMouseDown && e.Button == MouseButtons.Left && this.CurRoi != null && _leftMouseDownAnchor != DragHandleAnchor.None)
+            {
+                if (_leftMouseDownAnchor == DragHandleAnchor.Move)
+                {
+                    Point lastimagePoint = this.imageBox.PointToImage(_lastMousePoint, false);
+                    float x = _lastImagePoint.X + (e.Location.X - _lastMousePoint.X) / imageBox.ZoomFactor;
+                    float y = _lastImagePoint.Y + (e.Location.Y - _lastMousePoint.Y) / imageBox.ZoomFactor;
+                    this.CurRoi.Region = new RectangleF(x, y, this.CurRoi.Region.Width, this.CurRoi.Region.Height);                    
+                }
+                else
+                {
 
+                }
+                PositionDragHandles();
+                imageBox.Invalidate();
+            }
+            else
+            {
+                SetCursor(e.Location);
+            }
         }
 
         private void imageBox_MouseUp(object sender, MouseEventArgs e)
         {
-
+            if (e.Button == MouseButtons.Left)
+            {
+                _isLeftMouseDown = false;
+            }
         }
 
         private void imageBox_MouseWheel(object sender, MouseEventArgs e)
         {
+            PositionDragHandles();
             UpdateCursorPosition(e.Location);
             UpdateRGB(e.Location);
             UpdateStatusBar();

@@ -13,6 +13,8 @@
   {
     None,
 
+    Move,
+
     TopLeft,
 
     TopCenter,
