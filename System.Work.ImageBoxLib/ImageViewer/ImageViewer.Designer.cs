@@ -135,12 +135,14 @@
             this.tsOpen.Name = "tsOpen";
             this.tsOpen.Size = new System.Drawing.Size(23, 22);
             this.tsOpen.Text = "toolStripButton1";
+            this.tsOpen.Visible = false;
             this.tsOpen.Click += new System.EventHandler(this.tsOpen_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator1.Visible = false;
             // 
             // tsNormal
             // 

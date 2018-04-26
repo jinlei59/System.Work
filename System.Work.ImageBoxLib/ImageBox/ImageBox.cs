@@ -149,7 +149,7 @@ namespace System.Work.ImageBoxLib
 
         private Bitmap _gridTile;
 
-        private Image _image;
+        private Bitmap _image;
 
         private Color _imageBorderColor;
 
@@ -1099,7 +1099,7 @@ namespace System.Work.ImageBoxLib
         /// <value>The image.</value>
         [Category("Appearance")]
         [DefaultValue(null)]
-        public virtual Image Image
+        public virtual Bitmap Image
         {
             get { return _image; }
             set

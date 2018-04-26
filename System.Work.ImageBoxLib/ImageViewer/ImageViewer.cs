@@ -14,7 +14,6 @@ namespace System.Work.ImageBoxLib
     public partial class ImageViewer : UserControl
     {
         #region 变量
-
         #endregion
 
         #region 属性
@@ -31,17 +30,19 @@ namespace System.Work.ImageBoxLib
             set { statusStrip1.Visible = value; }
         }
 
-        /// <summary>
-        ///   Gets or sets the image.
-        /// </summary>
-        /// <value>The image.</value>
-        [Category("Appearance")]
-        [DefaultValue(null)]
-        public virtual Image Image
+        protected Bitmap Image
         {
-            get { return imageBox.Image; }
-            set { imageBox.Image = value; }
+            get
+            {
+                return imageBox.Image;
+            }
+
+            set
+            {
+                imageBox.Image = value;
+            }
         }
+
         #endregion
 
         #region 事件
@@ -71,11 +72,11 @@ namespace System.Work.ImageBoxLib
 
         #endregion
 
-        private void OpenImage(Image image)
+        private void OpenImage(Bitmap image)
         {
-            imageBox.Image = image;
-            imageBox.ZoomToFit();
-
+            this.Image = null;
+            this.Image = image;
+            ZoomToFit();
             UpdateStatusBar();
         }
 
@@ -144,6 +145,35 @@ namespace System.Work.ImageBoxLib
 
         #region 公共方法
 
+        #region 显示所有内容
+
+        public void BeginDisplay()
+        {
+            imageBox.BeginUpdate();
+        }
+        public void EndDisplay()
+        {
+            imageBox.EndUpdate();
+        }
+
+        public void Display()
+        {
+            while (!imageBox.AllowPainting)
+                EndDisplay();
+        }
+
+        #endregion
+
+        #region 显示图像
+
+        public void DisplayImage(Bitmap image, bool immediatelyDraw = false)
+        {
+            Image = image;
+            if (immediatelyDraw)
+                this.Display();
+        }
+
+        #endregion
         #region 添加&删除字符串
         public void DrawString(string s, Font font, Brush brush, float x, float y)
         {
@@ -189,11 +219,17 @@ namespace System.Work.ImageBoxLib
             //imageBox.ClearElement(ElementType.Ellipse);
         }
         #endregion
-        public void UpdateElement()
-        {
-            imageBox.Invalidate();
-        }
+
         #region 添加/删除ROI
+
+        #endregion
+
+        #region 缩放
+
+        public void ZoomToFit()
+        {
+            this.imageBox.ZoomToFit();
+        }
 
         #endregion
 
@@ -211,7 +247,7 @@ namespace System.Work.ImageBoxLib
                 {
                     try
                     {
-                        this.OpenImage(Image.FromFile(dialog.FileName));
+                        this.OpenImage(new Bitmap(dialog.FileName));
                     }
                     catch (Exception ex)
                     {
