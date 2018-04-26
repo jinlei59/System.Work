@@ -7,7 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace System.Work.UI.WinControl
+namespace System.Work.ImageBoxLib
 {
     // Cyotek ImageBox
     // Copyright (c) 2010-2017 Cyotek Ltd.
@@ -24,7 +24,7 @@ namespace System.Work.UI.WinControl
     [DefaultProperty("Image")]
     [ToolboxBitmap(typeof(ImageBox), "ImageBox.bmp")]
     [ToolboxItem(true)]
-    /* [Designer("System.Work.UI.WinControl.Design.ImageBoxDesigner", System.Work.UI.WinControl.ImageBox.Design.dll, PublicKeyToken=58daa28b0b2de221")] */
+    /* [Designer("System.Work.ImageBoxLib.Design.ImageBoxDesigner", System.Work.ImageBoxLib.ImageBox.Design.dll, PublicKeyToken=58daa28b0b2de221")] */
     public class ImageBox : VirtualScrollableControl
     {
         #region Constants
@@ -236,6 +236,7 @@ namespace System.Work.UI.WinControl
             this.InterpolationMode = InterpolationMode.NearestNeighbor;
             this.AutoCenter = true;
             this.SelectionColor = Color.Orange;
+            this.SelectionMode = ImageBoxSelectionMode.None;
             this.ActualSize();
             this.ShortcutsEnabled = true;
             this.ZoomLevels = ZoomLevelCollection.Default;
@@ -3793,11 +3794,10 @@ namespace System.Work.UI.WinControl
         protected override void OnMouseMove(MouseEventArgs e)
         {
             base.OnMouseMove(e);
-
-            if (e.Button == MouseButtons.Left)
-            {
-                this.ProcessSelection(e);
-            }
+            //if (e.Button == MouseButtons.Left)
+            //{
+            //    this.ProcessSelection(e);
+            //}
             if (e.Button == MouseButtons.Right)
             {
                 this.ProcessPanning(e);
@@ -3812,11 +3812,11 @@ namespace System.Work.UI.WinControl
         /// </param>
         protected override void OnMouseUp(MouseEventArgs e)
         {
-            bool doNotProcessClick;
+            //bool doNotProcessClick;
 
             base.OnMouseUp(e);
 
-            doNotProcessClick = this.IsPanning || this.IsSelecting;
+            //doNotProcessClick = this.IsPanning || this.IsSelecting;
 
             if (this.IsPanning)
             {
@@ -3829,17 +3829,17 @@ namespace System.Work.UI.WinControl
             }
             this.WasDragCancelled = false;
 
-            if (!doNotProcessClick && this.AllowZoom && this.AllowClickZoom && !this.IsPanning && this.SizeMode == ImageBoxSizeMode.Normal)
-            {
-                if (e.Button == MouseButtons.Left && ModifierKeys == Keys.None)
-                {
-                    this.ProcessMouseZoom(true, e.Location);
-                }
-                else if (e.Button == MouseButtons.Right || e.Button == MouseButtons.Left && ModifierKeys != Keys.None)
-                {
-                    this.ProcessMouseZoom(false, e.Location);
-                }
-            }
+            //if (!doNotProcessClick && this.AllowZoom && this.AllowClickZoom && !this.IsPanning && this.SizeMode == ImageBoxSizeMode.Normal)
+            //{
+            //    if (e.Button == MouseButtons.Left && ModifierKeys == Keys.None)
+            //    {
+            //        this.ProcessMouseZoom(true, e.Location);
+            //    }
+            //    else if (e.Button == MouseButtons.Right || e.Button == MouseButtons.Left && ModifierKeys != Keys.None)
+            //    {
+            //        this.ProcessMouseZoom(false, e.Location);
+            //    }
+            //}
         }
 
         /// <summary>
