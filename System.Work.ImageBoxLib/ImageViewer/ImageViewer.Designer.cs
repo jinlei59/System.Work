@@ -152,6 +152,7 @@
             this.tsNormal.Name = "tsNormal";
             this.tsNormal.Size = new System.Drawing.Size(23, 22);
             this.tsNormal.Text = "toolStripButton2";
+            this.tsNormal.ToolTipText = "1:1";
             this.tsNormal.Click += new System.EventHandler(this.tsNormal_Click);
             // 
             // tsZoomIn
@@ -162,6 +163,7 @@
             this.tsZoomIn.Name = "tsZoomIn";
             this.tsZoomIn.Size = new System.Drawing.Size(23, 22);
             this.tsZoomIn.Text = "toolStripButton3";
+            this.tsZoomIn.ToolTipText = "放大";
             this.tsZoomIn.Click += new System.EventHandler(this.tsZoomIn_Click);
             // 
             // tsZoomOut
@@ -172,6 +174,7 @@
             this.tsZoomOut.Name = "tsZoomOut";
             this.tsZoomOut.Size = new System.Drawing.Size(23, 22);
             this.tsZoomOut.Text = "toolStripButton4";
+            this.tsZoomOut.ToolTipText = "缩小";
             this.tsZoomOut.Click += new System.EventHandler(this.tsZoomOut_Click);
             // 
             // imageBox
@@ -184,11 +187,14 @@
             this.imageBox.SelectionMode = System.Work.ImageBoxLib.ImageBoxSelectionMode.Zoom;
             this.imageBox.Size = new System.Drawing.Size(447, 315);
             this.imageBox.TabIndex = 3;
+            this.imageBox.ZoomChanged += new System.EventHandler(this.imageBox_ZoomChanged);
             this.imageBox.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.imageBox_MouseWheel);
+            this.imageBox.Scroll += new System.Windows.Forms.ScrollEventHandler(this.imageBox_Scroll);
             this.imageBox.Paint += new System.Windows.Forms.PaintEventHandler(this.imageBox_Paint);
             this.imageBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.imageBox_MouseDown);
             this.imageBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.imageBox_MouseMove);
             this.imageBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.imageBox_MouseUp);
+            this.imageBox.Resize += new System.EventHandler(this.imageBox_Resize);
             // 
             // ImageViewer
             // 

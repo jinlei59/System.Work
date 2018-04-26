@@ -14,6 +14,8 @@ namespace System.Work.ImageBoxLib
     public partial class ImageViewer : UserControl
     {
         #region 变量
+        List<Element> _elements = null;
+        List<Element> _roiElements = null;
         #endregion
 
         #region 属性
@@ -43,6 +45,16 @@ namespace System.Work.ImageBoxLib
             }
         }
 
+        protected Element CurRoi
+        {
+            get
+            {
+                return _roiElements == null ? null : _roiElements.FirstOrDefault(x => x.Selected);
+            }
+        }
+
+        public int DragHandleSize { get; private set; } = 8;
+
         #endregion
 
         #region 事件
@@ -53,6 +65,9 @@ namespace System.Work.ImageBoxLib
         public ImageViewer()
         {
             InitializeComponent();
+            _elements = new List<Element>();
+            _roiElements = new List<Element>();
+            this.PositionDragHandles();
         }
         #endregion
 
@@ -158,8 +173,7 @@ namespace System.Work.ImageBoxLib
 
         public void Display()
         {
-            while (!imageBox.AllowPainting)
-                EndDisplay();
+            imageBox.Invalidate();
         }
 
         #endregion
@@ -222,6 +236,15 @@ namespace System.Work.ImageBoxLib
 
         #region 添加/删除ROI
 
+        public void AddElement(Element e)
+        {
+            _elements.Add(e);
+        }
+
+        public void AddRoiElement(Element e)
+        {
+            _roiElements.Add(e);
+        }
         #endregion
 
         #region 缩放
@@ -232,6 +255,80 @@ namespace System.Work.ImageBoxLib
         }
 
         #endregion
+
+        #endregion
+        #region protected &private
+
+        protected virtual void PositionDragHandles()
+        {
+            Element e = this.CurRoi;
+            if (e != null && e.Selected && !e.Region.IsEmpty)
+            {
+                int left;
+                int top;
+                int right;
+                int bottom;
+                int halfWidth;
+                int halfHeight;
+                int halfDragHandleSize;
+                Rectangle viewport;
+                int offsetX;
+                int offsetY;
+
+                viewport = this.imageBox.GetImageViewPort();
+                offsetX = viewport.Left + this.imageBox.Padding.Left + this.imageBox.AutoScrollPosition.X;
+                offsetY = viewport.Top + this.imageBox.Padding.Top + this.imageBox.AutoScrollPosition.Y;
+                halfDragHandleSize = DragHandleSize / 2;
+                left = Convert.ToInt32((e.Region.Left * this.imageBox.ZoomFactor) + offsetX);
+                top = Convert.ToInt32((e.Region.Top * this.imageBox.ZoomFactor) + offsetY);
+                right = left + Convert.ToInt32(e.Region.Width * this.imageBox.ZoomFactor);
+                bottom = top + Convert.ToInt32(e.Region.Height * this.imageBox.ZoomFactor);
+                halfWidth = Convert.ToInt32(e.Region.Width * this.imageBox.ZoomFactor) / 2;
+                halfHeight = Convert.ToInt32(e.Region.Height * this.imageBox.ZoomFactor) / 2;
+
+                e.DragHandleCollection[DragHandleAnchor.TopLeft].Bounds = new Rectangle(left - this.DragHandleSize, top - this.DragHandleSize, this.DragHandleSize, this.DragHandleSize);
+                e.DragHandleCollection[DragHandleAnchor.TopCenter].Bounds = new Rectangle(left + halfWidth - halfDragHandleSize, top - this.DragHandleSize, this.DragHandleSize, this.DragHandleSize);
+                e.DragHandleCollection[DragHandleAnchor.TopRight].Bounds = new Rectangle(right, top - this.DragHandleSize, this.DragHandleSize, this.DragHandleSize);
+                e.DragHandleCollection[DragHandleAnchor.MiddleLeft].Bounds = new Rectangle(left - this.DragHandleSize, top + halfHeight - halfDragHandleSize, this.DragHandleSize, this.DragHandleSize);
+                e.DragHandleCollection[DragHandleAnchor.MiddleRight].Bounds = new Rectangle(right, top + halfHeight - halfDragHandleSize, this.DragHandleSize, this.DragHandleSize);
+                e.DragHandleCollection[DragHandleAnchor.BottomLeft].Bounds = new Rectangle(left - this.DragHandleSize, bottom, this.DragHandleSize, this.DragHandleSize);
+                e.DragHandleCollection[DragHandleAnchor.BottomCenter].Bounds = new Rectangle(left + halfWidth - halfDragHandleSize, bottom, this.DragHandleSize, this.DragHandleSize);
+                e.DragHandleCollection[DragHandleAnchor.BottomRight].Bounds = new Rectangle(right, bottom, this.DragHandleSize, this.DragHandleSize);
+                e.DragHandleCollection[DragHandleAnchor.Rotation].Bounds = new Rectangle(left + halfWidth - halfDragHandleSize, top + halfHeight - halfDragHandleSize, this.DragHandleSize, this.DragHandleSize);
+            }
+        }
+
+        protected virtual void DrawDragHandle(Graphics graphics, DragHandle handle)
+        {
+            int left;
+            int top;
+            int width;
+            int height;
+            Pen outerPen;
+            Brush innerBrush;
+
+            left = handle.Bounds.Left;
+            top = handle.Bounds.Top;
+            width = handle.Bounds.Width;
+            height = handle.Bounds.Height;
+
+            if (handle.Enabled)
+            {
+                outerPen = new Pen(Color.Orange);
+                innerBrush = Brushes.OrangeRed;
+            }
+            else
+            {
+                outerPen = SystemPens.ControlDark;
+                innerBrush = SystemBrushes.Control;
+            }
+
+            graphics.FillRectangle(innerBrush, left + 1, top + 1, width - 2, height - 2);
+            graphics.DrawLine(outerPen, left + 1, top, left + width - 2, top);
+            graphics.DrawLine(outerPen, left, top + 1, left, top + height - 2);
+            graphics.DrawLine(outerPen, left + 1, top + height - 1, left + width - 2, top + height - 1);
+            graphics.DrawLine(outerPen, left + width - 1, top + 1, left + width - 1, top + height - 2);
+        }
 
         #endregion
 
@@ -278,7 +375,14 @@ namespace System.Work.ImageBoxLib
 
         private void imageBox_MouseDown(object sender, MouseEventArgs e)
         {
-
+            if (e.Button == MouseButtons.Left)
+            {
+                var imagePt = imageBox.PointToImage(e.Location);
+                var element = _roiElements.Where(x => x.Contains(imagePt.X, imagePt.Y)).OrderBy(x => x.AreaValue()).FirstOrDefault();
+                _roiElements.ForEach(x => x.Selected = false);
+                if (element != null)
+                    element.Selected = true;
+            }
         }
         private void imageBox_MouseMove(object sender, MouseEventArgs e)
         {
@@ -302,7 +406,40 @@ namespace System.Work.ImageBoxLib
         {
             if (!imageBox.AllowPainting)
                 return;
+            foreach (var element in _elements)
+            {
+                element.DrawElement(e.Graphics, imageBox.ZoomFactor, imageBox.GetOffsetRectangle(element.Region));
+            }
+            if (this.CurRoi != null && !this.CurRoi.Region.IsEmpty)
+            {
+                foreach (DragHandle handle in this.CurRoi.DragHandleCollection)
+                {
+                    if (handle.Visible)
+                    {
+                        this.DrawDragHandle(e.Graphics, handle);
+                    }
+                }
+            }
+            foreach (var element in _roiElements)
+            {
+                element.DrawElement(e.Graphics, imageBox.ZoomFactor, imageBox.GetOffsetRectangle(element.Region));
+            }
         }
         #endregion
+
+        private void imageBox_Resize(object sender, EventArgs e)
+        {
+            this.PositionDragHandles();
+        }
+
+        private void imageBox_Scroll(object sender, ScrollEventArgs e)
+        {
+            this.PositionDragHandles();
+        }
+
+        private void imageBox_ZoomChanged(object sender, EventArgs e)
+        {
+            this.PositionDragHandles();
+        }
     }
 }

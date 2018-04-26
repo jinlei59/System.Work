@@ -1653,9 +1653,9 @@ namespace System.Work.ImageBoxLib
         /// <value>The zoom factor.</value>
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public virtual double ZoomFactor
+        public virtual float ZoomFactor
         {
-            get { return (double)this.Zoom / 100; }
+            get { return (float)this.Zoom / 100; }
         }
 
         /// <summary>
@@ -1794,7 +1794,8 @@ namespace System.Work.ImageBoxLib
             {
                 _updateCount--;
             }
-
+            if (_updateCount <= 0)
+                _updateCount = 0;
             if (this.AllowPainting)
             {
                 this.Invalidate();
