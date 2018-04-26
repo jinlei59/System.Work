@@ -32,8 +32,11 @@ namespace WindowsFormsApplication1
                         if (_image != null)
                             _image.Dispose();
                         _image = null;
+                        imageRender1.BeginDisplay();
                        _image = new Bitmap(dialog.FileName);
                         imageRender1.DispalyImage(_image);
+                        //imageRender1.ZoomFit();
+                        imageRender1.CenterAt();
                         imageRender1.EndDisplay();
                     }
                     catch (Exception ex)
