@@ -330,6 +330,59 @@ namespace System.Work.ImageBoxLib
             graphics.DrawLine(outerPen, left + width - 1, top + 1, left + width - 1, top + height - 2);
         }
 
+        protected virtual void SetCursor(Point point)
+        {
+            Cursor cursor;
+
+            if (this.CurRoi == null || !this.CurRoi.Selected || this.CurRoi.Region.IsEmpty)
+            {
+                cursor = Cursors.Default;
+            }
+            else
+            {
+                DragHandleAnchor handleAnchor;
+
+                handleAnchor = this.CurRoi.HitTest(point);
+                if (handleAnchor != DragHandleAnchor.None && this.CurRoi.DragHandleCollection[handleAnchor].Enabled)
+                {
+                    switch (handleAnchor)
+                    {
+                        case DragHandleAnchor.TopLeft:
+                        case DragHandleAnchor.BottomRight:
+                            cursor = Cursors.SizeNWSE;
+                            break;
+                        case DragHandleAnchor.TopCenter:
+                        case DragHandleAnchor.BottomCenter:
+                            cursor = Cursors.SizeNS;
+                            break;
+                        case DragHandleAnchor.TopRight:
+                        case DragHandleAnchor.BottomLeft:
+                            cursor = Cursors.SizeNESW;
+                            break;
+                        case DragHandleAnchor.MiddleLeft:
+                        case DragHandleAnchor.MiddleRight:
+                            cursor = Cursors.SizeWE;
+                            break;
+                        case DragHandleAnchor.Rotation:
+                            cursor = Cursors.Cross;
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                }
+                else if (this.CurRoi.Region.Contains(this.imageBox.PointToImage(point)))
+                {
+                    cursor = Cursors.SizeAll;
+                }
+                else
+                {
+                    cursor = Cursors.Default;
+                }
+            }
+
+            this.Cursor = cursor;
+        }
+
         #endregion
 
         #region 窗体按钮事件
@@ -381,13 +434,20 @@ namespace System.Work.ImageBoxLib
                 var element = _roiElements.Where(x => x.Contains(imagePt.X, imagePt.Y)).OrderBy(x => x.AreaValue()).FirstOrDefault();
                 _roiElements.ForEach(x => x.Selected = false);
                 if (element != null)
+                {
                     element.Selected = true;
+                    PositionDragHandles();
+                }
+                imageBox.Invalidate();
+
             }
         }
         private void imageBox_MouseMove(object sender, MouseEventArgs e)
         {
+            SetCursor(e.Location);
             UpdateCursorPosition(e.Location);
             UpdateRGB(e.Location);
+
         }
 
         private void imageBox_MouseUp(object sender, MouseEventArgs e)
