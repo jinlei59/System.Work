@@ -1,4 +1,6 @@
-﻿namespace WindowsFormsApplication1
+﻿using System.Work.ImageBoxLib;
+
+namespace WindowsFormsApplication1
 {
     partial class Form1
     {
@@ -28,7 +30,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.imageBox1 = new System.Work.ImageBoxLib.ImageBox();
+            this.imageBox1 = new ImageBox();
             this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
             this.SuspendLayout();
             // 
