@@ -32,6 +32,8 @@ namespace System.Work.ImageBoxLib
                         _angle = 0f;
             }
         }
+        public bool IsDirection { get; set; }
+
         public ElementType Type { get; set; }
         public bool Enable { get; set; }
         public bool Selected { get; set; }
@@ -68,6 +70,7 @@ namespace System.Work.ImageBoxLib
             IsRotation = false;
             ForeColor = Color.Red;
             RotationForeColor = Color.Blue;
+            IsDirection = false;
             BorderWidth = 1f;
             Enable = true;
             Selected = false;

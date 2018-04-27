@@ -569,7 +569,7 @@ namespace System.Work.ImageBoxLib
                                     else
                                         angle = 180 + angle;
                                 }
-                                this.CurRoi.Angle = _lastRoiAngle + (float)angle;
+                                this.CurRoi.Angle = /*_lastRoiAngle +*/ (float)angle;
                                 break;
                             #endregion
                             default:

@@ -47,7 +47,7 @@ namespace WindowsFormsApplication1
         private void button2_Click(object sender, EventArgs e)
         {
             imageViewer1.BeginDisplay();
-            var el = new RoiRectangleElement() {IsRotation=true, Region = new RectangleF(100, 100, 300, 300), Angle = 30,RotationForeColor= Color.Lime };
+            var el = new RoiRectangleElement() { IsRotation = true, IsDirection =true, Region = new RectangleF(100, 100, 300, 300), Angle = 30 };
             imageViewer1.AddRoiElement(el);
             imageViewer1.EndDisplay();
         }
