@@ -13,8 +13,8 @@ namespace System.Work.ImageBoxLib
         {
             Type = ElementType.Rectangle;
 
-            this.DragHandleCollection[DragHandleAnchor.Rotation].Enabled = false;
-            this.DragHandleCollection[DragHandleAnchor.Rotation].Visible = false;
+            //this.DragHandleCollection[DragHandleAnchor.Rotation].Enabled = false;
+            //this.DragHandleCollection[DragHandleAnchor.Rotation].Visible = false;
         }
 
         public override void DrawElement(Graphics g, float zoomScale, RectangleF rect)
@@ -23,7 +23,19 @@ namespace System.Work.ImageBoxLib
                 return;
             using (Pen p = new Pen(ForeColor))
             {
-                g.DrawRectangle(p, rect.X, rect.Y, rect.Width, rect.Height);
+                if (Angle == 0)
+                    g.DrawRectangle(p, rect.X, rect.Y, rect.Width, rect.Height);
+                else
+                {
+                    float cx = rect.X + rect.Width / 2, cy = rect.Y + rect.Height / 2;
+                    g.DrawRectangle(p, rect.X, rect.Y, rect.Width, rect.Height);
+                    g.TranslateTransform(cx, cy);
+                    g.RotateTransform(Angle);
+                    g.TranslateTransform(-cx, -cy);
+                    using (Pen pp = new Pen(Color.Blue))
+                        g.DrawRectangle(pp, rect.X, rect.Y, rect.Width, rect.Height);
+                    g.ResetTransform();
+                }
             }
         }
     }

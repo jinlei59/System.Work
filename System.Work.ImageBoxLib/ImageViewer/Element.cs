@@ -11,8 +11,24 @@ namespace System.Work.ImageBoxLib
     public abstract class Element
     {
         private DragHandleCollection dragHandleCollection = null;
+        private float _angle = 0f;
         public Guid uid { get; set; }
         public RectangleF Region { get; set; }
+
+        /// <summary>
+        /// 顺时针旋转，0°~360°
+        /// </summary>
+        public float Angle
+        {
+            get { return _angle; }
+            set
+            {
+                if (value > 360f || value < 0f)
+                    throw new Exception("The Angle is between 0° and 360°.");
+                if (_angle != value)
+                    _angle = value;
+            }
+        }
         public ElementType Type { get; set; }
         public bool Enable { get; set; }
         public bool Selected { get; set; }
@@ -35,6 +51,7 @@ namespace System.Work.ImageBoxLib
         {
             uid = Guid.NewGuid();
             Region = RectangleF.Empty;
+            Angle = 0f;
             ForeColor = Color.Red;
             BorderWidth = 1f;
             Enable = true;
@@ -48,7 +65,7 @@ namespace System.Work.ImageBoxLib
                 return;
             using (Pen p = new Pen(ForeColor, BorderWidth * zoomScale))
             {
-                g.DrawRectangle(p, rect.X, rect.Y, rect.Width, rect.Height);
+                g.DrawRectangle(p, rect.X, rect.Y, rect.Width, rect.Height);                
             }
         }
 
@@ -59,7 +76,7 @@ namespace System.Work.ImageBoxLib
         public virtual double AreaValue()
         {
             return Region.Width * Region.Height;
-        }        
+        }
 
         public DragHandleAnchor HitTest(Point point)
         {

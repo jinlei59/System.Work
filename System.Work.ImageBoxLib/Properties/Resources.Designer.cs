@@ -83,6 +83,26 @@ namespace System.Work.ImageBoxLib.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap hand {
+            get {
+                object obj = ResourceManager.GetObject("hand", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap handmove32 {
+            get {
+                object obj = ResourceManager.GetObject("handmove32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap icon_32 {
             get {
                 object obj = ResourceManager.GetObject("icon_32", resourceCulture);
@@ -196,6 +216,16 @@ namespace System.Work.ImageBoxLib.Properties {
         internal static System.Drawing.Bitmap Position {
             get {
                 object obj = ResourceManager.GetObject("Position", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap rotation {
+            get {
+                object obj = ResourceManager.GetObject("rotation", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

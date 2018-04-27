@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.IO;
 
 namespace System.Work.ImageBoxLib
 {
@@ -367,7 +368,7 @@ namespace System.Work.ImageBoxLib
                             cursor = Cursors.SizeWE;
                             break;
                         case DragHandleAnchor.Rotation:
-                            cursor = Cursors.Cross;
+                            cursor = CursorGenerator.CreateCursor(Properties.Resources.rotation, this.Cursor.HotSpot);
                             break;
                         default:
                             throw new ArgumentOutOfRangeException();
@@ -450,105 +451,120 @@ namespace System.Work.ImageBoxLib
                 }
                 imageBox.Invalidate();
             }
+            else if (e.Button == MouseButtons.Right)
+            {
+                Cursor = CursorGenerator.CreateCursor(Properties.Resources.hand, this.Cursor.HotSpot);
+            }
         }
         private void imageBox_MouseMove(object sender, MouseEventArgs e)
         {
             UpdateCursorPosition(e.Location);
             UpdateRGB(e.Location);
-            if (_isLeftMouseDown && e.Button == MouseButtons.Left && this.CurRoi != null && _leftMouseDownAnchor != DragHandleAnchor.None)
+            if (e.Button == MouseButtons.Right)
             {
-                if (_leftMouseDownAnchor == DragHandleAnchor.Move)
+                Cursor = CursorGenerator.CreateCursor(Properties.Resources.hand, this.Cursor.HotSpot);
+            }
+            else if (e.Button == MouseButtons.Left)
+            {
+                #region 左键操作
+                if (_isLeftMouseDown && this.CurRoi != null && _leftMouseDownAnchor != DragHandleAnchor.None)
                 {
-                    float x = _lastImagePoint.X + (e.Location.X - _lastMousePoint.X) / imageBox.ZoomFactor;
-                    float y = _lastImagePoint.Y + (e.Location.Y - _lastMousePoint.Y) / imageBox.ZoomFactor;
-                    this.CurRoi.Region = new RectangleF(x, y, this.CurRoi.Region.Width, this.CurRoi.Region.Height);
+                    if (_leftMouseDownAnchor == DragHandleAnchor.Move)
+                    {
+                        float x = _lastImagePoint.X + (e.Location.X - _lastMousePoint.X) / imageBox.ZoomFactor;
+                        float y = _lastImagePoint.Y + (e.Location.Y - _lastMousePoint.Y) / imageBox.ZoomFactor;
+                        this.CurRoi.Region = new RectangleF(x, y, this.CurRoi.Region.Width, this.CurRoi.Region.Height);
+                    }
+                    else
+                    {
+                        #region Resize & Ratate
+                        float left = this._lastRoiRegion.Left;
+                        float top = this._lastRoiRegion.Top;
+                        float right = this._lastRoiRegion.Right;
+                        float bottom = this._lastRoiRegion.Bottom;
+
+                        float offx = (e.Location.X - _lastMousePoint.X) / imageBox.ZoomFactor;
+                        float offy = (e.Location.Y - _lastMousePoint.Y) / imageBox.ZoomFactor;
+
+                        switch (_leftMouseDownAnchor)
+                        {
+                            #region Resize
+                            case DragHandleAnchor.TopLeft:
+                                top += offy;
+                                if (bottom - top < MinimumRoiSize)
+                                    top = bottom - MinimumRoiSize;
+                                left += offx;
+                                if (right - left < MinimumRoiSize)
+                                    left = right - MinimumRoiSize;
+                                break;
+                            case DragHandleAnchor.TopCenter:
+                                top += offy;
+                                if (bottom - top < MinimumRoiSize)
+                                    top = bottom - MinimumRoiSize;
+                                break;
+                            case DragHandleAnchor.TopRight:
+                                top += offy;
+                                if (bottom - top < MinimumRoiSize)
+                                    top = bottom - MinimumRoiSize;
+                                right += offx;
+                                if (right - left < MinimumRoiSize)
+                                    right = left + MinimumRoiSize;
+                                break;
+                            case DragHandleAnchor.MiddleLeft:
+                                left += offx;
+                                if (right - left < MinimumRoiSize)
+                                    left = right - MinimumRoiSize;
+                                break;
+                            case DragHandleAnchor.MiddleRight:
+                                right += offx;
+                                if (right - left < MinimumRoiSize)
+                                    right = left + MinimumRoiSize;
+                                break;
+                            case DragHandleAnchor.BottomLeft:
+                                bottom += offy;
+                                if (bottom - top < MinimumRoiSize)
+                                    bottom = top + MinimumRoiSize;
+                                left += offx;
+                                if (right - left < MinimumRoiSize)
+                                    left = right - MinimumRoiSize;
+                                break;
+                            case DragHandleAnchor.BottomCenter:
+                                bottom += offy;
+                                if (bottom - top < MinimumRoiSize)
+                                    bottom = top + MinimumRoiSize;
+                                break;
+                            case DragHandleAnchor.BottomRight:
+                                bottom += offy;
+                                if (bottom - top < MinimumRoiSize)
+                                    bottom = top + MinimumRoiSize;
+                                right += offx;
+                                if (right - left < MinimumRoiSize)
+                                    right = left + MinimumRoiSize;
+                                break;
+                            #endregion
+                            #region Ratate
+                            case DragHandleAnchor.Rotation:
+
+                                break;
+                            #endregion
+                            default:
+                                break;
+                        }
+
+                        this.CurRoi.Region = new RectangleF(left, top, right - left, bottom - top);
+                        #endregion
+                    }
+                    PositionDragHandles();
+                    imageBox.Invalidate();
                 }
                 else
                 {
-                    #region Resize & Ratate
-                    float left = this._lastRoiRegion.Left;
-                    float top = this._lastRoiRegion.Top;
-                    float right = this._lastRoiRegion.Right;
-                    float bottom = this._lastRoiRegion.Bottom;
-
-                    float offx = (e.Location.X - _lastMousePoint.X) / imageBox.ZoomFactor;
-                    float offy = (e.Location.Y - _lastMousePoint.Y) / imageBox.ZoomFactor;
-
-                    switch (_leftMouseDownAnchor)
-                    {
-                        #region Resize
-                        case DragHandleAnchor.TopLeft:
-                            top += offy;
-                            if (bottom - top < MinimumRoiSize)
-                                top = bottom - MinimumRoiSize;
-                            left += offx;
-                            if (right - left < MinimumRoiSize)
-                                left = right - MinimumRoiSize;
-                            break;
-                        case DragHandleAnchor.TopCenter:
-                            top += offy;
-                            if (bottom - top < MinimumRoiSize)
-                                top = bottom - MinimumRoiSize;
-                            break;
-                        case DragHandleAnchor.TopRight:
-                            top += offy;
-                            if (bottom - top < MinimumRoiSize)
-                                top = bottom - MinimumRoiSize;
-                            right += offx;
-                            if (right - left < MinimumRoiSize)
-                                right = left + MinimumRoiSize;
-                            break;
-                        case DragHandleAnchor.MiddleLeft:
-                            left += offx;
-                            if (right - left < MinimumRoiSize)
-                                left = right - MinimumRoiSize;
-                            break;
-                        case DragHandleAnchor.MiddleRight:
-                            right += offx;
-                            if (right - left < MinimumRoiSize)
-                                right = left + MinimumRoiSize;
-                            break;
-                        case DragHandleAnchor.BottomLeft:
-                            bottom += offy;
-                            if (bottom - top < MinimumRoiSize)
-                                bottom = top + MinimumRoiSize;
-                            left += offx;
-                            if (right - left < MinimumRoiSize)
-                                left = right - MinimumRoiSize;
-                            break;
-                        case DragHandleAnchor.BottomCenter:
-                            bottom += offy;
-                            if (bottom - top < MinimumRoiSize)
-                                bottom = top + MinimumRoiSize;
-                            break;
-                        case DragHandleAnchor.BottomRight:
-                            bottom += offy;
-                            if (bottom - top < MinimumRoiSize)
-                                bottom = top + MinimumRoiSize;
-                            right += offx;
-                            if (right - left < MinimumRoiSize)
-                                right = left + MinimumRoiSize;
-                            break;
-                        #endregion
-                        #region Ratate
-                        case DragHandleAnchor.Rotation:
-
-                            break; 
-                        #endregion
-                        default:
-                            break;
-                    }
-
-                    this.CurRoi.Region = new RectangleF(left, top, right - left, bottom - top); 
-                    #endregion
+                    SetCursor(e.Location);
                 }
-                PositionDragHandles();
-                imageBox.Invalidate();
+                #endregion
             }
             else
-            {
                 SetCursor(e.Location);
-            }
         }
 
         private void imageBox_MouseUp(object sender, MouseEventArgs e)
@@ -556,6 +572,10 @@ namespace System.Work.ImageBoxLib
             if (e.Button == MouseButtons.Left)
             {
                 _isLeftMouseDown = false;
+            }
+            else if (e.Button == MouseButtons.Right)
+            {
+                Cursor = Cursors.Default;
             }
         }
 

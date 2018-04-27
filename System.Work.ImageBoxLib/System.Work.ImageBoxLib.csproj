@@ -70,6 +70,7 @@
     <Compile Include="ImageRender.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ImageViewer\CursorGenerator.cs" />
     <Compile Include="ImageViewer\DragHandle.cs" />
     <Compile Include="ImageViewer\DragHandleAnchor.cs" />
     <Compile Include="ImageViewer\DragHandleCollection.cs" />
@@ -82,15 +83,18 @@
     </Compile>
     <Compile Include="ImageViewer\RectangleElement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ImageViewer\RoiRectangleElement.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="ImageViewer\RoiRectangleElement.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ImageBox\ImageBox.bmp" />
+    <None Include="Resources\hand.png" />
+    <None Include="Resources\handMove2.png" />
+    <None Include="Resources\handmove32.png" />
     <None Include="Resources\zone.png" />
     <None Include="Resources\Object Size1.ico" />
     <None Include="Resources\selection1.png" />
