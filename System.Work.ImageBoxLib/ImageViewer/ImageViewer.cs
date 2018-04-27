@@ -22,6 +22,7 @@ namespace System.Work.ImageBoxLib
         private Point _lastMousePoint = Point.Empty;
         private PointF _lastImagePoint = PointF.Empty;
         private RectangleF _lastRoiRegion = RectangleF.Empty;
+        private float _lastRoiAngle = 0f;
         #endregion
 
         #region 属性
@@ -299,7 +300,13 @@ namespace System.Work.ImageBoxLib
                 e.DragHandleCollection[DragHandleAnchor.BottomLeft].Bounds = new Rectangle(left - this.DragHandleSize, bottom, this.DragHandleSize, this.DragHandleSize);
                 e.DragHandleCollection[DragHandleAnchor.BottomCenter].Bounds = new Rectangle(left + halfWidth - halfDragHandleSize, bottom, this.DragHandleSize, this.DragHandleSize);
                 e.DragHandleCollection[DragHandleAnchor.BottomRight].Bounds = new Rectangle(right, bottom, this.DragHandleSize, this.DragHandleSize);
-                e.DragHandleCollection[DragHandleAnchor.Rotation].Bounds = new Rectangle(left + halfWidth - halfDragHandleSize, top + halfHeight - halfDragHandleSize, this.DragHandleSize, this.DragHandleSize);
+                if (e.IsRotation)
+                    e.DragHandleCollection[DragHandleAnchor.Rotation].Bounds = new Rectangle(left + halfWidth - halfDragHandleSize, top + halfHeight - halfDragHandleSize, this.DragHandleSize, this.DragHandleSize);
+                else
+                {
+                    e.DragHandleCollection[DragHandleAnchor.Rotation].Enabled = false;
+                    e.DragHandleCollection[DragHandleAnchor.Rotation].Visible = false;
+                }
             }
         }
 
@@ -448,6 +455,7 @@ namespace System.Work.ImageBoxLib
                     _lastMousePoint = e.Location;
                     _lastImagePoint = element.Region.Location;
                     _lastRoiRegion = element.Region;
+                    _lastRoiAngle = element.Angle;
                 }
                 imageBox.Invalidate();
             }
@@ -477,7 +485,7 @@ namespace System.Work.ImageBoxLib
                     }
                     else
                     {
-                        #region Resize & Ratate
+                        #region Resize & Rotation
                         float left = this._lastRoiRegion.Left;
                         float top = this._lastRoiRegion.Top;
                         float right = this._lastRoiRegion.Right;
@@ -542,29 +550,43 @@ namespace System.Work.ImageBoxLib
                                     right = left + MinimumRoiSize;
                                 break;
                             #endregion
-                            #region Ratate
+                            #region 角度
                             case DragHandleAnchor.Rotation:
-
+                                double distance = Math.Sqrt(offx * offx + offy * offy);
+                                double sin = Math.Abs(offy / distance);
+                                double angle = Math.Asin(sin) / Math.PI * 180 + Math.PI;
+                                if (offx > 0)
+                                {
+                                    if (offy > 0)
+                                        angle += 0;
+                                    else
+                                        angle = 360 - angle;
+                                }
+                                else
+                                {
+                                    if (offy > 0)
+                                        angle = 180 - angle;
+                                    else
+                                        angle = 180 + angle;
+                                }
+                                this.CurRoi.Angle = _lastRoiAngle + (float)angle;
                                 break;
                             #endregion
                             default:
                                 break;
                         }
-
                         this.CurRoi.Region = new RectangleF(left, top, right - left, bottom - top);
                         #endregion
                     }
-                    PositionDragHandles();
-                    imageBox.Invalidate();
                 }
-                else
-                {
-                    SetCursor(e.Location);
-                }
+                PositionDragHandles();
+                imageBox.Invalidate();
                 #endregion
             }
             else
+            {
                 SetCursor(e.Location);
+            }
         }
 
         private void imageBox_MouseUp(object sender, MouseEventArgs e)
@@ -611,6 +633,7 @@ namespace System.Work.ImageBoxLib
             }
         }
         #endregion
+
 
         private void imageBox_Resize(object sender, EventArgs e)
         {
