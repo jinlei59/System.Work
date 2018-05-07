@@ -14,6 +14,8 @@ namespace System.Work.MVP.Shell.Krypton
         private readonly PresenterBinder presenterBinder = new PresenterBinder();
         public KryControlBase()
         {
+            if (DesignMode)
+                return;
             ThrowExceptionIfNoPresenterBound = true;
             presenterBinder.PerformBinding(this);
         }

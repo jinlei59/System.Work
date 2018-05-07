@@ -16,6 +16,8 @@ namespace System.Work.MVP.Shell.Krypton
         public KryViewBase()
         {
             InitializeComponent();
+            if (DesignMode)
+                return;
             ThrowExceptionIfNoPresenterBound = true;
             presenterBinder.PerformBinding(this);
         }
