@@ -10,10 +10,27 @@ namespace System.Work.ImageBoxLib
     [Serializable]
     public abstract class Element
     {
+        private RectangleF _region = RectangleF.Empty;
         private DragHandleCollection dragHandleCollection = null;
         private float _angle = 0f;
         public Guid uid { get; set; }
-        public RectangleF Region { get; set; }
+        public RectangleF Region
+        {
+            get
+            {
+                return _region;
+            }
+            set
+            {
+                if (_region != value)
+                {
+                    var e = new ElementEventArgs(_region, value, _angle, _angle);
+                    OnRegionChanged(e);
+                    if (!e.Cancel)
+                        _region = value;
+                }
+            }
+        }
         public bool IsRotation { get; set; }
         /// <summary>
         /// 顺时针旋转，0°~360°
@@ -26,7 +43,12 @@ namespace System.Work.ImageBoxLib
                 if (IsRotation)
                     if (_angle != value)
                     {
-                        _angle = value % 360f;
+                        var e = new ElementEventArgs(_region, _region, _angle, value);
+                        OnRegionChanged(e);
+                        if (!e.Cancel)
+                        {
+                            _angle = value % 360f;
+                        }
                     }
                     else
                         _angle = 0f;
@@ -36,6 +58,7 @@ namespace System.Work.ImageBoxLib
 
         public ElementType Type { get; set; }
         public bool Enable { get; set; }
+        public bool Visible { get; set; }
         public bool Selected { get; set; }
         public Color ForeColor { get; set; }
         public Color RotationForeColor { get; set; }
@@ -62,6 +85,12 @@ namespace System.Work.ImageBoxLib
             }
         }
 
+        public event EventHandler<ElementEventArgs> RegionChanged;
+        protected virtual void OnRegionChanged(ElementEventArgs e)
+        {
+            RegionChanged?.Invoke(this, e);
+        }
+
         public Element()
         {
             uid = Guid.NewGuid();
@@ -73,13 +102,14 @@ namespace System.Work.ImageBoxLib
             IsDirection = false;
             BorderWidth = 1f;
             Enable = true;
+            Visible = true;
             Selected = false;
             DragHandleCollection = new DragHandleCollection();
         }
 
         public virtual void DrawElement(Graphics g, float zoomScale, RectangleF rect)
         {
-            if (!Enable || Region.IsEmpty)
+            if (!Enable || !Visible || Region.IsEmpty)
                 return;
             using (Pen p = new Pen(ForeColor, BorderWidth * zoomScale))
             {
@@ -111,5 +141,25 @@ namespace System.Work.ImageBoxLib
         Line = 4,
         Point = 5,
         String = 6
+    }
+
+    public class ElementEventArgs : EventArgs
+    {
+        public bool Cancel { get; set; }
+        public RectangleF OldRegion { get; }
+        public RectangleF NewRegion { get; }
+        public float OldAngle { get; }
+        public float NewAngle { get; }
+
+        public ElementEventArgs() : this(RectangleF.Empty, RectangleF.Empty, 0f, 0f)
+        { }
+        public ElementEventArgs(RectangleF oldRegion, RectangleF newRegion, float oldAngle, float newAngle)
+        {
+            Cancel = false;
+            OldRegion = oldRegion;
+            NewRegion = newRegion;
+            OldAngle = oldAngle;
+            NewAngle = newAngle;
+        }
     }
 }

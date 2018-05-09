@@ -19,7 +19,7 @@ namespace System.Work.ImageBoxLib
 
         public override void DrawElement(Graphics g, float zoomScale, RectangleF rect)
         {
-            if (!Enable || Region.IsEmpty)
+            if (!Enable || !Visible || Region.IsEmpty)
                 return;
             using (Pen p = new Pen(ForeColor))
             {
@@ -28,14 +28,14 @@ namespace System.Work.ImageBoxLib
                     Pen ppp = new Pen(ForeColor) { DashStyle = Drawing.Drawing2D.DashStyle.Dot };
                     g.DrawRectangle(ppp, rect.X, rect.Y, rect.Width, rect.Height);//绘制旋转后的边框虚线
                     if (!IsRotation)
-                        Draw(g, zoomScale, rect,ForeColor);
+                        Draw(g, zoomScale, rect, ForeColor);
                     else
                     {
                         float cx = rect.X + rect.Width / 2, cy = rect.Y + rect.Height / 2;
                         g.TranslateTransform(cx, cy);
                         g.RotateTransform(Angle);
                         g.TranslateTransform(-cx, -cy);
-                        Draw(g, zoomScale, rect,RotationForeColor);
+                        Draw(g, zoomScale, rect, RotationForeColor);
                         g.DrawString(Angle.ToString(), new Font(FontFamily.Families.First(), 15f * zoomScale/*(zoomScale < 1 ? 1 : zoomScale)*/), Brushes.DeepPink, rect.X, rect.Y);
                     }
                 }
@@ -50,7 +50,7 @@ namespace System.Work.ImageBoxLib
             }
         }
 
-        private void Draw(Graphics g, float zoomScale, RectangleF rect,Color color)
+        private void Draw(Graphics g, float zoomScale, RectangleF rect, Color color)
         {
             using (Pen p = new Pen(color))
             {

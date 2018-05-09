@@ -47,9 +47,17 @@ namespace WindowsFormsApplication1
         private void button2_Click(object sender, EventArgs e)
         {
             imageViewer1.BeginDisplay();
-            var el = new RoiRectangleElement() { IsRotation = true, IsDirection =true, Region = new RectangleF(100, 100, 300, 300), Angle = 30 };
+            var el = new RoiRectangleElement() { IsRotation = true, IsDirection = true, Region = new RectangleF(100, 100, 300, 300), Angle = 30 };
+            el.RegionChanged += El_RegionChanged;
             imageViewer1.AddRoiElement(el);
             imageViewer1.EndDisplay();
+        }
+
+        private void El_RegionChanged(object sender, ElementEventArgs e)
+        {
+            return;
+            MessageBox.Show($"old:{e.OldRegion.ToString()}{Environment.NewLine}new:{e.NewRegion.ToString()}{Environment.NewLine}old angle:{e.OldAngle}{Environment.NewLine}new angle:{e.NewAngle}");
+            e.Cancel = true;
         }
     }
 }
