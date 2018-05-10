@@ -18,8 +18,15 @@ namespace System.Work.MVP.Shell.Krypton
             InitializeComponent();
             if (DesignMode)
                 return;
-            ThrowExceptionIfNoPresenterBound = true;
-            presenterBinder.PerformBinding(this);
+            try
+            {
+                ThrowExceptionIfNoPresenterBound = true;
+                presenterBinder.PerformBinding(this);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
         }
 
         public bool ThrowExceptionIfNoPresenterBound

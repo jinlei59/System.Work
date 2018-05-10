@@ -61,6 +61,15 @@ namespace System.Work.ImageBoxLib
 
 
         public virtual int MinimumRoiSize { get; set; } = 1;
+
+        public bool AllowZoom
+        {
+            get { return imageBox.AllowZoom; }
+            set
+            {
+                imageBox.AllowZoom = value;
+            }
+        }
         #endregion
 
         #region 事件
@@ -73,7 +82,10 @@ namespace System.Work.ImageBoxLib
             InitializeComponent();
             _elements = new List<Element>();
             _roiElements = new List<Element>();
+            imageBox.BeginUpdate();
+            AllowZoom = true;
             this.PositionDragHandles();
+            imageBox.EndUpdate();
         }
         #endregion
 
@@ -194,6 +206,7 @@ namespace System.Work.ImageBoxLib
         }
 
         #endregion
+
         #region 添加&删除字符串
         public void DrawString(string s, Font font, Brush brush, float x, float y)
         {
@@ -251,6 +264,11 @@ namespace System.Work.ImageBoxLib
         {
             _roiElements.Add(e);
         }
+
+        public void RemoveRoiElement(Element e)
+        {
+            _roiElements.Remove(e);
+        }
         #endregion
 
         #region 缩放
@@ -261,6 +279,7 @@ namespace System.Work.ImageBoxLib
         }
 
         #endregion
+
 
         #endregion
         #region protected &private
@@ -446,7 +465,7 @@ namespace System.Work.ImageBoxLib
                 _isLeftMouseDown = true;
                 _leftMouseDownAnchor = SetCursor(e.Location);
                 var imagePt = imageBox.PointToImage(e.Location);
-                var element = _roiElements.Where(x => x.Contains(imagePt.X, imagePt.Y) || x.HitTest(e.Location) != DragHandleAnchor.None).OrderBy(x => x.AreaValue()).FirstOrDefault();
+                var element = _roiElements.Where(x => x.Visible && x.Enable && x.Contains(imagePt.X, imagePt.Y) || x.HitTest(e.Location) != DragHandleAnchor.None).OrderBy(x => x.AreaValue()).FirstOrDefault();
                 _roiElements.ForEach(x => x.Selected = false);
                 if (element != null)
                 {
