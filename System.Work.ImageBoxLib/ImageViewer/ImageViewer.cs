@@ -269,6 +269,10 @@ namespace System.Work.ImageBoxLib
         {
             _roiElements.Remove(e);
         }
+        public void ClearAllROI()
+        {
+            _roiElements.Clear();
+        }
         #endregion
 
         #region 缩放
