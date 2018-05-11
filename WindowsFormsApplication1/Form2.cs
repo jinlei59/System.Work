@@ -83,5 +83,10 @@ namespace WindowsFormsApplication1
 
             imageViewer1.DrawEllipse(Pens.Lime, 500, 500, 300, 300);
         }
+
+        private void imageViewer1_MouseDown(object sender, MouseEventArgs e)
+        {
+
+        }
     }
 }

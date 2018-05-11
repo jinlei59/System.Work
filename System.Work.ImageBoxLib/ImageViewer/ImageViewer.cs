@@ -295,6 +295,28 @@ namespace System.Work.ImageBoxLib
 
         #endregion
 
+        #region 获取图像中的位置
+
+        public PointF GetOffsetPoint(PointF pt)
+        {
+            return imageBox.GetOffsetPoint(pt);
+        }
+
+        public RectangleF GetOffsetRectangle(RectangleF source)
+        {
+            RectangleF viewport;
+            RectangleF scaled;
+            float offsetX;
+            float offsetY;
+
+            viewport = imageBox.GetImageViewPort();
+            scaled = imageBox.GetScaledRectangle(source);
+            offsetX = viewport.Left + this.Padding.Left + this.AutoScrollPosition.X;
+            offsetY = viewport.Top + this.Padding.Top + this.AutoScrollPosition.Y;
+
+            return new RectangleF(new PointF(scaled.Left + offsetX, scaled.Top + offsetY), scaled.Size);
+        }
+        #endregion
 
         #endregion
         #region protected &private
@@ -497,6 +519,8 @@ namespace System.Work.ImageBoxLib
             {
                 Cursor = CursorGenerator.CreateCursor(Properties.Resources.hand, this.Cursor.HotSpot);
             }
+
+            this.OnMouseDown(e);
         }
         private void imageBox_MouseMove(object sender, MouseEventArgs e)
         {
@@ -621,6 +645,8 @@ namespace System.Work.ImageBoxLib
             {
                 SetCursor(e.Location);
             }
+
+            this.OnMouseMove(e);
         }
 
         private void imageBox_MouseUp(object sender, MouseEventArgs e)
@@ -633,6 +659,7 @@ namespace System.Work.ImageBoxLib
             {
                 Cursor = Cursors.Default;
             }
+            this.OnMouseUp(e);
         }
 
         private void imageBox_MouseWheel(object sender, MouseEventArgs e)
@@ -641,6 +668,8 @@ namespace System.Work.ImageBoxLib
             UpdateCursorPosition(e.Location);
             UpdateRGB(e.Location);
             UpdateStatusBar();
+
+            this.OnMouseWheel(e);
         }
 
         private void imageBox_Paint(object sender, PaintEventArgs e)
@@ -675,6 +704,8 @@ namespace System.Work.ImageBoxLib
             {
                 element.DrawElement(e.Graphics, imageBox.ZoomFactor, imageBox.GetOffsetRectangle(element.Region));
             }
+
+            this.OnPaint(e);
         }
         #endregion
 
