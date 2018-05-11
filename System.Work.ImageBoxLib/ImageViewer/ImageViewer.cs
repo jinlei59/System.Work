@@ -70,6 +70,17 @@ namespace System.Work.ImageBoxLib
                 imageBox.AllowZoom = value;
             }
         }
+
+        /// <summary>
+        ///   Gets a value indicating whether painting of the control is allowed.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if painting of the control is allowed; otherwise, <c>false</c>.
+        /// </value>
+        public virtual bool AllowPainting
+        {
+            get { return imageBox.AllowPainting; }
+        }
         #endregion
 
         #region 事件
@@ -210,46 +221,46 @@ namespace System.Work.ImageBoxLib
         #region 添加&删除字符串
         public void DrawString(string s, Font font, Brush brush, float x, float y)
         {
-            //imageBox.AddElement(new StringElement(s, font, brush, x, y));
+            _elements.Add(new StringElement(s, font, brush, x, y));
         }
         public void ClearString()
         {
-            //imageBox.ClearElement(ElementType.String);
+            _elements.RemoveAll(x => x.Type == ElementType.String);
         }
         #endregion
 
         #region 添加&删除直线
         public void DrawLine(Pen pen, float x1, float y1, float x2, float y2)
         {
-            //imageBox.AddElement(new LineElement(pen, x1, y1, x2, y2));
+            _elements.Add(new LineElement(pen, x1, y1, x2, y2));
         }
         public void ClearLine()
         {
-            //imageBox.ClearElement(ElementType.Line);
+            _elements.RemoveAll(x => x.Type == ElementType.Line);
         }
         #endregion
 
         #region 添加&删除矩形框
         public void DrawRectangle(Pen pen, float x, float y, float width, float height)
         {
-            //imageBox.AddElement(new RectangleElement(pen, x, y, width, height));
+            _elements.Add(new RectangleElement(pen, x, y, width, height));
         }
 
         public void ClearRectangle()
         {
-            //imageBox.ClearElement(ElementType.Rectangle);
+            _elements.RemoveAll(x => x.Type == ElementType.Rectangle);
         }
         #endregion
 
         #region 添加&删除圆
         public void DrawEllipse(Pen pen, float x, float y, float width, float height)
         {
-            //imageBox.AddElement(new EllipseElement(pen, x, y, width, height));
+            _elements.Add(new EllipseElement(pen, x, y, width, height));
         }
 
         public void ClearEllipse()
         {
-            //imageBox.ClearElement(ElementType.Ellipse);
+            _elements.RemoveAll(x => x.Type == ElementType.Ellipse);
         }
         #endregion
 
@@ -638,7 +649,17 @@ namespace System.Work.ImageBoxLib
                 return;
             foreach (var element in _elements)
             {
-                element.DrawElement(e.Graphics, imageBox.ZoomFactor, imageBox.GetOffsetRectangle(element.Region));
+                //element.DrawElement(e.Graphics, imageBox.ZoomFactor, imageBox.GetOffsetRectangle(element.Region));
+                if (element.Type == ElementType.Line)
+                {
+                    var p1 = imageBox.GetOffsetPoint(element.Region.X, element.Region.Y);
+                    var p2 = imageBox.GetOffsetPoint(element.Region.Width, element.Region.Height);
+                    element.DrawElement(e.Graphics, imageBox.ZoomFactor, p1.X, p1.Y, p2.X, p2.Y);
+                }
+                else
+                {
+                    element.DrawElement(e.Graphics, imageBox.ZoomFactor, imageBox.GetOffsetRectangle(element.Region));
+                }
             }
             if (this.CurRoi != null && !this.CurRoi.Region.IsEmpty)
             {

@@ -107,6 +107,16 @@ namespace System.Work.ImageBoxLib
             DragHandleCollection = new DragHandleCollection();
         }
 
+        public virtual void DrawElement(Graphics g, float zoomScale, float x1 ,float y1,float x2,float y2)
+        {
+            if (!Enable || !Visible || Region.IsEmpty)
+                return;
+            using (Pen p = new Pen(ForeColor, BorderWidth * zoomScale))
+            {
+                g.DrawRectangle(p, x1, y1, x2 - x1, y2 - y1);
+            }
+        }
+
         public virtual void DrawElement(Graphics g, float zoomScale, RectangleF rect)
         {
             if (!Enable || !Visible || Region.IsEmpty)

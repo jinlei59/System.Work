@@ -30,14 +30,21 @@ namespace System.Work.ImageBoxLib
         }
         public static Cursor CreateCursor(Bitmap bmp, int xHotSpot, int yHotSpot)
         {
-            IntPtr ptr = bmp.GetHicon();
-            IconInfo tmp = new IconInfo();
-            GetIconInfo(ptr, ref tmp);
-            tmp.xHotspot = xHotSpot;
-            tmp.yHotspot = yHotSpot;
-            tmp.fIcon = false;
-            ptr = CreateIconIndirect(ref tmp);
-            return new Cursor(ptr);
+            try
+            {
+                IntPtr ptr = bmp.GetHicon();
+                IconInfo tmp = new IconInfo();
+                GetIconInfo(ptr, ref tmp);
+                tmp.xHotspot = xHotSpot;
+                tmp.yHotspot = yHotSpot;
+                tmp.fIcon = false;
+                ptr = CreateIconIndirect(ref tmp);
+                return new Cursor(ptr);
+            }
+            catch (Exception)
+            {
+                return Cursors.Default;
+            }
         }
 
         public struct IconInfo
