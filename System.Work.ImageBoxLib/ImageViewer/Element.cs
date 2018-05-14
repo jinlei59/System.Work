@@ -14,6 +14,8 @@ namespace System.Work.ImageBoxLib
         private DragHandleCollection dragHandleCollection = null;
         private float _angle = 0f;
         public Guid uid { get; set; }
+
+        public Guid ParentUid { get; set; }
         public RectangleF Region
         {
             get
@@ -94,6 +96,7 @@ namespace System.Work.ImageBoxLib
         public Element()
         {
             uid = Guid.NewGuid();
+            ParentUid = Guid.Empty;
             Region = RectangleF.Empty;
             Angle = 0f;
             IsRotation = false;
@@ -107,7 +110,7 @@ namespace System.Work.ImageBoxLib
             DragHandleCollection = new DragHandleCollection();
         }
 
-        public virtual void DrawElement(Graphics g, float zoomScale, float x1 ,float y1,float x2,float y2)
+        public virtual void DrawElement(Graphics g, float zoomScale, float x1, float y1, float x2, float y2)
         {
             if (!Enable || !Visible || Region.IsEmpty)
                 return;

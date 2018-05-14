@@ -23,6 +23,8 @@ namespace System.Work.ImageBoxLib
         private PointF _lastImagePoint = PointF.Empty;
         private RectangleF _lastRoiRegion = RectangleF.Empty;
         private float _lastRoiAngle = 0f;
+
+        private Element _selectElement = null;
         #endregion
 
         #region 属性
@@ -54,7 +56,19 @@ namespace System.Work.ImageBoxLib
 
         protected Element CurRoi
         {
-            get { return _roiElements.FirstOrDefault(x => x.Selected); }
+            get
+            {
+                var e = _roiElements.FirstOrDefault(x => x.Selected);
+                if (e != null)
+                {
+                    if (_selectElement == null || !_selectElement.uid.Equals(e.uid))
+                    {
+                        _selectElement = e;
+                        SelectedRoiChanaged?.Invoke(this, e);
+                    }
+                }
+                return e;
+            }
         }
 
         public int DragHandleSize { get; private set; } = 8;
@@ -84,6 +98,8 @@ namespace System.Work.ImageBoxLib
         #endregion
 
         #region 事件
+
+        public event EventHandler<Element> SelectedRoiChanaged;
 
         #endregion
 
@@ -219,7 +235,7 @@ namespace System.Work.ImageBoxLib
         #endregion
 
         #region 添加&删除字符串
-        public void DrawString(string s, Font font, Brush brush, float x, float y)
+        public void AddString(string s, Font font, Brush brush, float x, float y)
         {
             _elements.Add(new StringElement(s, font, brush, x, y));
         }
@@ -230,7 +246,7 @@ namespace System.Work.ImageBoxLib
         #endregion
 
         #region 添加&删除直线
-        public void DrawLine(Pen pen, float x1, float y1, float x2, float y2)
+        public void AddLine(Pen pen, float x1, float y1, float x2, float y2)
         {
             _elements.Add(new LineElement(pen, x1, y1, x2, y2));
         }
@@ -241,7 +257,7 @@ namespace System.Work.ImageBoxLib
         #endregion
 
         #region 添加&删除矩形框
-        public void DrawRectangle(Pen pen, float x, float y, float width, float height)
+        public void AddRectangle(Pen pen, float x, float y, float width, float height)
         {
             _elements.Add(new RectangleElement(pen, x, y, width, height));
         }
@@ -253,7 +269,7 @@ namespace System.Work.ImageBoxLib
         #endregion
 
         #region 添加&删除圆
-        public void DrawEllipse(Pen pen, float x, float y, float width, float height)
+        public void AddEllipse(Pen pen, float x, float y, float width, float height)
         {
             _elements.Add(new EllipseElement(pen, x, y, width, height));
         }
@@ -302,6 +318,11 @@ namespace System.Work.ImageBoxLib
             return imageBox.GetOffsetPoint(pt);
         }
 
+        public Point PointToImage(float x, float y)
+        {
+            return imageBox.PointToImage(x, y, false);
+        }
+
         public RectangleF GetOffsetRectangle(RectangleF source)
         {
             RectangleF viewport;
@@ -315,6 +336,11 @@ namespace System.Work.ImageBoxLib
             offsetY = viewport.Top + this.Padding.Top + this.AutoScrollPosition.Y;
 
             return new RectangleF(new PointF(scaled.Left + offsetX, scaled.Top + offsetY), scaled.Size);
+        }
+
+        public virtual Rectangle GetImageViewPort()
+        {
+            return imageBox.GetImageViewPort();
         }
         #endregion
 

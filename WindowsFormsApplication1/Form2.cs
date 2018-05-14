@@ -62,26 +62,26 @@ namespace WindowsFormsApplication1
 
         private void button3_Click(object sender, EventArgs e)
         {
-            imageViewer1.DrawString("你好", new Font("宋体", 16f), Brushes.Red, 100, 100);
+            imageViewer1.AddString("你好", new Font("宋体", 16f), Brushes.Red, 100, 100);
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            imageViewer1.DrawRectangle(Pens.Yellow, 150, 150, 100, 100);
+            imageViewer1.AddRectangle(Pens.Yellow, 150, 150, 100, 100);
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
-            imageViewer1.DrawLine(Pens.LightBlue, 180, 180, 200, 200);
+            imageViewer1.AddLine(Pens.LightBlue, 180, 180, 200, 200);
 
-            imageViewer1.DrawLine(Pens.LightBlue, 600, 600, 500, 345);
+            imageViewer1.AddLine(Pens.LightBlue, 600, 600, 500, 345);
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
-            imageViewer1.DrawEllipse(Pens.Lime, 100, 400, 100, 50);
+            imageViewer1.AddEllipse(Pens.Lime, 100, 400, 100, 50);
 
-            imageViewer1.DrawEllipse(Pens.Lime, 500, 500, 300, 300);
+            imageViewer1.AddEllipse(Pens.Lime, 500, 500, 300, 300);
         }
 
         private void imageViewer1_MouseDown(object sender, MouseEventArgs e)
