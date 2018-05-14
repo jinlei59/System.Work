@@ -300,6 +300,20 @@ namespace System.Work.ImageBoxLib
         {
             _roiElements.Clear();
         }
+
+        public void SelectRoi(Guid uid)
+        {
+            if (_roiElements == null || _roiElements.Count < 1)
+                return;
+            _roiElements.ForEach(x => x.Selected = false);
+            var element = _roiElements.FirstOrDefault(x => x.uid.Equals(uid));
+            _selectElement = element;
+            if (element != null)
+            {
+                element.Selected = true;
+                PositionDragHandles();
+            }
+        }
         #endregion
 
         #region 缩放
