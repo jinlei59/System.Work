@@ -1,4 +1,5 @@
-﻿using ComponentFactory.Krypton.Toolkit;
+﻿using ComponentFactory.Krypton.Navigator;
+using ComponentFactory.Krypton.Toolkit;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -52,7 +53,7 @@ namespace System.Work.MVP.Startup.Krypton
                 MenuSection section = (MenuSection)config.GetSection("Menu");
                 foreach (MenuItemElement item in section.Items)
                 {
-                    CreteMenuItem(item, menuStrip1.Items, MenuFontLevel.First);
+                    CreatePage(item);
                 }
             }
         }
@@ -107,6 +108,20 @@ namespace System.Work.MVP.Startup.Krypton
             }
         }
 
+        private void CreatePage(MenuItemElement item)
+        {
+            if (item.DisplayType != DisplayType.View)
+                return;
+            Type t = Type.GetType(item.SourceType);
+            var ctr = Activator.CreateInstance(t) as Control;
+            ctr.Dock = DockStyle.Fill;
+            var page = new KryptonPage()
+            {
+                Text = item.DisplayName
+            };
+            page.Controls.Add(ctr);
+            kryptonNavigator1.Pages.Add(page);
+        }
         #endregion
 
         protected override void OnLoad(EventArgs e)

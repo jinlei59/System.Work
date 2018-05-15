@@ -30,7 +30,7 @@ namespace mvptest
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new MainForm());
-            Application.Run(new MainForm());
+            Application.Run(new MainForm() { GlobalPaletteMode =  ComponentFactory.Krypton.Toolkit.PaletteModeManager.Office2010Black});
         }
     }
 }

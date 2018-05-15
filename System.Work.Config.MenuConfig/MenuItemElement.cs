@@ -51,6 +51,21 @@ namespace System.Work.Config.MenuConfig
             get { return (MenuItemElementCollection)base["Items"]; }
             set { base["Items"] = value; }
         }
+
+        [ConfigurationProperty("DockEdge", IsRequired = false)]
+        public DockEdge DockEdge
+        {
+            get { return (DockEdge)base["DockEdge"]; }
+            set { base["DockEdge"] = value; }
+        }
+    }
+
+    public enum DockEdge
+    {
+        Top = 0,
+        Left = 1,
+        Right = 2,
+        Bottom = 3
     }
 
     public enum DisplayType
