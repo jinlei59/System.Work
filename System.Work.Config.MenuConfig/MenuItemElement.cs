@@ -65,7 +65,8 @@ namespace System.Work.Config.MenuConfig
         Top = 0,
         Left = 1,
         Right = 2,
-        Bottom = 3
+        Bottom = 3,
+        Fill = 4
     }
 
     public enum DisplayType
