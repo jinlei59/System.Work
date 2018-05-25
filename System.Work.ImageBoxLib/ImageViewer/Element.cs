@@ -110,6 +110,9 @@ namespace System.Work.ImageBoxLib
             DragHandleCollection = new DragHandleCollection();
         }
 
+        public virtual void DrawElement(Graphics g, PointF[] points)
+        { }
+
         public virtual void DrawElement(Graphics g, float zoomScale, float x1, float y1, float x2, float y2)
         {
             if (!Enable || !Visible || Region.IsEmpty)
@@ -153,7 +156,8 @@ namespace System.Work.ImageBoxLib
         Ellipse = 3,
         Line = 4,
         Point = 5,
-        String = 6
+        String = 6,
+        Blob = 7
     }
 
     public class ElementEventArgs : EventArgs

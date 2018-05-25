@@ -88,5 +88,24 @@ namespace WindowsFormsApplication1
         {
 
         }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            imageViewer1.AddBlobElement(new BlobElement(Color.Yellow, new PointF[] 
+            {
+                new PointF(10,20),
+                new PointF(60,60),
+                new PointF(10,240),
+                new PointF(100,340),
+                new PointF(30,460),
+                new PointF(500,500),
+                new PointF(600,460),
+                new PointF(700,380),
+                new PointF(600,300),
+                new PointF(500,200),
+                new PointF(800,100),
+                new PointF(20,10)
+            }));
+        }
     }
 }

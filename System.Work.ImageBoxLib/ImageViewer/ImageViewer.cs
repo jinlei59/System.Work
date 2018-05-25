@@ -15,6 +15,7 @@ namespace System.Work.ImageBoxLib
     public partial class ImageViewer : UserControl
     {
         #region 变量
+        private List<BlobElement> _blobElement = null;
         private List<Element> _elements = null;
         private List<Element> _roiElements = null;
         private bool _isLeftMouseDown = false;
@@ -109,6 +110,7 @@ namespace System.Work.ImageBoxLib
             InitializeComponent();
             _elements = new List<Element>();
             _roiElements = new List<Element>();
+            _blobElement = new List<BlobElement>();
             imageBox.BeginUpdate();
             AllowZoom = true;
             this.PositionDragHandles();
@@ -313,6 +315,30 @@ namespace System.Work.ImageBoxLib
                 element.Selected = true;
                 PositionDragHandles();
             }
+        }
+        #endregion
+
+        #region 添加删除Blob
+
+        public void AddBlobElement(Element e)
+        {
+            if (e is BlobElement)
+            {
+                _blobElement.Add(e as BlobElement);
+            }
+        }
+
+        public void RemoveBlobElement(Element e)
+        {
+            if (e is BlobElement)
+            {
+                _blobElement.Remove(e as BlobElement);
+            }
+        }
+
+        public void ClearBlobElement()
+        {
+            _blobElement.Clear();
         }
         #endregion
 
@@ -716,6 +742,22 @@ namespace System.Work.ImageBoxLib
         {
             if (!imageBox.AllowPainting)
                 return;
+
+            foreach (var element in _blobElement)
+            {
+                var points = element.GetPoints();
+                if (points == null)
+                    continue;
+                int len = points.Length;
+                PointF[] pts = new PointF[len];
+                for (int i = 0; i < len; i++)
+                {
+                    pts[i] = imageBox.GetOffsetPoint(points[i]);
+                }
+                element.DrawElement(e.Graphics, pts);
+                Array.Clear(pts, 0, len);
+            }
+
             foreach (var element in _elements)
             {
                 //element.DrawElement(e.Graphics, imageBox.ZoomFactor, imageBox.GetOffsetRectangle(element.Region));

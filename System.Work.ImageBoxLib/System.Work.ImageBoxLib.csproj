@@ -70,6 +70,7 @@
     <Compile Include="ImageRender.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ImageViewer\BlobElement.cs" />
     <Compile Include="ImageViewer\CursorGenerator.cs" />
     <Compile Include="ImageViewer\DragHandle.cs" />
     <Compile Include="ImageViewer\DragHandleAnchor.cs" />

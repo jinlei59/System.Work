@@ -13,7 +13,6 @@ namespace System.Work.MVP.Core
         object Invoke(Delegate method, params object[] args);
         IAsyncResult BeginInvoke(Delegate method);
         IAsyncResult BeginInvoke(Delegate method, params object[] args);
-
         bool ThrowExceptionIfNoPresenterBound
         {
             get;
