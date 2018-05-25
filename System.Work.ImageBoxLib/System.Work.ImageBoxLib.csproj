@@ -70,24 +70,25 @@
     <Compile Include="ImageRender.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ImageViewer\BlobElement.cs" />
+    <Compile Include="ImageViewer\elements\BlobElement.cs" />
     <Compile Include="ImageViewer\CursorGenerator.cs" />
+    <Compile Include="ImageViewer\elements\DotMatrixElement.cs" />
     <Compile Include="ImageViewer\DragHandle.cs" />
     <Compile Include="ImageViewer\DragHandleAnchor.cs" />
     <Compile Include="ImageViewer\DragHandleCollection.cs" />
-    <Compile Include="ImageViewer\Element.cs" />
-    <Compile Include="ImageViewer\EllipseElement.cs" />
+    <Compile Include="ImageViewer\elements\Element.cs" />
+    <Compile Include="ImageViewer\elements\EllipseElement.cs" />
     <Compile Include="ImageViewer\ImageViewer.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="ImageViewer\ImageViewer.Designer.cs">
       <DependentUpon>ImageViewer.cs</DependentUpon>
     </Compile>
-    <Compile Include="ImageViewer\LineElement.cs" />
-    <Compile Include="ImageViewer\RectangleElement.cs" />
-    <Compile Include="ImageViewer\StringElement.cs" />
+    <Compile Include="ImageViewer\elements\LineElement.cs" />
+    <Compile Include="ImageViewer\elements\RectangleElement.cs" />
+    <Compile Include="ImageViewer\elements\StringElement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ImageViewer\RoiRectangleElement.cs" />
+    <Compile Include="ImageViewer\elements\RoiRectangleElement.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

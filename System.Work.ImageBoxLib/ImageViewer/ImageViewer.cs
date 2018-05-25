@@ -15,7 +15,8 @@ namespace System.Work.ImageBoxLib
     public partial class ImageViewer : UserControl
     {
         #region 变量
-        private List<BlobElement> _blobElement = null;
+        private List<DotMatrixElement> _dotElements = null;
+        private List<BlobElement> _blobElements = null;
         private List<Element> _elements = null;
         private List<Element> _roiElements = null;
         private bool _isLeftMouseDown = false;
@@ -110,7 +111,8 @@ namespace System.Work.ImageBoxLib
             InitializeComponent();
             _elements = new List<Element>();
             _roiElements = new List<Element>();
-            _blobElement = new List<BlobElement>();
+            _blobElements = new List<BlobElement>();
+            _dotElements = new List<DotMatrixElement>();
             imageBox.BeginUpdate();
             AllowZoom = true;
             this.PositionDragHandles();
@@ -324,7 +326,7 @@ namespace System.Work.ImageBoxLib
         {
             if (e is BlobElement)
             {
-                _blobElement.Add(e as BlobElement);
+                _blobElements.Add(e as BlobElement);
             }
         }
 
@@ -332,13 +334,38 @@ namespace System.Work.ImageBoxLib
         {
             if (e is BlobElement)
             {
-                _blobElement.Remove(e as BlobElement);
+                _blobElements.Remove(e as BlobElement);
             }
         }
 
         public void ClearBlobElement()
         {
-            _blobElement.Clear();
+            _blobElements.Clear();
+        }
+        #endregion
+
+
+        #region 添加删除Blob
+
+        public void AddDotMatrixElement(Element e)
+        {
+            if (e is DotMatrixElement)
+            {
+                _dotElements.Add(e as DotMatrixElement);
+            }
+        }
+
+        public void RemoveDotMatrixElement(Element e)
+        {
+            if (e is DotMatrixElement)
+            {
+                _dotElements.Remove(e as DotMatrixElement);
+            }
+        }
+
+        public void ClearDotMatrixElement()
+        {
+            _dotElements.Clear();
         }
         #endregion
 
@@ -743,7 +770,7 @@ namespace System.Work.ImageBoxLib
             if (!imageBox.AllowPainting)
                 return;
 
-            foreach (var element in _blobElement)
+            foreach (var element in _blobElements)
             {
                 var points = element.GetPoints();
                 if (points == null)
@@ -755,6 +782,21 @@ namespace System.Work.ImageBoxLib
                     pts[i] = imageBox.GetOffsetPoint(points[i]);
                 }
                 element.DrawElement(e.Graphics, pts);
+                Array.Clear(pts, 0, len);
+            }
+
+            foreach (var element in _dotElements)
+            {
+                var points = element.GetPoints();
+                if (points == null)
+                    continue;
+                int len = points.Length;
+                PointF[] pts = new PointF[len];
+                for (int i = 0; i < len; i++)
+                {
+                    pts[i] = imageBox.GetOffsetPoint(points[i]);
+                }
+                element.DrawElement(e.Graphics, imageBox.ZoomFactor, pts);
                 Array.Clear(pts, 0, len);
             }
 
@@ -772,6 +814,7 @@ namespace System.Work.ImageBoxLib
                     element.DrawElement(e.Graphics, imageBox.ZoomFactor, imageBox.GetOffsetRectangle(element.Region));
                 }
             }
+
             if (this.CurRoi != null && !this.CurRoi.Region.IsEmpty)
             {
                 foreach (DragHandle handle in this.CurRoi.DragHandleCollection)

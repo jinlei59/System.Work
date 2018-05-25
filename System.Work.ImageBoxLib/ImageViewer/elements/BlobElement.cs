@@ -11,10 +11,10 @@ namespace System.Work.ImageBoxLib
     {
         private Color _color = Color.Black;
         private PointF[] _points = null;
-        public BlobElement(Color b, PointF[] points)
+        public BlobElement(Color c, PointF[] points)
         {
             Type = ElementType.Blob;
-            _color = b;
+            _color = c;
             _points = points;
         }
 

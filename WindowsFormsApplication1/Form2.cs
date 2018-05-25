@@ -107,5 +107,24 @@ namespace WindowsFormsApplication1
                 new PointF(20,10)
             }));
         }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            imageViewer1.AddDotMatrixElement(new DotMatrixElement(Color.Red, new PointF[]
+            {
+                new PointF(10,20),
+                new PointF(60,60),
+                new PointF(10,240),
+                new PointF(100,340),
+                new PointF(30,460),
+                new PointF(500,500),
+                new PointF(600,460),
+                new PointF(700,380),
+                new PointF(600,300),
+                new PointF(500,200),
+                new PointF(800,100),
+                new PointF(20,10)
+            },50));
+        }
     }
 }
