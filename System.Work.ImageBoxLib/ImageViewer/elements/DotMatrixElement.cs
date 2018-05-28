@@ -10,13 +10,12 @@ namespace System.Work.ImageBoxLib
 {
     public class DotMatrixElement : Element
     {
-        private Color _color = Color.Black;
         private PointF[] _points = null;
         private float _size = 1f;
         public DotMatrixElement(Color c, PointF[] points, float size = 1f)
         {
             Type = ElementType.DotMatrix;
-            _color = c;
+            ForeColor = c;
             _points = points;
             _size = size;
         }
@@ -30,7 +29,7 @@ namespace System.Work.ImageBoxLib
         {
             if (_points != null)
             {
-                using (Pen p = new Pen(_color, 1f))
+                using (Pen p = new Pen(ForeColor, 1f))
                 {
                     GraphicsPath path = new GraphicsPath();
                     foreach (var pt in points)
