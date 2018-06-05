@@ -19,6 +19,7 @@ namespace System.Work.ImageBoxLib
         private List<BlobElement> _blobElements = null;
         private List<Element> _elements = null;
         private List<Element> _roiElements = null;
+        private List<Element> _otherElements = null;
         private bool _isLeftMouseDown = false;
         private DragHandleAnchor _leftMouseDownAnchor = DragHandleAnchor.None;
         private Point _lastMousePoint = Point.Empty;
@@ -113,6 +114,7 @@ namespace System.Work.ImageBoxLib
             _roiElements = new List<Element>();
             _blobElements = new List<BlobElement>();
             _dotElements = new List<DotMatrixElement>();
+            _otherElements = new List<Element>();
             imageBox.BeginUpdate();
             AllowZoom = true;
             this.PositionDragHandles();
@@ -209,17 +211,19 @@ namespace System.Work.ImageBoxLib
 
         #region 公共方法
 
+        #region 过时的 Obsolete
         #region 显示所有内容
-
+        [Obsolete]
         public void BeginDisplay()
         {
             imageBox.BeginUpdate();
         }
+        [Obsolete]
         public void EndDisplay()
         {
             imageBox.EndUpdate();
         }
-
+        [Obsolete]
         public void Display()
         {
             imageBox.Invalidate();
@@ -228,7 +232,7 @@ namespace System.Work.ImageBoxLib
         #endregion
 
         #region 显示图像
-
+        [Obsolete]
         public void DisplayImage(Bitmap image, bool immediatelyDraw = false)
         {
             Image = image;
@@ -239,10 +243,12 @@ namespace System.Work.ImageBoxLib
         #endregion
 
         #region 添加&删除字符串
+        [Obsolete]
         public void AddString(string s, Font font, Brush brush, float x, float y)
         {
             _elements.Add(new StringElement(s, font, brush, x, y));
         }
+        [Obsolete]
         public void ClearString()
         {
             _elements.RemoveAll(x => x.Type == ElementType.String);
@@ -250,10 +256,12 @@ namespace System.Work.ImageBoxLib
         #endregion
 
         #region 添加&删除直线
+        [Obsolete]
         public void AddLine(Pen pen, float x1, float y1, float x2, float y2)
         {
             _elements.Add(new LineElement(pen, x1, y1, x2, y2));
         }
+        [Obsolete]
         public void ClearLine()
         {
             _elements.RemoveAll(x => x.Type == ElementType.Line);
@@ -261,11 +269,12 @@ namespace System.Work.ImageBoxLib
         #endregion
 
         #region 添加&删除矩形框
+        [Obsolete]
         public void AddRectangle(Pen pen, float x, float y, float width, float height)
         {
             _elements.Add(new RectangleElement(pen, x, y, width, height));
         }
-
+        [Obsolete]
         public void ClearRectangle()
         {
             _elements.RemoveAll(x => x.Type == ElementType.Rectangle);
@@ -273,11 +282,12 @@ namespace System.Work.ImageBoxLib
         #endregion
 
         #region 添加&删除圆
+        [Obsolete]
         public void AddEllipse(Pen pen, float x, float y, float width, float height)
         {
             _elements.Add(new EllipseElement(pen, x, y, width, height));
         }
-
+        [Obsolete]
         public void ClearEllipse()
         {
             _elements.RemoveAll(x => x.Type == ElementType.Ellipse);
@@ -285,26 +295,27 @@ namespace System.Work.ImageBoxLib
         #endregion
 
         #region 添加/删除ROI
-
+        [Obsolete]
         public void AddElement(Element e)
         {
             _elements.Add(e);
         }
-
+        [Obsolete]
         public void AddRoiElement(Element e)
         {
             _roiElements.Add(e);
         }
-
+        [Obsolete]
         public void RemoveRoiElement(Element e)
         {
             _roiElements.Remove(e);
         }
+        [Obsolete]
         public void ClearAllROI()
         {
             _roiElements.Clear();
         }
-
+        [Obsolete]
         public void SelectRoi(Guid uid)
         {
             if (_roiElements == null || _roiElements.Count < 1)
@@ -321,7 +332,7 @@ namespace System.Work.ImageBoxLib
         #endregion
 
         #region 添加删除Blob
-
+        [Obsolete]
         public void AddBlobElement(Element e)
         {
             if (e is BlobElement)
@@ -329,7 +340,7 @@ namespace System.Work.ImageBoxLib
                 _blobElements.Add(e as BlobElement);
             }
         }
-
+        [Obsolete]
         public void RemoveBlobElement(Element e)
         {
             if (e is BlobElement)
@@ -337,16 +348,15 @@ namespace System.Work.ImageBoxLib
                 _blobElements.Remove(e as BlobElement);
             }
         }
-
+        [Obsolete]
         public void ClearBlobElement()
         {
             _blobElements.Clear();
         }
         #endregion
 
-
         #region 添加删除Blob
-
+        [Obsolete]
         public void AddDotMatrixElement(Element e)
         {
             if (e is DotMatrixElement)
@@ -354,7 +364,7 @@ namespace System.Work.ImageBoxLib
                 _dotElements.Add(e as DotMatrixElement);
             }
         }
-
+        [Obsolete]
         public void RemoveDotMatrixElement(Element e)
         {
             if (e is DotMatrixElement)
@@ -362,14 +372,52 @@ namespace System.Work.ImageBoxLib
                 _dotElements.Remove(e as DotMatrixElement);
             }
         }
-
+        [Obsolete]
         public void ClearDotMatrixElement()
         {
             _dotElements.Clear();
         }
         #endregion
+        #endregion
 
-        #region 缩放
+        #region new
+
+        public void NewBeginDisplay()
+        {
+            imageBox.BeginUpdate();
+        }
+
+        public void NewDisplayImage(Bitmap bmp)
+        {
+            imageBox.Image = bmp;
+        }
+
+        public void NewAddRoiElements(List<Element> rois)
+        {
+            _roiElements.AddRange(rois);
+        }
+
+        public void NewClearRoiElements()
+        {
+            _roiElements.Clear();
+        }
+
+        public void NewAddOtherElements(List<Element> others)
+        {
+            _otherElements.AddRange(others);
+        }
+        public void NewClearOtherElements()
+        {
+            _otherElements.Clear();
+        }
+
+        public void NewEndDisplay()
+        {
+            imageBox.EndUpdate();
+        }
+        #endregion
+
+        #region 自适应
 
         public void ZoomToFit()
         {
@@ -770,6 +818,8 @@ namespace System.Work.ImageBoxLib
             if (!imageBox.AllowPainting)
                 return;
 
+            #region old
+            /*
             foreach (var element in _blobElements)
             {
                 var points = element.GetPoints();
@@ -814,7 +864,64 @@ namespace System.Work.ImageBoxLib
                     element.DrawElement(e.Graphics, imageBox.ZoomFactor, imageBox.GetOffsetRectangle(element.Region));
                 }
             }
+            */
+            #endregion
 
+            #region Other Elements
+            foreach (var element in _otherElements)
+            {
+                if (element is BlobElement)
+                {
+                    #region 绘制Blob
+                    var blob = element as BlobElement;
+                    var points = blob.GetPoints();
+                    if (points == null)
+                        continue;
+                    int len = points.Length;
+                    PointF[] pts = new PointF[len];
+                    for (int i = 0; i < len; i++)
+                    {
+                        pts[i] = imageBox.GetOffsetPoint(points[i]);
+                    }
+                    element.DrawElement(e.Graphics, pts);
+                    Array.Clear(pts, 0, len);
+                    #endregion
+                }
+                else if (element is DotMatrixElement)
+                {
+                    #region 绘制点阵轮廓
+                    var dot = element as DotMatrixElement;
+                    var points = dot.GetPoints();
+                    if (points == null)
+                        continue;
+                    int len = points.Length;
+                    PointF[] pts = new PointF[len];
+                    for (int i = 0; i < len; i++)
+                    {
+                        pts[i] = imageBox.GetOffsetPoint(points[i]);
+                    }
+                    element.DrawElement(e.Graphics, imageBox.ZoomFactor, pts);
+                    Array.Clear(pts, 0, len);
+                    #endregion
+                }
+                else if (element is LineElement)
+                {
+                    #region 绘制直线
+                    var p1 = imageBox.GetOffsetPoint(element.Region.X, element.Region.Y);
+                    var p2 = imageBox.GetOffsetPoint(element.Region.Width, element.Region.Height);
+                    element.DrawElement(e.Graphics, imageBox.ZoomFactor, p1.X, p1.Y, p2.X, p2.Y);
+                    #endregion
+                }
+                else
+                {
+                    #region 绘制其他
+                    element.DrawElement(e.Graphics, imageBox.ZoomFactor, imageBox.GetOffsetRectangle(element.Region));
+                    #endregion
+                }
+            }
+            #endregion
+
+            #region Roi Elements
             if (this.CurRoi != null && !this.CurRoi.Region.IsEmpty)
             {
                 foreach (DragHandle handle in this.CurRoi.DragHandleCollection)
@@ -828,7 +935,8 @@ namespace System.Work.ImageBoxLib
             foreach (var element in _roiElements)
             {
                 element.DrawElement(e.Graphics, imageBox.ZoomFactor, imageBox.GetOffsetRectangle(element.Region));
-            }
+            } 
+            #endregion
 
             this.OnPaint(e);
         }
