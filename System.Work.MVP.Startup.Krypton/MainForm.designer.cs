@@ -55,7 +55,6 @@
             this.Controls.Add(this.kryptonNavigator1);
             this.Name = "MainForm";
             this.Text = "AOI通用软件";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)(this.kryptonNavigator1)).EndInit();
             this.kryptonNavigator1.ResumeLayout(false);
             this.ResumeLayout(false);

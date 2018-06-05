@@ -10,10 +10,11 @@ namespace System.Work.MVP.Startup.Krypton
 {
     public class MainFormPresenter : Presenter<IMainForm>
     {
-        IMainService _service=null;
-        public MainFormPresenter(IMainForm view,IMainService service) : base(view)
+        IMainFormService _service = null;
+        public MainFormPresenter(IMainForm view, IMainFormService service) : base(view)
         {
             _service = service;
+            _service.MainForm = View.NativeForm;
             View.Load += View_Load;
         }
 

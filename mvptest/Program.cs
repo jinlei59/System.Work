@@ -21,7 +21,7 @@ namespace mvptest
             #region 通用服务注入
            var  _currentContainer = new UnityContainer();
 
-            _currentContainer.RegisterInstance<IMainService>(new MainService());
+            _currentContainer.RegisterInstance<IMainFormService>(new MainFormService());
 
             #endregion
             PresenterBinder.Factory = new UnityPresenterFactory(_currentContainer);

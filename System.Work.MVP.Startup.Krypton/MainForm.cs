@@ -32,6 +32,11 @@ namespace System.Work.MVP.Startup.Krypton
             }
         }
 
+        public Form NativeForm
+        {
+            get { return this; }
+        }
+
         public MainForm()
         {
             InitializeComponent();

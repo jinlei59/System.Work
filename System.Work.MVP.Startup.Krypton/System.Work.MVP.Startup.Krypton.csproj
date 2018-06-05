@@ -63,7 +63,7 @@
   <ItemGroup>
     <Compile Include="FontFactory.cs" />
     <Compile Include="IMainForm.cs" />
-    <Compile Include="IMainService.cs" />
+    <Compile Include="IMainFormService.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -72,7 +72,7 @@
     </Compile>
     <Compile Include="MainFormPresenter.cs" />
     <Compile Include="MainFormVM.cs" />
-    <Compile Include="MainService.cs" />
+    <Compile Include="MainFormService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
