@@ -3888,44 +3888,51 @@ namespace System.Work.ImageBoxLib
         /// </param>
         protected override void OnPaint(PaintEventArgs e)
         {
-            if (this.AllowPainting)
+            try
             {
-                //// draw the background
-                //this.DrawBackground(e);
-
-                //// draw the image
-                //if (!this.ViewSize.IsEmpty)
-                //{
-                //    this.DrawImageBorder(e.Graphics);
-                //}
-                //if (this.VirtualMode)
-                //{
-                //    this.OnVirtualDraw(e);
-                //}
-                if (this.Image != null)
+                if (this.AllowPainting)
                 {
-                    this.DrawImage(e.Graphics);
+                    //// draw the background
+                    //this.DrawBackground(e);
+
+                    //// draw the image
+                    //if (!this.ViewSize.IsEmpty)
+                    //{
+                    //    this.DrawImageBorder(e.Graphics);
+                    //}
+                    //if (this.VirtualMode)
+                    //{
+                    //    this.OnVirtualDraw(e);
+                    //}
+                    if (this.Image != null)
+                    {
+                        this.DrawImage(e.Graphics);
+                    }
+
+                    //// draw the grid
+                    //if (this.ShowPixelGrid && !this.VirtualMode)
+                    //{
+                    //    this.DrawPixelGrid(e.Graphics);
+                    //}
+
+                    // draw the selection
+                    if (this.SelectionRegion != Rectangle.Empty)
+                    {
+                        this.DrawSelection(e);
+                    }
+
+                    // text
+                    if (!string.IsNullOrEmpty(this.Text) && this.TextDisplayMode != ImageBoxGridDisplayMode.None)
+                    {
+                        this.DrawText(e);
+                    }
+
+                    base.OnPaint(e);
                 }
-
-                //// draw the grid
-                //if (this.ShowPixelGrid && !this.VirtualMode)
-                //{
-                //    this.DrawPixelGrid(e.Graphics);
-                //}
-
-                // draw the selection
-                if (this.SelectionRegion != Rectangle.Empty)
-                {
-                    this.DrawSelection(e);
-                }
-
-                // text
-                if (!string.IsNullOrEmpty(this.Text) && this.TextDisplayMode != ImageBoxGridDisplayMode.None)
-                {
-                    this.DrawText(e);
-                }
-
-                base.OnPaint(e);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
         }
 

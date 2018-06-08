@@ -98,6 +98,14 @@ namespace System.Work.ImageBoxLib
         {
             get { return imageBox.AllowPainting; }
         }
+
+        public float ZoomScale
+        {
+            get
+            {
+                return imageBox.ZoomFactor;
+            }
+        }
         #endregion
 
         #region 事件
@@ -414,6 +422,29 @@ namespace System.Work.ImageBoxLib
         public void NewEndDisplay()
         {
             imageBox.EndUpdate();
+        }
+
+        public void SetRoiSelected(Element e)
+        {
+            if (e == null)
+                _roiElements.ForEach(x => x.Selected = false);
+            else
+            {
+                if (!e.Selected)
+                {
+                    _roiElements.ForEach(x => x.Selected = false);
+                    e.Selected = true;
+                }
+            }
+            PositionDragHandles();
+        }
+
+        public void SetRoiSelected(Guid uid)
+        {
+            var element = _roiElements.FirstOrDefault(x => x.ParentUid.Equals(uid));
+            if (element == null || element.Selected)
+                return;
+            SetRoiSelected(element);
         }
         #endregion
 
@@ -815,66 +846,16 @@ namespace System.Work.ImageBoxLib
 
         private void imageBox_Paint(object sender, PaintEventArgs e)
         {
-            if (!imageBox.AllowPainting)
-                return;
-
-            #region old
-            /*
-            foreach (var element in _blobElements)
+            try
             {
-                var points = element.GetPoints();
-                if (points == null)
-                    continue;
-                int len = points.Length;
-                PointF[] pts = new PointF[len];
-                for (int i = 0; i < len; i++)
-                {
-                    pts[i] = imageBox.GetOffsetPoint(points[i]);
-                }
-                element.DrawElement(e.Graphics, pts);
-                Array.Clear(pts, 0, len);
-            }
+                if (!imageBox.AllowPainting)
+                    return;
 
-            foreach (var element in _dotElements)
-            {
-                var points = element.GetPoints();
-                if (points == null)
-                    continue;
-                int len = points.Length;
-                PointF[] pts = new PointF[len];
-                for (int i = 0; i < len; i++)
+                #region old
+                /*
+                foreach (var element in _blobElements)
                 {
-                    pts[i] = imageBox.GetOffsetPoint(points[i]);
-                }
-                element.DrawElement(e.Graphics, imageBox.ZoomFactor, pts);
-                Array.Clear(pts, 0, len);
-            }
-
-            foreach (var element in _elements)
-            {
-                //element.DrawElement(e.Graphics, imageBox.ZoomFactor, imageBox.GetOffsetRectangle(element.Region));
-                if (element.Type == ElementType.Line)
-                {
-                    var p1 = imageBox.GetOffsetPoint(element.Region.X, element.Region.Y);
-                    var p2 = imageBox.GetOffsetPoint(element.Region.Width, element.Region.Height);
-                    element.DrawElement(e.Graphics, imageBox.ZoomFactor, p1.X, p1.Y, p2.X, p2.Y);
-                }
-                else
-                {
-                    element.DrawElement(e.Graphics, imageBox.ZoomFactor, imageBox.GetOffsetRectangle(element.Region));
-                }
-            }
-            */
-            #endregion
-
-            #region Other Elements
-            foreach (var element in _otherElements)
-            {
-                if (element is BlobElement)
-                {
-                    #region 绘制Blob
-                    var blob = element as BlobElement;
-                    var points = blob.GetPoints();
+                    var points = element.GetPoints();
                     if (points == null)
                         continue;
                     int len = points.Length;
@@ -885,13 +866,11 @@ namespace System.Work.ImageBoxLib
                     }
                     element.DrawElement(e.Graphics, pts);
                     Array.Clear(pts, 0, len);
-                    #endregion
                 }
-                else if (element is DotMatrixElement)
+
+                foreach (var element in _dotElements)
                 {
-                    #region 绘制点阵轮廓
-                    var dot = element as DotMatrixElement;
-                    var points = dot.GetPoints();
+                    var points = element.GetPoints();
                     if (points == null)
                         continue;
                     int len = points.Length;
@@ -902,43 +881,103 @@ namespace System.Work.ImageBoxLib
                     }
                     element.DrawElement(e.Graphics, imageBox.ZoomFactor, pts);
                     Array.Clear(pts, 0, len);
-                    #endregion
                 }
-                else if (element is LineElement)
-                {
-                    #region 绘制直线
-                    var p1 = imageBox.GetOffsetPoint(element.Region.X, element.Region.Y);
-                    var p2 = imageBox.GetOffsetPoint(element.Region.Width, element.Region.Height);
-                    element.DrawElement(e.Graphics, imageBox.ZoomFactor, p1.X, p1.Y, p2.X, p2.Y);
-                    #endregion
-                }
-                else
-                {
-                    #region 绘制其他
-                    element.DrawElement(e.Graphics, imageBox.ZoomFactor, imageBox.GetOffsetRectangle(element.Region));
-                    #endregion
-                }
-            }
-            #endregion
 
-            #region Roi Elements
-            if (this.CurRoi != null && !this.CurRoi.Region.IsEmpty)
-            {
-                foreach (DragHandle handle in this.CurRoi.DragHandleCollection)
+                foreach (var element in _elements)
                 {
-                    if (handle.Visible)
+                    //element.DrawElement(e.Graphics, imageBox.ZoomFactor, imageBox.GetOffsetRectangle(element.Region));
+                    if (element.Type == ElementType.Line)
                     {
-                        this.DrawDragHandle(e.Graphics, handle);
+                        var p1 = imageBox.GetOffsetPoint(element.Region.X, element.Region.Y);
+                        var p2 = imageBox.GetOffsetPoint(element.Region.Width, element.Region.Height);
+                        element.DrawElement(e.Graphics, imageBox.ZoomFactor, p1.X, p1.Y, p2.X, p2.Y);
+                    }
+                    else
+                    {
+                        element.DrawElement(e.Graphics, imageBox.ZoomFactor, imageBox.GetOffsetRectangle(element.Region));
                     }
                 }
-            }
-            foreach (var element in _roiElements)
-            {
-                element.DrawElement(e.Graphics, imageBox.ZoomFactor, imageBox.GetOffsetRectangle(element.Region));
-            } 
-            #endregion
+                */
+                #endregion
 
-            this.OnPaint(e);
+                #region Other Elements
+                foreach (var element in _otherElements)
+                {
+                    if (element is BlobElement)
+                    {
+                        #region 绘制Blob
+                        var blob = element as BlobElement;
+                        var points = blob.GetPoints();
+                        if (points == null)
+                            continue;
+                        int len = points.Length;
+                        PointF[] pts = new PointF[len];
+                        for (int i = 0; i < len; i++)
+                        {
+                            pts[i] = imageBox.GetOffsetPoint(points[i]);
+                        }
+                        element.DrawElement(e.Graphics, pts);
+                        Array.Clear(pts, 0, len);
+                        #endregion
+                    }
+                    else if (element is DotMatrixElement)
+                    {
+                        #region 绘制点阵轮廓
+                        var dot = element as DotMatrixElement;
+                        var points = dot.GetPoints();
+                        if (points == null)
+                            continue;
+                        int len = points.Length;
+                        PointF[] pts = new PointF[len];
+                        for (int i = 0; i < len; i++)
+                        {
+                            pts[i] = imageBox.GetOffsetPoint(points[i]);
+                        }
+                        element.DrawElement(e.Graphics, imageBox.ZoomFactor, pts);
+                        Array.Clear(pts, 0, len);
+                        #endregion
+                    }
+                    else if (element is LineElement)
+                    {
+                        #region 绘制直线
+                        var p1 = imageBox.GetOffsetPoint(element.Region.X, element.Region.Y);
+                        var p2 = imageBox.GetOffsetPoint(element.Region.Width, element.Region.Height);
+                        element.DrawElement(e.Graphics, imageBox.ZoomFactor, p1.X, p1.Y, p2.X, p2.Y);
+                        #endregion
+                    }
+                    else
+                    {
+                        #region 绘制其他
+                        element.DrawElement(e.Graphics, imageBox.ZoomFactor, imageBox.GetOffsetRectangle(element.Region));
+                        #endregion
+                    }
+                }
+                #endregion
+
+                #region Roi Elements
+                var curRoi = this.CurRoi;
+                if (curRoi != null && !curRoi.Region.IsEmpty)
+                {
+                    foreach (DragHandle handle in curRoi.DragHandleCollection)
+                    {
+                        if (handle.Visible)
+                        {
+                            this.DrawDragHandle(e.Graphics, handle);
+                        }
+                    }
+                }
+                foreach (var element in _roiElements)
+                {
+                    element.DrawElement(e.Graphics, imageBox.ZoomFactor, imageBox.GetOffsetRectangle(element.Region));
+                }
+                #endregion
+
+                this.OnPaint(e);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
         #endregion
 
