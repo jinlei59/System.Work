@@ -21,7 +21,7 @@ namespace Syste.Work.Log
         {
             if (_factory == null)
                 throw new Exception("LoggerFactory Invalidate");
-            return _factory.CreateInstance();
+            return _factory.CreateInstance("default");
         }
 
         public static ILogger CreateInstance(string appsettingString)

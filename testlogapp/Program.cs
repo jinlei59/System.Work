@@ -14,15 +14,15 @@ namespace testlogapp
             LoggerFactory.SetLoggerFactory(new NLogFactory());
 
             LoggerFactory.CreateInstance("records").Debug("test debug");
-            LoggerFactory.CreateInstance("records").LogInfo("test info");
-            LoggerFactory.CreateInstance("records").LogWarning("test warning");
-            LoggerFactory.CreateInstance("records").LogError("test error");
+            LoggerFactory.CreateInstance("records").Info("test info");
+            LoggerFactory.CreateInstance("records").Warning("test warning");
+            LoggerFactory.CreateInstance("records").Error("test error");
             LoggerFactory.CreateInstance("records").Fatal("test Fatal");
 
             LoggerFactory.CreateInstance().Debug("test debug");
-            LoggerFactory.CreateInstance().LogInfo("test info");
-            LoggerFactory.CreateInstance().LogWarning("test warning");
-            LoggerFactory.CreateInstance().LogError("test error");
+            LoggerFactory.CreateInstance().Info("test info");
+            LoggerFactory.CreateInstance().Warning("test warning");
+            LoggerFactory.CreateInstance().Error("test error");
             LoggerFactory.CreateInstance().Fatal("test Fatal");
         }
     }

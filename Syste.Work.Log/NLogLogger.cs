@@ -59,7 +59,7 @@ namespace Syste.Work.Log
         #endregion
 
         #region LogInfo
-        public void LogInfo(string message, params object[] args)
+        public void Info(string message, params object[] args)
         {
             if (!String.IsNullOrWhiteSpace(message))
             {
@@ -70,7 +70,7 @@ namespace Syste.Work.Log
         #endregion
 
         #region LogWarning
-        public void LogWarning(string message, params object[] args)
+        public void Warning(string message, params object[] args)
         {
             if (!String.IsNullOrWhiteSpace(message))
             {
@@ -81,7 +81,7 @@ namespace Syste.Work.Log
         #endregion
 
         #region LogError
-        public void LogError(string message, params object[] args)
+        public void Error(string message, params object[] args)
         {
             if (!String.IsNullOrWhiteSpace(message))
             {
@@ -90,7 +90,7 @@ namespace Syste.Work.Log
             }
         }
 
-        public void LogError(string message, Exception exception, params object[] args)
+        public void Error(string message, Exception exception, params object[] args)
         {
             if (!String.IsNullOrWhiteSpace(message)
                 &&

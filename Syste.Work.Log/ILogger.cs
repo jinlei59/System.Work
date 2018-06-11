@@ -57,21 +57,21 @@ namespace Syste.Work.Log
         /// </summary>
         /// <param name="message">The information message to write</param>
         /// <param name="args">The arguments values</param>
-        void LogInfo(string message, params object[] args);
+        void Info(string message, params object[] args);
 
         /// <summary>
         /// Log warning message
         /// </summary>
         /// <param name="message">The warning message to write</param>
         /// <param name="args">The argument values</param>
-        void LogWarning(string message, params object[] args);
+        void Warning(string message, params object[] args);
 
         /// <summary>
         /// Log error message
         /// </summary>
         /// <param name="message">The error message to write</param>
         /// <param name="args">The arguments values</param>
-        void LogError(string message, params object[] args);
+        void Error(string message, params object[] args);
 
         /// <summary>
         /// Log error message
@@ -79,6 +79,6 @@ namespace Syste.Work.Log
         /// <param name="message">The error message to write</param>
         /// <param name="exception">The exception associated with this error</param>
         /// <param name="args">The arguments values</param>
-        void LogError(string message, Exception exception, params object[] args);
+        void Error(string message, Exception exception, params object[] args);
     }
 }
