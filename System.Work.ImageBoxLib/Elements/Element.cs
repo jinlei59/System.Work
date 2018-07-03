@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace System.Work.ImageBoxLib
 {
@@ -25,8 +26,10 @@ namespace System.Work.ImageBoxLib
 
         internal DragHandleCollection DragHandleCollection { get; set; }
         internal int DragHandleSize { get; private set; } = 8;
+        internal int MinimumRoiSize { get; set; } = 1;
         #endregion
 
+        #region 构造函数
         public Element()
         {
             Enable = true;
@@ -35,7 +38,9 @@ namespace System.Work.ImageBoxLib
             ForeColor = Color.Red;
             BorderWidth = 1f;
         }
+        #endregion
 
+        #region 自定义方法
         public virtual bool Contains(float x, float y)
         {
             return false;
@@ -46,7 +51,7 @@ namespace System.Work.ImageBoxLib
         }
         public virtual DragHandleAnchor HitTest(Point point)
         {
-            return DragHandleAnchor.None;
+            return DragHandleCollection.HitTest(point);
         }
         internal virtual void Draw(Graphics g, ImageBox box)
         {
@@ -90,6 +95,70 @@ namespace System.Work.ImageBoxLib
             graphics.DrawLine(outerPen, left + 1, top + height - 1, left + width - 2, top + height - 1);
             graphics.DrawLine(outerPen, left + width - 1, top + 1, left + width - 1, top + height - 2);
         }
+        #endregion
+
+        #region 鼠标操作
+
+        protected virtual DragHandleAnchor SetCursor(Point point, ImageBox box)
+        {
+            Cursor cursor;
+            DragHandleAnchor handleAnchor;
+            if (!Selected)
+            {
+                cursor = Cursors.Default;
+                handleAnchor = DragHandleAnchor.None;
+            }
+            else
+            {
+                handleAnchor = HitTest(point);
+                if (handleAnchor != DragHandleAnchor.None && DragHandleCollection[handleAnchor].Enabled)
+                {
+                    switch (handleAnchor)
+                    {
+                        case DragHandleAnchor.TopLeft:
+                        case DragHandleAnchor.BottomRight:
+                            cursor = Cursors.SizeNWSE;
+                            break;
+                        case DragHandleAnchor.TopCenter:
+                        case DragHandleAnchor.BottomCenter:
+                            cursor = Cursors.SizeNS;
+                            break;
+                        case DragHandleAnchor.TopRight:
+                        case DragHandleAnchor.BottomLeft:
+                            cursor = Cursors.SizeNESW;
+                            break;
+                        case DragHandleAnchor.MiddleLeft:
+                        case DragHandleAnchor.MiddleRight:
+                            cursor = Cursors.SizeWE;
+                            break;
+                        case DragHandleAnchor.MiddleCenter:
+                            cursor = Cursors.SizeAll;
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                }
+                else
+                {
+                    cursor = Cursors.Default;
+                }
+            }
+
+            box.Cursor = cursor;
+            return handleAnchor;
+        }
+
+        internal virtual void MouseDown(MouseEventArgs e, ImageBox box)
+        {
+        }
+
+        internal virtual void MouseMove(MouseEventArgs e, ImageBox box)
+        { }
+
+        internal virtual void MouseUp(MouseEventArgs e, ImageBox box)
+        { }
+
+        #endregion
     }
 
     public enum ElementType

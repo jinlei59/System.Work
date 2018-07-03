@@ -17,6 +17,8 @@ namespace System.Work.ImageBoxLib.ImageViewerCore
 
         private List<Element> _roiElements = null;
         private List<Element> _otherElements = null;
+        private bool _isLeftMouseDown = false;
+        private Element _selectRoi = null;
 
         #endregion
 
@@ -94,17 +96,66 @@ namespace System.Work.ImageBoxLib.ImageViewerCore
         #region 界面事件
         private void imageBox1_MouseDown(object sender, MouseEventArgs e)
         {
+            if (e.Button == MouseButtons.Left)
+            {//选中ROI
+                _isLeftMouseDown = true;
+                var imagePt = imageBox1.PointToImage(e.Location);
+                if (imageBox1.Cursor == Cursors.Default)
+                {
+                    _selectRoi = _roiElements.Where(x => x.Visible && x.Enable && x.Contains(imagePt.X, imagePt.Y) || x.HitTest(e.Location) != DragHandleAnchor.None).OrderBy(x => x.AreaValue()).FirstOrDefault();
+                    _roiElements.ForEach(x => x.Selected = false);
+                }
+                if (_selectRoi != null)
+                {
+                    _selectRoi.Selected = true;
+                    _selectRoi.MouseDown(e, imageBox1);
+                }
+                else
+                    imageBox1.Invalidate();
+            }
+            else if (e.Button == MouseButtons.Right)
+            {
+            }
 
+            this.OnMouseDown(e);
         }
 
         private void imageBox1_MouseMove(object sender, MouseEventArgs e)
         {
-
+            if (e.Button == MouseButtons.Left)
+            {//操作ROI
+                if (_selectRoi != null)
+                {
+                    _selectRoi.MouseMove(e, imageBox1);
+                }
+            }
+            else if (e.Button == MouseButtons.Right)
+            {
+            }
+            else if (e.Button == MouseButtons.None)
+            {
+                if (_selectRoi != null)
+                {
+                    _selectRoi.MouseMove(e, imageBox1);
+                }
+            }
+            this.OnMouseMove(e);
         }
 
         private void imageBox1_MouseUp(object sender, MouseEventArgs e)
         {
-
+            if (e.Button == MouseButtons.Left)
+            {
+                _isLeftMouseDown = false;
+                if (_selectRoi != null)
+                {
+                    _selectRoi.MouseUp(e, imageBox1);
+                }
+            }
+            else if (e.Button == MouseButtons.Right)
+            {
+            }
+            this.OnMouseUp(e);
         }
 
         private void imageBox1_MouseWheel(object sender, MouseEventArgs e)

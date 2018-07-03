@@ -34,7 +34,7 @@ namespace System.Work.ImageBoxLib
             _items.Add(DragHandleAnchor.TopCenter, new DragHandle(DragHandleAnchor.TopCenter));
             _items.Add(DragHandleAnchor.TopRight, new DragHandle(DragHandleAnchor.TopRight));
             _items.Add(DragHandleAnchor.MiddleLeft, new DragHandle(DragHandleAnchor.MiddleLeft));
-            _items.Add(DragHandleAnchor.MiddleCenter, new DragHandle(DragHandleAnchor.MiddleLeft));
+            _items.Add(DragHandleAnchor.MiddleCenter, new DragHandle(DragHandleAnchor.MiddleCenter));
             _items.Add(DragHandleAnchor.MiddleRight, new DragHandle(DragHandleAnchor.MiddleRight));
             _items.Add(DragHandleAnchor.BottomLeft, new DragHandle(DragHandleAnchor.BottomLeft));
             _items.Add(DragHandleAnchor.BottomCenter, new DragHandle(DragHandleAnchor.BottomCenter));
