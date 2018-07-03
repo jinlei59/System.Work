@@ -432,470 +432,455 @@ namespace System.Work.ImageBoxLib
             }
         }
 
-    public void SetRoiSelected(Guid uid)
-    {
-        var element = _roiElements.FirstOrDefault(x => x.ParentUid.Equals(uid));
-        SetRoiSelected(element);
-    }
-    #endregion
+        public void SetRoiSelected(Guid uid)
+        {
+            var element = _roiElements.FirstOrDefault(x => x.ParentUid.Equals(uid));
+            SetRoiSelected(element);
+        }
+        #endregion
 
-    #region 自适应
+        #region 自适应
 
-    public void ZoomToFit()
-    {
-        this.imageBox.ZoomToFit();
-    }
+        public void ZoomToFit()
+        {
+            this.imageBox.ZoomToFit();
+        }
 
-    #endregion
+        #endregion
 
-    #region 获取图像中的位置
+        #region 获取图像中的位置
 
-    public PointF GetOffsetPoint(PointF pt)
-    {
-        return imageBox.GetOffsetPoint(pt);
-    }
+        public PointF GetOffsetPoint(PointF pt)
+        {
+            return imageBox.GetOffsetPoint(pt);
+        }
 
-    public Point PointToImage(float x, float y)
-    {
-        return imageBox.PointToImage(x, y, false);
-    }
+        public Point PointToImage(float x, float y)
+        {
+            return imageBox.PointToImage(x, y, false);
+        }
 
-    public RectangleF GetOffsetRectangle(RectangleF source)
-    {
-        RectangleF viewport;
-        RectangleF scaled;
-        float offsetX;
-        float offsetY;
+        public RectangleF GetOffsetRectangle(RectangleF source)
+        {
+            RectangleF viewport;
+            RectangleF scaled;
+            float offsetX;
+            float offsetY;
 
-        viewport = imageBox.GetImageViewPort();
-        scaled = imageBox.GetScaledRectangle(source);
-        offsetX = viewport.Left + this.Padding.Left + this.AutoScrollPosition.X;
-        offsetY = viewport.Top + this.Padding.Top + this.AutoScrollPosition.Y;
+            viewport = imageBox.GetImageViewPort();
+            scaled = imageBox.GetScaledRectangle(source);
+            offsetX = viewport.Left + this.Padding.Left + this.AutoScrollPosition.X;
+            offsetY = viewport.Top + this.Padding.Top + this.AutoScrollPosition.Y;
 
-        return new RectangleF(new PointF(scaled.Left + offsetX, scaled.Top + offsetY), scaled.Size);
-    }
+            return new RectangleF(new PointF(scaled.Left + offsetX, scaled.Top + offsetY), scaled.Size);
+        }
 
-    public virtual Rectangle GetImageViewPort()
-    {
-        return imageBox.GetImageViewPort();
-    }
-    #endregion
+        public virtual Rectangle GetImageViewPort()
+        {
+            return imageBox.GetImageViewPort();
+        }
+        #endregion
 
-    #endregion
-    #region protected &private
+        #endregion
+        #region protected &private
 
-    protected virtual void PositionDragHandles()
-    {
-        Element e = this.CurRoi;
-        if (e != null && e.Selected && !e.Region.IsEmpty)
+        protected virtual void PositionDragHandles()
+        {
+            Element e = this.CurRoi;
+            if (e != null && e.Selected && !e.Region.IsEmpty)
+            {
+                int left;
+                int top;
+                int right;
+                int bottom;
+                int halfWidth;
+                int halfHeight;
+                int halfDragHandleSize;
+                Rectangle viewport;
+                int offsetX;
+                int offsetY;
+
+                viewport = this.imageBox.GetImageViewPort();
+                offsetX = viewport.Left + this.imageBox.Padding.Left + this.imageBox.AutoScrollPosition.X;
+                offsetY = viewport.Top + this.imageBox.Padding.Top + this.imageBox.AutoScrollPosition.Y;
+                halfDragHandleSize = DragHandleSize / 2;                
+                halfWidth = Convert.ToInt32(e.Region.Width * this.imageBox.ZoomFactor) / 2;
+                halfHeight = Convert.ToInt32(e.Region.Height * this.imageBox.ZoomFactor) / 2;
+
+                if (e.Type == ElementType.Line)
+                {
+                    var line = e as RoiLineElement;
+
+                    left = Convert.ToInt32((e.Region.Left * this.imageBox.ZoomFactor) + offsetX);
+                    top = Convert.ToInt32((e.Region.Top * this.imageBox.ZoomFactor) + offsetY);
+                    right = left + Convert.ToInt32(e.Region.Width * this.imageBox.ZoomFactor);
+                    bottom = top + Convert.ToInt32(e.Region.Height * this.imageBox.ZoomFactor);
+
+                    e.DragHandleCollection[DragHandleAnchor.TopLeft].Bounds = new Rectangle(left - this.DragHandleSize, top - this.DragHandleSize, this.DragHandleSize, this.DragHandleSize);
+                    e.DragHandleCollection[DragHandleAnchor.BottomRight].Bounds = new Rectangle(right, bottom, this.DragHandleSize, this.DragHandleSize);
+
+                    e.DragHandleCollection[DragHandleAnchor.TopCenter].Enabled = false;
+                    e.DragHandleCollection[DragHandleAnchor.TopCenter].Visible = false;
+
+                    e.DragHandleCollection[DragHandleAnchor.TopRight].Enabled = false;
+                    e.DragHandleCollection[DragHandleAnchor.TopRight].Visible = false;
+
+                    e.DragHandleCollection[DragHandleAnchor.MiddleLeft].Enabled = false;
+                    e.DragHandleCollection[DragHandleAnchor.MiddleLeft].Visible = false;
+
+                    e.DragHandleCollection[DragHandleAnchor.MiddleRight].Enabled = false;
+                    e.DragHandleCollection[DragHandleAnchor.MiddleRight].Visible = false;
+
+                    e.DragHandleCollection[DragHandleAnchor.BottomLeft].Enabled = false;
+                    e.DragHandleCollection[DragHandleAnchor.BottomLeft].Visible = false;
+
+                    e.DragHandleCollection[DragHandleAnchor.BottomCenter].Enabled = false;
+                    e.DragHandleCollection[DragHandleAnchor.BottomCenter].Visible = false;
+
+                    e.DragHandleCollection[DragHandleAnchor.Rotation].Enabled = false;
+                    e.DragHandleCollection[DragHandleAnchor.Rotation].Visible = false;
+                }
+                else
+                {
+                    left = Convert.ToInt32((e.Region.Left * this.imageBox.ZoomFactor) + offsetX);
+                    top = Convert.ToInt32((e.Region.Top * this.imageBox.ZoomFactor) + offsetY);
+                    right = left + Convert.ToInt32(e.Region.Width * this.imageBox.ZoomFactor);
+                    bottom = top + Convert.ToInt32(e.Region.Height * this.imageBox.ZoomFactor);
+
+                    e.DragHandleCollection[DragHandleAnchor.TopLeft].Bounds = new Rectangle(left - this.DragHandleSize, top - this.DragHandleSize, this.DragHandleSize, this.DragHandleSize);
+                    e.DragHandleCollection[DragHandleAnchor.TopCenter].Bounds = new Rectangle(left + halfWidth - halfDragHandleSize, top - this.DragHandleSize, this.DragHandleSize, this.DragHandleSize);
+                    e.DragHandleCollection[DragHandleAnchor.TopRight].Bounds = new Rectangle(right, top - this.DragHandleSize, this.DragHandleSize, this.DragHandleSize);
+                    e.DragHandleCollection[DragHandleAnchor.MiddleLeft].Bounds = new Rectangle(left - this.DragHandleSize, top + halfHeight - halfDragHandleSize, this.DragHandleSize, this.DragHandleSize);
+                    e.DragHandleCollection[DragHandleAnchor.MiddleRight].Bounds = new Rectangle(right, top + halfHeight - halfDragHandleSize, this.DragHandleSize, this.DragHandleSize);
+                    e.DragHandleCollection[DragHandleAnchor.BottomLeft].Bounds = new Rectangle(left - this.DragHandleSize, bottom, this.DragHandleSize, this.DragHandleSize);
+                    e.DragHandleCollection[DragHandleAnchor.BottomCenter].Bounds = new Rectangle(left + halfWidth - halfDragHandleSize, bottom, this.DragHandleSize, this.DragHandleSize);
+                    e.DragHandleCollection[DragHandleAnchor.BottomRight].Bounds = new Rectangle(right, bottom, this.DragHandleSize, this.DragHandleSize);
+                    if (e.IsRotation)
+                        e.DragHandleCollection[DragHandleAnchor.Rotation].Bounds = new Rectangle(left + halfWidth - halfDragHandleSize, top + halfHeight - halfDragHandleSize, this.DragHandleSize, this.DragHandleSize);
+                    else
+                    {
+                        e.DragHandleCollection[DragHandleAnchor.Rotation].Enabled = false;
+                        e.DragHandleCollection[DragHandleAnchor.Rotation].Visible = false;
+                    }
+                }
+            }
+        }
+
+        protected virtual void DrawDragHandle(Graphics graphics, DragHandle handle)
         {
             int left;
             int top;
-            int right;
-            int bottom;
-            int halfWidth;
-            int halfHeight;
-            int halfDragHandleSize;
-            Rectangle viewport;
-            int offsetX;
-            int offsetY;
+            int width;
+            int height;
+            Pen outerPen;
+            Brush innerBrush;
 
-            viewport = this.imageBox.GetImageViewPort();
-            offsetX = viewport.Left + this.imageBox.Padding.Left + this.imageBox.AutoScrollPosition.X;
-            offsetY = viewport.Top + this.imageBox.Padding.Top + this.imageBox.AutoScrollPosition.Y;
-            halfDragHandleSize = DragHandleSize / 2;
-            left = Convert.ToInt32((e.Region.Left * this.imageBox.ZoomFactor) + offsetX);
-            top = Convert.ToInt32((e.Region.Top * this.imageBox.ZoomFactor) + offsetY);
-            right = left + Convert.ToInt32(e.Region.Width * this.imageBox.ZoomFactor);
-            bottom = top + Convert.ToInt32(e.Region.Height * this.imageBox.ZoomFactor);
-            halfWidth = Convert.ToInt32(e.Region.Width * this.imageBox.ZoomFactor) / 2;
-            halfHeight = Convert.ToInt32(e.Region.Height * this.imageBox.ZoomFactor) / 2;
+            left = handle.Bounds.Left;
+            top = handle.Bounds.Top;
+            width = handle.Bounds.Width;
+            height = handle.Bounds.Height;
 
-            e.DragHandleCollection[DragHandleAnchor.TopLeft].Bounds = new Rectangle(left - this.DragHandleSize, top - this.DragHandleSize, this.DragHandleSize, this.DragHandleSize);
-            e.DragHandleCollection[DragHandleAnchor.TopCenter].Bounds = new Rectangle(left + halfWidth - halfDragHandleSize, top - this.DragHandleSize, this.DragHandleSize, this.DragHandleSize);
-            e.DragHandleCollection[DragHandleAnchor.TopRight].Bounds = new Rectangle(right, top - this.DragHandleSize, this.DragHandleSize, this.DragHandleSize);
-            e.DragHandleCollection[DragHandleAnchor.MiddleLeft].Bounds = new Rectangle(left - this.DragHandleSize, top + halfHeight - halfDragHandleSize, this.DragHandleSize, this.DragHandleSize);
-            e.DragHandleCollection[DragHandleAnchor.MiddleRight].Bounds = new Rectangle(right, top + halfHeight - halfDragHandleSize, this.DragHandleSize, this.DragHandleSize);
-            e.DragHandleCollection[DragHandleAnchor.BottomLeft].Bounds = new Rectangle(left - this.DragHandleSize, bottom, this.DragHandleSize, this.DragHandleSize);
-            e.DragHandleCollection[DragHandleAnchor.BottomCenter].Bounds = new Rectangle(left + halfWidth - halfDragHandleSize, bottom, this.DragHandleSize, this.DragHandleSize);
-            e.DragHandleCollection[DragHandleAnchor.BottomRight].Bounds = new Rectangle(right, bottom, this.DragHandleSize, this.DragHandleSize);
-            if (e.IsRotation)
-                e.DragHandleCollection[DragHandleAnchor.Rotation].Bounds = new Rectangle(left + halfWidth - halfDragHandleSize, top + halfHeight - halfDragHandleSize, this.DragHandleSize, this.DragHandleSize);
-            else
+            if (handle.Enabled)
             {
-                e.DragHandleCollection[DragHandleAnchor.Rotation].Enabled = false;
-                e.DragHandleCollection[DragHandleAnchor.Rotation].Visible = false;
-            }
-        }
-    }
-
-    protected virtual void DrawDragHandle(Graphics graphics, DragHandle handle)
-    {
-        int left;
-        int top;
-        int width;
-        int height;
-        Pen outerPen;
-        Brush innerBrush;
-
-        left = handle.Bounds.Left;
-        top = handle.Bounds.Top;
-        width = handle.Bounds.Width;
-        height = handle.Bounds.Height;
-
-        if (handle.Enabled)
-        {
-            outerPen = new Pen(Color.Orange);
-            innerBrush = Brushes.OrangeRed;
-        }
-        else
-        {
-            outerPen = SystemPens.ControlDark;
-            innerBrush = SystemBrushes.Control;
-        }
-
-        graphics.FillRectangle(innerBrush, left + 1, top + 1, width - 2, height - 2);
-        graphics.DrawLine(outerPen, left + 1, top, left + width - 2, top);
-        graphics.DrawLine(outerPen, left, top + 1, left, top + height - 2);
-        graphics.DrawLine(outerPen, left + 1, top + height - 1, left + width - 2, top + height - 1);
-        graphics.DrawLine(outerPen, left + width - 1, top + 1, left + width - 1, top + height - 2);
-    }
-
-    protected virtual DragHandleAnchor SetCursor(Point point)
-    {
-        Cursor cursor;
-        DragHandleAnchor handleAnchor;
-        if (this.CurRoi == null || !this.CurRoi.Selected || this.CurRoi.Region.IsEmpty)
-        {
-            cursor = Cursors.Default;
-            handleAnchor = DragHandleAnchor.None;
-        }
-        else
-        {
-            handleAnchor = this.CurRoi.HitTest(point);
-            if (handleAnchor != DragHandleAnchor.None && this.CurRoi.DragHandleCollection[handleAnchor].Enabled)
-            {
-                switch (handleAnchor)
-                {
-                    case DragHandleAnchor.TopLeft:
-                    case DragHandleAnchor.BottomRight:
-                        cursor = Cursors.SizeNWSE;
-                        break;
-                    case DragHandleAnchor.TopCenter:
-                    case DragHandleAnchor.BottomCenter:
-                        cursor = Cursors.SizeNS;
-                        break;
-                    case DragHandleAnchor.TopRight:
-                    case DragHandleAnchor.BottomLeft:
-                        cursor = Cursors.SizeNESW;
-                        break;
-                    case DragHandleAnchor.MiddleLeft:
-                    case DragHandleAnchor.MiddleRight:
-                        cursor = Cursors.SizeWE;
-                        break;
-                    case DragHandleAnchor.Rotation:
-                        cursor = CursorGenerator.CreateCursor(Properties.Resources.rotation, this.Cursor.HotSpot);
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-            }
-            else if (this.CurRoi.Region.Contains(this.imageBox.PointToImage(point)))
-            {
-                cursor = Cursors.SizeAll;
-                handleAnchor = DragHandleAnchor.Move;
+                outerPen = new Pen(Color.Orange);
+                innerBrush = Brushes.OrangeRed;
             }
             else
+            {
+                outerPen = SystemPens.ControlDark;
+                innerBrush = SystemBrushes.Control;
+            }
+
+            graphics.FillRectangle(innerBrush, left + 1, top + 1, width - 2, height - 2);
+            graphics.DrawLine(outerPen, left + 1, top, left + width - 2, top);
+            graphics.DrawLine(outerPen, left, top + 1, left, top + height - 2);
+            graphics.DrawLine(outerPen, left + 1, top + height - 1, left + width - 2, top + height - 1);
+            graphics.DrawLine(outerPen, left + width - 1, top + 1, left + width - 1, top + height - 2);
+        }
+
+        protected virtual DragHandleAnchor SetCursor(Point point)
+        {
+            Cursor cursor;
+            DragHandleAnchor handleAnchor;
+            if (this.CurRoi == null || !this.CurRoi.Selected || this.CurRoi.Region.IsEmpty)
             {
                 cursor = Cursors.Default;
+                handleAnchor = DragHandleAnchor.None;
             }
-        }
-
-        this.Cursor = cursor;
-        return handleAnchor;
-    }
-
-    #endregion
-
-    #region 窗体按钮事件
-    private void tsOpen_Click(object sender, EventArgs e)
-    {
-        using (FileDialog dialog = new OpenFileDialog())
-        {
-            dialog.Filter = "All Supported Images (*.bmp;*.dib;*.rle;*.gif;*.jpg;*.png)|*.bmp;*.dib;*.rle;*.gif;*.jpg;*.png|Bitmaps (*.bmp;*.dib;*.rle)|*.bmp;*.dib;*.rle|Graphics Interchange Format (*.gif)|*.gif|Joint Photographic Experts (*.jpg)|*.jpg|Portable Network Graphics (*.png)|*.png|All Files (*.*)|*.*";
-            dialog.DefaultExt = "png";
-
-            if (dialog.ShowDialog(this) == DialogResult.OK)
+            else
             {
-                try
+                handleAnchor = this.CurRoi.HitTest(point);
+                if (handleAnchor != DragHandleAnchor.None && this.CurRoi.DragHandleCollection[handleAnchor].Enabled)
                 {
-                    this.OpenImage(new Bitmap(dialog.FileName));
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
-    }
-
-    private void tsNormal_Click(object sender, EventArgs e)
-    {
-        imageBox.ActualSize();
-        imageBox.CenterToImage();
-        UpdateStatusBar();
-    }
-
-    private void tsZoomIn_Click(object sender, EventArgs e)
-    {
-        imageBox.ZoomIn();
-        UpdateStatusBar();
-    }
-
-    private void tsZoomOut_Click(object sender, EventArgs e)
-    {
-        imageBox.ZoomOut();
-        UpdateStatusBar();
-    }
-
-    private void imageBox_MouseDown(object sender, MouseEventArgs e)
-    {
-        if (e.Button == MouseButtons.Left)
-        {
-            _isLeftMouseDown = true;
-            _leftMouseDownAnchor = SetCursor(e.Location);
-            var imagePt = imageBox.PointToImage(e.Location);
-            var element = _roiElements.Where(x => x.Visible && x.Enable && x.Contains(imagePt.X, imagePt.Y) || x.HitTest(e.Location) != DragHandleAnchor.None).OrderBy(x => x.AreaValue()).FirstOrDefault();
-            _roiElements.ForEach(x => x.Selected = false);
-            if (element != null)
-            {
-                element.Selected = true;
-                _lastMousePoint = e.Location;
-                _lastImagePoint = element.Region.Location;
-                _lastRoiRegion = element.Region;
-                _lastRoiAngle = element.Angle;
-            }
-            imageBox.Invalidate();
-        }
-        else if (e.Button == MouseButtons.Right)
-        {
-            Cursor = CursorGenerator.CreateCursor(Properties.Resources.hand, this.Cursor.HotSpot);
-        }
-
-        this.OnMouseDown(e);
-    }
-    private void imageBox_MouseMove(object sender, MouseEventArgs e)
-    {
-        UpdateCursorPosition(e.Location);
-        UpdateRGB(e.Location);
-        if (e.Button == MouseButtons.Right)
-        {
-            Cursor = CursorGenerator.CreateCursor(Properties.Resources.hand, this.Cursor.HotSpot);
-        }
-        else if (e.Button == MouseButtons.Left)
-        {
-            #region 左键操作
-            if (_isLeftMouseDown && this.CurRoi != null && _leftMouseDownAnchor != DragHandleAnchor.None)
-            {
-                if (_leftMouseDownAnchor == DragHandleAnchor.Move)
-                {
-                    float x = _lastImagePoint.X + (e.Location.X - _lastMousePoint.X) / imageBox.ZoomFactor;
-                    float y = _lastImagePoint.Y + (e.Location.Y - _lastMousePoint.Y) / imageBox.ZoomFactor;
-                    this.CurRoi.Region = new RectangleF(x, y, this.CurRoi.Region.Width, this.CurRoi.Region.Height);
-                }
-                else
-                {
-                    #region Resize & Rotation
-                    float left = this._lastRoiRegion.Left;
-                    float top = this._lastRoiRegion.Top;
-                    float right = this._lastRoiRegion.Right;
-                    float bottom = this._lastRoiRegion.Bottom;
-
-                    float offx = (e.Location.X - _lastMousePoint.X) / imageBox.ZoomFactor;
-                    float offy = (e.Location.Y - _lastMousePoint.Y) / imageBox.ZoomFactor;
-
-                    switch (_leftMouseDownAnchor)
+                    switch (handleAnchor)
                     {
-                        #region Resize
                         case DragHandleAnchor.TopLeft:
-                            top += offy;
-                            if (bottom - top < MinimumRoiSize)
-                                top = bottom - MinimumRoiSize;
-                            left += offx;
-                            if (right - left < MinimumRoiSize)
-                                left = right - MinimumRoiSize;
+                        case DragHandleAnchor.BottomRight:
+                            cursor = Cursors.SizeNWSE;
                             break;
                         case DragHandleAnchor.TopCenter:
-                            top += offy;
-                            if (bottom - top < MinimumRoiSize)
-                                top = bottom - MinimumRoiSize;
+                        case DragHandleAnchor.BottomCenter:
+                            cursor = Cursors.SizeNS;
                             break;
                         case DragHandleAnchor.TopRight:
-                            top += offy;
-                            if (bottom - top < MinimumRoiSize)
-                                top = bottom - MinimumRoiSize;
-                            right += offx;
-                            if (right - left < MinimumRoiSize)
-                                right = left + MinimumRoiSize;
+                        case DragHandleAnchor.BottomLeft:
+                            cursor = Cursors.SizeNESW;
                             break;
                         case DragHandleAnchor.MiddleLeft:
-                            left += offx;
-                            if (right - left < MinimumRoiSize)
-                                left = right - MinimumRoiSize;
-                            break;
                         case DragHandleAnchor.MiddleRight:
-                            right += offx;
-                            if (right - left < MinimumRoiSize)
-                                right = left + MinimumRoiSize;
+                            cursor = Cursors.SizeWE;
                             break;
-                        case DragHandleAnchor.BottomLeft:
-                            bottom += offy;
-                            if (bottom - top < MinimumRoiSize)
-                                bottom = top + MinimumRoiSize;
-                            left += offx;
-                            if (right - left < MinimumRoiSize)
-                                left = right - MinimumRoiSize;
-                            break;
-                        case DragHandleAnchor.BottomCenter:
-                            bottom += offy;
-                            if (bottom - top < MinimumRoiSize)
-                                bottom = top + MinimumRoiSize;
-                            break;
-                        case DragHandleAnchor.BottomRight:
-                            bottom += offy;
-                            if (bottom - top < MinimumRoiSize)
-                                bottom = top + MinimumRoiSize;
-                            right += offx;
-                            if (right - left < MinimumRoiSize)
-                                right = left + MinimumRoiSize;
-                            break;
-                        #endregion
-                        #region 角度
                         case DragHandleAnchor.Rotation:
-                            double distance = Math.Sqrt(offx * offx + offy * offy);
-                            double sin = Math.Abs(offy / distance);
-                            double angle = Math.Asin(sin) / Math.PI * 180 + Math.PI;
-                            if (offx > 0)
-                            {
-                                if (offy > 0)
-                                    angle += 0;
-                                else
-                                    angle = 360 - angle;
-                            }
-                            else
-                            {
-                                if (offy > 0)
-                                    angle = 180 - angle;
-                                else
-                                    angle = 180 + angle;
-                            }
-                            this.CurRoi.Angle = /*_lastRoiAngle +*/ (float)angle;
+                            cursor = CursorGenerator.CreateCursor(Properties.Resources.rotation, this.Cursor.HotSpot);
                             break;
-                        #endregion
                         default:
-                            break;
+                            throw new ArgumentOutOfRangeException();
                     }
-                    this.CurRoi.Region = new RectangleF(left, top, right - left, bottom - top);
-                    #endregion
                 }
-            }
-            imageBox.Invalidate();
-            #endregion
-        }
-        else
-        {
-            SetCursor(e.Location);
-        }
-
-        this.OnMouseMove(e);
-    }
-
-    private void imageBox_MouseUp(object sender, MouseEventArgs e)
-    {
-        if (e.Button == MouseButtons.Left)
-        {
-            _isLeftMouseDown = false;
-        }
-        else if (e.Button == MouseButtons.Right)
-        {
-            Cursor = Cursors.Default;
-        }
-        this.OnMouseUp(e);
-    }
-
-    private void imageBox_MouseWheel(object sender, MouseEventArgs e)
-    {
-        UpdateCursorPosition(e.Location);
-        UpdateRGB(e.Location);
-        UpdateStatusBar();
-
-        this.OnMouseWheel(e);
-    }
-
-    private void imageBox_Paint(object sender, PaintEventArgs e)
-    {
-        try
-        {
-            if (!imageBox.AllowPainting)
-                return;
-
-            #region old
-            /*
-            foreach (var element in _blobElements)
-            {
-                var points = element.GetPoints();
-                if (points == null)
-                    continue;
-                int len = points.Length;
-                PointF[] pts = new PointF[len];
-                for (int i = 0; i < len; i++)
+                else if (this.CurRoi.Region.Contains(this.imageBox.PointToImage(point)))
                 {
-                    pts[i] = imageBox.GetOffsetPoint(points[i]);
-                }
-                element.DrawElement(e.Graphics, pts);
-                Array.Clear(pts, 0, len);
-            }
-
-            foreach (var element in _dotElements)
-            {
-                var points = element.GetPoints();
-                if (points == null)
-                    continue;
-                int len = points.Length;
-                PointF[] pts = new PointF[len];
-                for (int i = 0; i < len; i++)
-                {
-                    pts[i] = imageBox.GetOffsetPoint(points[i]);
-                }
-                element.DrawElement(e.Graphics, imageBox.ZoomFactor, pts);
-                Array.Clear(pts, 0, len);
-            }
-
-            foreach (var element in _elements)
-            {
-                //element.DrawElement(e.Graphics, imageBox.ZoomFactor, imageBox.GetOffsetRectangle(element.Region));
-                if (element.Type == ElementType.Line)
-                {
-                    var p1 = imageBox.GetOffsetPoint(element.Region.X, element.Region.Y);
-                    var p2 = imageBox.GetOffsetPoint(element.Region.Width, element.Region.Height);
-                    element.DrawElement(e.Graphics, imageBox.ZoomFactor, p1.X, p1.Y, p2.X, p2.Y);
+                    cursor = Cursors.SizeAll;
+                    handleAnchor = DragHandleAnchor.Move;
                 }
                 else
                 {
-                    element.DrawElement(e.Graphics, imageBox.ZoomFactor, imageBox.GetOffsetRectangle(element.Region));
+                    cursor = Cursors.Default;
                 }
             }
-            */
-            #endregion
 
-            #region Other Elements
-            foreach (var element in _otherElements)
+            this.Cursor = cursor;
+            return handleAnchor;
+        }
+
+        #endregion
+
+        #region 窗体按钮事件
+        private void tsOpen_Click(object sender, EventArgs e)
+        {
+            using (FileDialog dialog = new OpenFileDialog())
             {
-                if (element is BlobElement)
+                dialog.Filter = "All Supported Images (*.bmp;*.dib;*.rle;*.gif;*.jpg;*.png)|*.bmp;*.dib;*.rle;*.gif;*.jpg;*.png|Bitmaps (*.bmp;*.dib;*.rle)|*.bmp;*.dib;*.rle|Graphics Interchange Format (*.gif)|*.gif|Joint Photographic Experts (*.jpg)|*.jpg|Portable Network Graphics (*.png)|*.png|All Files (*.*)|*.*";
+                dialog.DefaultExt = "png";
+
+                if (dialog.ShowDialog(this) == DialogResult.OK)
                 {
-                    #region 绘制Blob
-                    var blob = element as BlobElement;
-                    var points = blob.GetPoints();
+                    try
+                    {
+                        this.OpenImage(new Bitmap(dialog.FileName));
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+
+        private void tsNormal_Click(object sender, EventArgs e)
+        {
+            imageBox.ActualSize();
+            imageBox.CenterToImage();
+            UpdateStatusBar();
+        }
+
+        private void tsZoomIn_Click(object sender, EventArgs e)
+        {
+            imageBox.ZoomIn();
+            UpdateStatusBar();
+        }
+
+        private void tsZoomOut_Click(object sender, EventArgs e)
+        {
+            imageBox.ZoomOut();
+            UpdateStatusBar();
+        }
+
+        private void imageBox_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                _isLeftMouseDown = true;
+                _leftMouseDownAnchor = SetCursor(e.Location);
+                var imagePt = imageBox.PointToImage(e.Location);
+                var element = _roiElements.Where(x => x.Visible && x.Enable && x.Contains(imagePt.X, imagePt.Y) || x.HitTest(e.Location) != DragHandleAnchor.None).OrderBy(x => x.AreaValue()).FirstOrDefault();
+                _roiElements.ForEach(x => x.Selected = false);
+                if (element != null)
+                {
+                    element.Selected = true;
+                    _lastMousePoint = e.Location;
+                    _lastImagePoint = element.Region.Location;
+                    _lastRoiRegion = element.Region;
+                    _lastRoiAngle = element.Angle;
+                }
+                imageBox.Invalidate();
+            }
+            else if (e.Button == MouseButtons.Right)
+            {
+                Cursor = CursorGenerator.CreateCursor(Properties.Resources.hand, this.Cursor.HotSpot);
+            }
+
+            this.OnMouseDown(e);
+        }
+        private void imageBox_MouseMove(object sender, MouseEventArgs e)
+        {
+            UpdateCursorPosition(e.Location);
+            UpdateRGB(e.Location);
+            if (e.Button == MouseButtons.Right)
+            {
+                Cursor = CursorGenerator.CreateCursor(Properties.Resources.hand, this.Cursor.HotSpot);
+            }
+            else if (e.Button == MouseButtons.Left)
+            {
+                #region 左键操作
+                if (_isLeftMouseDown && this.CurRoi != null && _leftMouseDownAnchor != DragHandleAnchor.None)
+                {
+                    if (_leftMouseDownAnchor == DragHandleAnchor.Move)
+                    {
+                        float x = _lastImagePoint.X + (e.Location.X - _lastMousePoint.X) / imageBox.ZoomFactor;
+                        float y = _lastImagePoint.Y + (e.Location.Y - _lastMousePoint.Y) / imageBox.ZoomFactor;
+                        this.CurRoi.Region = new RectangleF(x, y, this.CurRoi.Region.Width, this.CurRoi.Region.Height);
+                    }
+                    else
+                    {
+                        #region Resize & Rotation
+                        float left = this._lastRoiRegion.Left;
+                        float top = this._lastRoiRegion.Top;
+                        float right = this._lastRoiRegion.Right;
+                        float bottom = this._lastRoiRegion.Bottom;
+
+                        float offx = (e.Location.X - _lastMousePoint.X) / imageBox.ZoomFactor;
+                        float offy = (e.Location.Y - _lastMousePoint.Y) / imageBox.ZoomFactor;
+
+                        switch (_leftMouseDownAnchor)
+                        {
+                            #region Resize
+                            case DragHandleAnchor.TopLeft:
+                                top += offy;
+                                if (bottom - top < MinimumRoiSize)
+                                    top = bottom - MinimumRoiSize;
+                                left += offx;
+                                if (right - left < MinimumRoiSize)
+                                    left = right - MinimumRoiSize;
+                                break;
+                            case DragHandleAnchor.TopCenter:
+                                top += offy;
+                                if (bottom - top < MinimumRoiSize)
+                                    top = bottom - MinimumRoiSize;
+                                break;
+                            case DragHandleAnchor.TopRight:
+                                top += offy;
+                                if (bottom - top < MinimumRoiSize)
+                                    top = bottom - MinimumRoiSize;
+                                right += offx;
+                                if (right - left < MinimumRoiSize)
+                                    right = left + MinimumRoiSize;
+                                break;
+                            case DragHandleAnchor.MiddleLeft:
+                                left += offx;
+                                if (right - left < MinimumRoiSize)
+                                    left = right - MinimumRoiSize;
+                                break;
+                            case DragHandleAnchor.MiddleRight:
+                                right += offx;
+                                if (right - left < MinimumRoiSize)
+                                    right = left + MinimumRoiSize;
+                                break;
+                            case DragHandleAnchor.BottomLeft:
+                                bottom += offy;
+                                if (bottom - top < MinimumRoiSize)
+                                    bottom = top + MinimumRoiSize;
+                                left += offx;
+                                if (right - left < MinimumRoiSize)
+                                    left = right - MinimumRoiSize;
+                                break;
+                            case DragHandleAnchor.BottomCenter:
+                                bottom += offy;
+                                if (bottom - top < MinimumRoiSize)
+                                    bottom = top + MinimumRoiSize;
+                                break;
+                            case DragHandleAnchor.BottomRight:
+                                bottom += offy;
+                                if (bottom - top < MinimumRoiSize)
+                                    bottom = top + MinimumRoiSize;
+                                right += offx;
+                                if (right - left < MinimumRoiSize)
+                                    right = left + MinimumRoiSize;
+                                break;
+                            #endregion
+                            #region 角度
+                            case DragHandleAnchor.Rotation:
+                                double distance = Math.Sqrt(offx * offx + offy * offy);
+                                double sin = Math.Abs(offy / distance);
+                                double angle = Math.Asin(sin) / Math.PI * 180 + Math.PI;
+                                if (offx > 0)
+                                {
+                                    if (offy > 0)
+                                        angle += 0;
+                                    else
+                                        angle = 360 - angle;
+                                }
+                                else
+                                {
+                                    if (offy > 0)
+                                        angle = 180 - angle;
+                                    else
+                                        angle = 180 + angle;
+                                }
+                                this.CurRoi.Angle = /*_lastRoiAngle +*/ (float)angle;
+                                break;
+                            #endregion
+                            default:
+                                break;
+                        }
+                        this.CurRoi.Region = new RectangleF(left, top, right - left, bottom - top);
+                        #endregion
+                    }
+                }
+                imageBox.Invalidate();
+                #endregion
+            }
+            else
+            {
+                SetCursor(e.Location);
+            }
+
+            this.OnMouseMove(e);
+        }
+
+        private void imageBox_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                _isLeftMouseDown = false;
+            }
+            else if (e.Button == MouseButtons.Right)
+            {
+                Cursor = Cursors.Default;
+            }
+            this.OnMouseUp(e);
+        }
+
+        private void imageBox_MouseWheel(object sender, MouseEventArgs e)
+        {
+            UpdateCursorPosition(e.Location);
+            UpdateRGB(e.Location);
+            UpdateStatusBar();
+
+            this.OnMouseWheel(e);
+        }
+
+        private void imageBox_Paint(object sender, PaintEventArgs e)
+        {
+            try
+            {
+                if (!imageBox.AllowPainting)
+                    return;
+
+                #region old
+                /*
+                foreach (var element in _blobElements)
+                {
+                    var points = element.GetPoints();
                     if (points == null)
                         continue;
                     int len = points.Length;
@@ -906,13 +891,11 @@ namespace System.Work.ImageBoxLib
                     }
                     element.DrawElement(e.Graphics, pts);
                     Array.Clear(pts, 0, len);
-                    #endregion
                 }
-                else if (element is DotMatrixElement)
+
+                foreach (var element in _dotElements)
                 {
-                    #region 绘制点阵轮廓
-                    var dot = element as DotMatrixElement;
-                    var points = dot.GetPoints();
+                    var points = element.GetPoints();
                     if (points == null)
                         continue;
                     int len = points.Length;
@@ -923,64 +906,129 @@ namespace System.Work.ImageBoxLib
                     }
                     element.DrawElement(e.Graphics, imageBox.ZoomFactor, pts);
                     Array.Clear(pts, 0, len);
-                    #endregion
                 }
-                else if (element is LineElement)
-                {
-                    #region 绘制直线
-                    var p1 = imageBox.GetOffsetPoint(element.Region.X, element.Region.Y);
-                    var p2 = imageBox.GetOffsetPoint(element.Region.Width, element.Region.Height);
-                    element.DrawElement(e.Graphics, imageBox.ZoomFactor, p1.X, p1.Y, p2.X, p2.Y);
-                    #endregion
-                }
-                else
-                {
-                    #region 绘制其他
-                    element.DrawElement(e.Graphics, imageBox.ZoomFactor, imageBox.GetOffsetRectangle(element.Region));
-                    #endregion
-                }
-            }
-            #endregion
 
-            #region Roi Elements
-            var curRoi = this.CurRoi;
-            if (curRoi != null && !curRoi.Region.IsEmpty)
-            {
-                PositionDragHandles();
-                foreach (DragHandle handle in curRoi.DragHandleCollection)
+                foreach (var element in _elements)
                 {
-                    if (handle.Visible)
+                    //element.DrawElement(e.Graphics, imageBox.ZoomFactor, imageBox.GetOffsetRectangle(element.Region));
+                    if (element.Type == ElementType.Line)
                     {
-                        this.DrawDragHandle(e.Graphics, handle);
+                        var p1 = imageBox.GetOffsetPoint(element.Region.X, element.Region.Y);
+                        var p2 = imageBox.GetOffsetPoint(element.Region.Width, element.Region.Height);
+                        element.DrawElement(e.Graphics, imageBox.ZoomFactor, p1.X, p1.Y, p2.X, p2.Y);
+                    }
+                    else
+                    {
+                        element.DrawElement(e.Graphics, imageBox.ZoomFactor, imageBox.GetOffsetRectangle(element.Region));
                     }
                 }
+                */
+                #endregion
+
+                #region Other Elements
+                foreach (var element in _otherElements)
+                {
+                    if (element is BlobElement)
+                    {
+                        #region 绘制Blob
+                        var blob = element as BlobElement;
+                        var points = blob.GetPoints();
+                        if (points == null)
+                            continue;
+                        int len = points.Length;
+                        PointF[] pts = new PointF[len];
+                        for (int i = 0; i < len; i++)
+                        {
+                            pts[i] = imageBox.GetOffsetPoint(points[i]);
+                        }
+                        element.DrawElement(e.Graphics, pts);
+                        Array.Clear(pts, 0, len);
+                        #endregion
+                    }
+                    else if (element is DotMatrixElement)
+                    {
+                        #region 绘制点阵轮廓
+                        var dot = element as DotMatrixElement;
+                        var points = dot.GetPoints();
+                        if (points == null)
+                            continue;
+                        int len = points.Length;
+                        PointF[] pts = new PointF[len];
+                        for (int i = 0; i < len; i++)
+                        {
+                            pts[i] = imageBox.GetOffsetPoint(points[i]);
+                        }
+                        element.DrawElement(e.Graphics, imageBox.ZoomFactor, pts);
+                        Array.Clear(pts, 0, len);
+                        #endregion
+                    }
+                    else if (element is LineElement)
+                    {
+                        #region 绘制直线
+                        var p1 = imageBox.GetOffsetPoint(element.Region.X, element.Region.Y);
+                        var p2 = imageBox.GetOffsetPoint(element.Region.Width, element.Region.Height);
+                        element.DrawElement(e.Graphics, imageBox.ZoomFactor, p1.X, p1.Y, p2.X, p2.Y);
+                        #endregion
+                    }
+                    else
+                    {
+                        #region 绘制其他
+                        element.DrawElement(e.Graphics, imageBox.ZoomFactor, imageBox.GetOffsetRectangle(element.Region));
+                        #endregion
+                    }
+                }
+                #endregion
+
+                #region Roi Elements
+                var curRoi = this.CurRoi;
+                if (curRoi != null && !curRoi.Region.IsEmpty)
+                {
+                    PositionDragHandles();
+                    foreach (DragHandle handle in curRoi.DragHandleCollection)
+                    {
+                        if (handle.Visible)
+                        {
+                            this.DrawDragHandle(e.Graphics, handle);
+                        }
+                    }
+                }
+                foreach (var element in _roiElements)
+                {
+                    switch (element.Type)
+                    {
+                        case ElementType.Line:
+                            var rl = element as RoiLineElement;
+                            var p1 = imageBox.GetOffsetPoint(rl.X1, rl.Y1);
+                            var p2 = imageBox.GetOffsetPoint(rl.X2, rl.Y2);
+                            element.DrawElement(e.Graphics, imageBox.ZoomFactor, p1.X, p1.Y, p2.X, p2.Y);
+                            break;
+                        default:
+                            element.DrawElement(e.Graphics, imageBox.ZoomFactor, imageBox.GetOffsetRectangle(element.Region));
+                            break;
+                    }
+                }
+                #endregion
+
+                this.OnPaint(e);
             }
-            foreach (var element in _roiElements)
+            catch (Exception ex)
             {
-                element.DrawElement(e.Graphics, imageBox.ZoomFactor, imageBox.GetOffsetRectangle(element.Region));
+                Console.WriteLine(ex.Message);
             }
-            #endregion
-
-            this.OnPaint(e);
         }
-        catch (Exception ex)
+        #endregion
+
+
+        private void imageBox_Resize(object sender, EventArgs e)
         {
-            Console.WriteLine(ex.Message);
+        }
+
+        private void imageBox_Scroll(object sender, ScrollEventArgs e)
+        {
+        }
+
+        private void imageBox_ZoomChanged(object sender, EventArgs e)
+        {
         }
     }
-    #endregion
-
-
-    private void imageBox_Resize(object sender, EventArgs e)
-    {
-    }
-
-    private void imageBox_Scroll(object sender, ScrollEventArgs e)
-    {
-    }
-
-    private void imageBox_ZoomChanged(object sender, EventArgs e)
-    {
-    }
-}
 }

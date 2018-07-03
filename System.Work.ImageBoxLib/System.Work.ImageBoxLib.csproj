@@ -78,6 +78,7 @@
     <Compile Include="ImageViewer\DragHandleCollection.cs" />
     <Compile Include="ImageViewer\elements\Element.cs" />
     <Compile Include="ImageViewer\elements\EllipseElement.cs" />
+    <Compile Include="ImageViewer\elements\RoiLineElement.cs" />
     <Compile Include="ImageViewer\ImageViewer.cs">
       <SubType>UserControl</SubType>
     </Compile>

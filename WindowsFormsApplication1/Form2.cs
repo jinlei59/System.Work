@@ -46,11 +46,11 @@ namespace WindowsFormsApplication1
 
         private void button2_Click(object sender, EventArgs e)
         {
-            imageViewer1.BeginDisplay();
-            var el = new RoiRectangleElement() { IsRotation = true, IsDirection = true, Region = new RectangleF(100, 100, 300, 300), Angle = 30 };
+            imageViewer1.NewBeginDisplay();
+            var el = new RoiRectangleElement() { IsRotation = false, IsDirection = true, Region = new RectangleF(100, 100, 300, 300), Angle = 30 };
             el.RegionChanged += El_RegionChanged;
-            imageViewer1.AddRoiElement(el);
-            imageViewer1.EndDisplay();
+            imageViewer1.NewAddRoiElements(new List<Element>() { el });
+            imageViewer1.NewEndDisplay();
         }
 
         private void El_RegionChanged(object sender, ElementEventArgs e)
@@ -91,7 +91,7 @@ namespace WindowsFormsApplication1
 
         private void button7_Click(object sender, EventArgs e)
         {
-            imageViewer1.AddBlobElement(new BlobElement(Color.Yellow, new PointF[] 
+            imageViewer1.AddBlobElement(new BlobElement(Color.Yellow, new PointF[]
             {
                 new PointF(10,20),
                 new PointF(60,60),
@@ -124,7 +124,16 @@ namespace WindowsFormsApplication1
                 new PointF(500,200),
                 new PointF(800,100),
                 new PointF(20,10)
-            },50));
+            }, 50));
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            imageViewer1.NewAddRoiElements(new List<Element>()
+            {
+                new RoiLineElement(66,888,321,555)
+            });
+            imageViewer1.NewEndDisplay();
         }
     }
 }
