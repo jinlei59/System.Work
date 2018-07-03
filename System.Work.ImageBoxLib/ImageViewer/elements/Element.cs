@@ -149,6 +149,39 @@ namespace System.Work.ImageBoxLib
         {
             return DragHandleCollection.HitTest(point);
         }
+
+        public virtual void DrawDragHandle(Graphics graphics, DragHandle handle)
+        {
+            int left;
+            int top;
+            int width;
+            int height;
+            Pen outerPen;
+            Brush innerBrush;
+
+            left = handle.Bounds.Left;
+            top = handle.Bounds.Top;
+            width = handle.Bounds.Width;
+            height = handle.Bounds.Height;
+
+            if (handle.Enabled)
+            {
+                outerPen = new Pen(Color.Orange);
+                innerBrush = Brushes.OrangeRed;
+            }
+            else
+            {
+                outerPen = SystemPens.ControlDark;
+                innerBrush = SystemBrushes.Control;
+            }
+
+            graphics.FillRectangle(innerBrush, left + 1, top + 1, width - 2, height - 2);
+            graphics.DrawLine(outerPen, left + 1, top, left + width - 2, top);
+            graphics.DrawLine(outerPen, left, top + 1, left, top + height - 2);
+            graphics.DrawLine(outerPen, left + 1, top + height - 1, left + width - 2, top + height - 1);
+            graphics.DrawLine(outerPen, left + width - 1, top + 1, left + width - 1, top + height - 2);
+        }
+        public virtual 
     }
 
     public enum ElementType

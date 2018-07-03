@@ -78,7 +78,8 @@
     <Compile Include="ImageViewer\DragHandleCollection.cs" />
     <Compile Include="ImageViewer\elements\Element.cs" />
     <Compile Include="ImageViewer\elements\EllipseElement.cs" />
-    <Compile Include="ImageViewer\elements\RoiLineElement.cs" />
+    <Compile Include="ImageViewer\elements\RoiEelements\ROIElementCollection.cs" />
+    <Compile Include="ImageViewer\elements\RoiEelements\RoiLineElement.cs" />
     <Compile Include="ImageViewer\ImageViewer.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -89,7 +90,7 @@
     <Compile Include="ImageViewer\elements\RectangleElement.cs" />
     <Compile Include="ImageViewer\elements\StringElement.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ImageViewer\elements\RoiRectangleElement.cs" />
+    <Compile Include="ImageViewer\elements\RoiEelements\RoiRectangleElement.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
