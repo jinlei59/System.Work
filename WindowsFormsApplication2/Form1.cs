@@ -49,5 +49,11 @@ namespace WindowsFormsApplication2
             //imageViewer1.NewAddOtherElements(new List<System.Work.ImageBoxLib.Element>() { new RectElement(new RectangleF(10, 10, 200, 200), 30) });
             imageViewer1.NewAddRoiElements(new List<Element>() { new RoiRectElement(new RectangleF(10, 10, 200, 200)) { Selected = true } });
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            //imageViewer1.NewAddOtherElements(new List<System.Work.ImageBoxLib.Element>() { new LineElement(new Point(20, 20), new PointF(200, 200)) { BorderWidth=3} });
+            imageViewer1.NewAddOtherElements(new List<System.Work.ImageBoxLib.Element>() { new LineElement(new Point(20, 20), new PointF(200, 200)) { BorderWidth = 1 } });
+        }
     }
 }

@@ -171,6 +171,10 @@ namespace System.Work.ImageBoxLib
         Point = 5,
         String = 6,
         Blob = 7,
-        DotMatrix = 8
+        DotMatrix = 8,
+        /// <summary>
+        /// 带箭头的线
+        /// </summary>
+        LineCap = 9
     }
 }

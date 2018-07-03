@@ -19,7 +19,7 @@ namespace System.Work.ImageBoxLib
         public float Angle { get; set; }
 
         #region 构造函数
-        public RectElement(RectangleF rect, float angle=0f)
+        public RectElement(RectangleF rect, float angle = 0f)
         {
             Type = ElementType.Rectangle;
             Rect = rect;
@@ -42,7 +42,7 @@ namespace System.Work.ImageBoxLib
         {
             if (!Visible || Rect.IsEmpty)
                 return;
-            using (Pen p = new Pen(ForeColor, BorderWidth))
+            using (Pen p = new Pen(ForeColor, BorderWidth * box.ZoomFactor))
             {
                 try
                 {
