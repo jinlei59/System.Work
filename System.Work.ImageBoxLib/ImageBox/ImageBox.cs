@@ -2925,17 +2925,17 @@ namespace System.Work.ImageBoxLib
         /// <param name="g">The g.</param>
         protected virtual void DrawImage(Graphics g)
         {
-            //InterpolationMode currentInterpolationMode;
-            //PixelOffsetMode currentPixelOffsetMode;
+            InterpolationMode currentInterpolationMode;
+            PixelOffsetMode currentPixelOffsetMode;
 
-            //currentInterpolationMode = g.InterpolationMode;
-            //currentPixelOffsetMode = g.PixelOffsetMode;
+            currentInterpolationMode = g.InterpolationMode;
+            currentPixelOffsetMode = g.PixelOffsetMode;
 
-            //g.InterpolationMode = this.GetInterpolationMode();
+            g.InterpolationMode = this.GetInterpolationMode();
 
             //// disable pixel offsets. Thanks to Rotem for the info.
             //// http://stackoverflow.com/questions/14070311/why-is-graphics-drawimage-cropping-part-of-my-image/14070372#14070372
-            //g.PixelOffsetMode = PixelOffsetMode.HighQuality;
+            g.PixelOffsetMode = PixelOffsetMode.HighQuality;
 
             try
             {
@@ -2956,8 +2956,8 @@ namespace System.Work.ImageBoxLib
                 // also ignore errors that occur due to running out of memory
             }
 
-            //g.PixelOffsetMode = currentPixelOffsetMode;
-            //g.InterpolationMode = currentInterpolationMode;
+            g.PixelOffsetMode = currentPixelOffsetMode;
+            g.InterpolationMode = currentInterpolationMode;
         }
 
         /// <summary>

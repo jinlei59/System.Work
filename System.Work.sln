@@ -41,6 +41,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "System.Work.ImageBoxLib", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsApplication1", "WindowsFormsApplication1\WindowsFormsApplication1.csproj", "{FA74ED92-E125-4F9F-A6B7-F11FE779D355}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsApplication2", "WindowsFormsApplication2\WindowsFormsApplication2.csproj", "{5AD340DE-823D-409B-824F-B5137A911105}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -107,6 +109,10 @@ Global
 		{FA74ED92-E125-4F9F-A6B7-F11FE779D355}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA74ED92-E125-4F9F-A6B7-F11FE779D355}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA74ED92-E125-4F9F-A6B7-F11FE779D355}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AD340DE-823D-409B-824F-B5137A911105}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AD340DE-823D-409B-824F-B5137A911105}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AD340DE-823D-409B-824F-B5137A911105}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AD340DE-823D-409B-824F-B5137A911105}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -126,6 +132,7 @@ Global
 		{C35C6C17-38BB-467F-9041-2A07A1F6F4F1} = {0D42AB48-FDA6-4B35-89A9-9128F17E916C}
 		{A27BEA57-658E-4C53-B754-975C6B6531B7} = {84BDFF6D-E15B-4AE8-A861-2C65C4CB9BF8}
 		{FA74ED92-E125-4F9F-A6B7-F11FE779D355} = {84BDFF6D-E15B-4AE8-A861-2C65C4CB9BF8}
+		{5AD340DE-823D-409B-824F-B5137A911105} = {84BDFF6D-E15B-4AE8-A861-2C65C4CB9BF8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8F80D575-589F-487E-B4FA-9833BF754686}
