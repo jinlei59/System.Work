@@ -21,7 +21,7 @@ namespace System.Work.ImageBoxLib
         {
             if (!Visible || Rect.IsEmpty)
                 return;
-            using (Pen p = new Pen(ForeColor, BorderWidth * box.ZoomFactor))
+            using (Pen p = new Pen(ForeColor, AutoChangeSize ? BorderWidth * box.ZoomFactor : BorderWidth))
             {
                 try
                 {
@@ -53,12 +53,12 @@ namespace System.Work.ImageBoxLib
             }
         }
 
-        private void Draw(Graphics g, RectangleF rect, ImageBox box)
+        internal void Draw(Graphics g, RectangleF rect, ImageBox box)
         {
-            float offset = rect.Width /( LineCount + 1);
-            using (Pen pp = new Pen(ForeColor, BorderWidth * box.ZoomFactor) { DashStyle = DashStyle.Dash })
+            float offset = rect.Width / (LineCount + 1);
+            using (Pen pp = new Pen(ForeColor, AutoChangeSize ? BorderWidth * box.ZoomFactor : BorderWidth) { DashStyle = DashStyle.Dash })
             {
-                float len = 5 * box.ZoomFactor;
+                float len = 5 ;
                 for (int i = 0; i < LineCount; i++)
                 {
                     PointF p1 = new PointF(rect.Left + offset * (i + 1), rect.Top);

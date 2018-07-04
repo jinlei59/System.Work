@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Elements\Element.cs" />
     <Compile Include="Elements\Lines\LineElement.cs" />
+    <Compile Include="Elements\Lines\RoiDispersePointLineElement.cs" />
     <Compile Include="Elements\Lines\RoiLineElement.cs" />
     <Compile Include="Elements\Rects\RectElement.cs" />
     <Compile Include="Elements\Rects\RectLineElement.cs" />

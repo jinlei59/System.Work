@@ -20,6 +20,8 @@ namespace System.Work.ImageBoxLib
         public bool Selected { get; set; }
         public Color ForeColor { get; set; }
         public float BorderWidth { get; set; }
+
+        public bool AutoChangeSize { get; set; }
         #endregion
 
         #region 事件
@@ -43,6 +45,7 @@ namespace System.Work.ImageBoxLib
             Selected = false;
             ForeColor = Color.Red;
             BorderWidth = 1f;
+            AutoChangeSize = true;
         }
         #endregion
 
