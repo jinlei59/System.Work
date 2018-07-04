@@ -46,6 +46,7 @@
     <Compile Include="Elements\Lines\LineElement.cs" />
     <Compile Include="Elements\Lines\RoiLineElement.cs" />
     <Compile Include="Elements\Rects\RectElement.cs" />
+    <Compile Include="Elements\Rects\RectLineElement.cs" />
     <Compile Include="Elements\Rects\RoiRectElement.cs" />
     <Compile Include="ImageBox\ImageBox.cs">
       <SubType>Component</SubType>

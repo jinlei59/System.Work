@@ -55,5 +55,10 @@ namespace WindowsFormsApplication2
             //imageViewer1.NewAddOtherElements(new List<System.Work.ImageBoxLib.Element>() { new LineElement(new Point(20, 20), new PointF(200, 200)) { BorderWidth=3} });
             imageViewer1.NewAddRoiElements(new List<System.Work.ImageBoxLib.Element>() { new RoiLineElement(new Point(0, 0), new PointF(100, 100)) { BorderWidth = 1 } });
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            imageViewer1.NewAddOtherElements(new List<System.Work.ImageBoxLib.Element>() { new RectLineElement(new RectangleF(10, 10, 200, 200), 0) { LineCount=4} });
+        }
     }
 }
