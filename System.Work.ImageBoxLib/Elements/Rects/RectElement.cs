@@ -9,14 +9,45 @@ namespace System.Work.ImageBoxLib
 {
     public class RectElement : Element
     {
+        private RectangleF _rect = RectangleF.Empty;
         /// <summary>
         /// 矩形
         /// </summary>
-        public RectangleF Rect { get; set; }
+        public RectangleF Rect
+        {
+            get { return _rect; }
+            set
+            {
+                if (!_rect.Equals(value))
+                {
+                    var e = new ElementEventArgs(_rect, value, Angle, Angle);
+                    OnROIShapeChannged(this, e);
+                    if (!e.Cancel)
+                        _rect = value;
+                }
+            }
+        }
+
+        private float _angle = 0f;
         /// <summary>
-        /// 弧度制(0° ≤ angle ＜ 360°)
+        /// 角度制(0° ≤ angle ＜ 360°)
         /// </summary>
-        public float Angle { get; set; }
+        public float Angle
+        {
+            get { return _angle; }
+            set
+            {
+                if (_angle != value)
+                {
+                    var e = new ElementEventArgs(_rect, _rect, _angle, value);
+                    OnROIShapeChannged(this, e);
+                    if (!e.Cancel)
+                    {
+                        _angle = value % 360f;
+                    }
+                }
+            }
+        }
 
         #region 构造函数
         public RectElement(RectangleF rect, float angle = 0f)
