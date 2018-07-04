@@ -45,12 +45,29 @@ namespace System.Work.ImageBoxLib
 
         protected float GetLength(float x1, float y1, float x2, float y2)
         {
-            return (float)Math.Sqrt((x1 -x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
+            return (float)Math.Sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
         }
 
         protected bool IsEmpty()
         {
             return Length <= 0;
+        }
+
+        public float GetDistance(float x, float y)
+        {
+            float dis = 0f;
+            if (Pt1.Equals(Pt2))
+            {
+                dis = GetLength(x, y, Pt1.X, Pt1.Y);
+            }
+            else
+            {
+                float a = Pt2.Y - Pt1.Y;
+                float b = Pt1.X - Pt2.X;
+                float c = Pt2.X * Pt1.Y - Pt1.X * Pt2.Y;
+                dis = (float)(Math.Abs(a * x + b * y + c) / Math.Sqrt(a * a + b * b));
+            }
+            return dis;
         }
         #endregion
 
@@ -59,12 +76,13 @@ namespace System.Work.ImageBoxLib
         public override bool Contains(float x, float y)
         {
             float len1 = GetLength(x, y, Pt1.X, Pt1.Y), len2 = GetLength(x, y, Pt2.X, Pt2.Y);
-            return len1 + len2 <= Length * 1.02f;
+            float dis = GetDistance(x, y);
+            return len1 + len2 <= Length * 1.02f && dis < LineWidth;
         }
 
         public override double AreaValue()
         {
-            return Length ;
+            return Length;
         }
 
         internal override void Draw(Graphics g, ImageBox box)
