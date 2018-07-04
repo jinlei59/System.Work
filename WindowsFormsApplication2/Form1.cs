@@ -47,7 +47,7 @@ namespace WindowsFormsApplication2
         private void button2_Click(object sender, EventArgs e)
         {
             //imageViewer1.NewAddOtherElements(new List<System.Work.ImageBoxLib.Element>() { new RectElement(new RectangleF(10, 10, 200, 200), 30) });
-            imageViewer1.NewAddRoiElements(new List<Element>() { new RoiRectElement(new RectangleF(10, 10, 200, 200)) { Selected = true } });
+            imageViewer1.NewAddRoiElements(new List<Element>() { new RoiRectElement(new RectangleF(10, 10, 200, 200))  });
         }
 
         private void button3_Click(object sender, EventArgs e)

@@ -36,7 +36,7 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.imageViewer1 = new System.Work.ImageBoxLib.ImageViewerCore.ImageViewer();
+            this.imageViewer1 = new System.Work.ImageBoxLib.ImageViewer();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -150,7 +150,7 @@
 
         #endregion
 
-        private System.Work.ImageBoxLib.ImageViewerCore.ImageViewer imageViewer1;
+        private System.Work.ImageBoxLib.ImageViewer imageViewer1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;

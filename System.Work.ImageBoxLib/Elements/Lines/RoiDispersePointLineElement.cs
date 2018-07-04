@@ -66,7 +66,7 @@ namespace System.Work.ImageBoxLib
             }
         }
 
-        public RoiDispersePointLineElement(Point pt1, PointF pt2) : base(pt1, pt2)
+        public RoiDispersePointLineElement(PointF pt1, PointF pt2) : base(pt1, pt2)
         {
             DispersePointCount = 3;
             PointLineWidth = 10;

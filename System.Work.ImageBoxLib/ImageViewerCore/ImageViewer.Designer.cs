@@ -1,4 +1,4 @@
-﻿namespace System.Work.ImageBoxLib.ImageViewerCore
+﻿namespace System.Work.ImageBoxLib
 {
     partial class ImageViewer
     {

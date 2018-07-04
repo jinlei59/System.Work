@@ -31,7 +31,7 @@ namespace System.Work.ImageBoxLib
 
         #region 构造函数
 
-        public LineElement(Point pt1, PointF pt2)
+        public LineElement(PointF pt1, PointF pt2)
         {
             Type = ElementType.Line;
             ShowArrow = false;

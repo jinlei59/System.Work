@@ -18,6 +18,11 @@ namespace System.Work.ImageBoxLib
             LineCount = 1;
         }
 
+        public RectLineElement(float x, float y, float w, float h, float angle = 0f) : base(x, y, w, h, angle)
+        {
+            LineCount = 1;
+        }
+
         internal override void Draw(Graphics g, ImageBox box)
         {
             if (!Visible || Rect.IsEmpty)
@@ -43,7 +48,7 @@ namespace System.Work.ImageBoxLib
                         g.DrawString(Angle.ToString(), new Font(FontFamily.Families.First(), 15f * box.ZoomFactor), Brushes.DeepPink, rect.X, rect.Y);
                     }
                 }
-                catch (Exception )
+                catch (Exception)
                 {
                 }
                 finally
@@ -58,7 +63,7 @@ namespace System.Work.ImageBoxLib
             float offset = rect.Width / (LineCount + 1);
             using (Pen pp = new Pen(ForeColor, AutoChangeSize ? BorderWidth * box.ZoomFactor : BorderWidth) { DashStyle = DashStyle.Dash })
             {
-                float len = 5 ;
+                float len = 5;
                 for (int i = 0; i < LineCount; i++)
                 {
                     PointF p1 = new PointF(rect.Left + offset * (i + 1), rect.Top);

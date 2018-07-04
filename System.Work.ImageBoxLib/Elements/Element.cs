@@ -40,6 +40,8 @@ namespace System.Work.ImageBoxLib
         #region 构造函数
         public Element()
         {
+            uid = Guid.NewGuid();
+            ParentUid = Guid.Empty;
             Enable = true;
             Visible = true;
             Selected = false;
@@ -198,5 +200,22 @@ namespace System.Work.ImageBoxLib
     }
 
     public class ElementEventArgs : EventArgs
-    { }
+    {
+        public bool Cancel { get; set; }
+        public RectangleF OldRegion { get; }
+        public RectangleF NewRegion { get; }
+        public float OldAngle { get; }
+        public float NewAngle { get; }
+
+        public ElementEventArgs() : this(RectangleF.Empty, RectangleF.Empty, 0f, 0f)
+        { }
+        public ElementEventArgs(RectangleF oldRegion, RectangleF newRegion, float oldAngle, float newAngle)
+        {
+            Cancel = false;
+            OldRegion = oldRegion;
+            NewRegion = newRegion;
+            OldAngle = oldAngle;
+            NewAngle = newAngle;
+        }
+    }
 }

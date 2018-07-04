@@ -26,6 +26,12 @@ namespace System.Work.ImageBoxLib
             DragHandleCollection = new DragHandleCollection();
             DragHandleCollection.AddDefaultDragHandle();
         }
+
+        public RoiRectElement(float x, float y, float w, float h, float angle = 0f) : base(x, y, w, h, angle)
+        {
+            DragHandleCollection = new DragHandleCollection();
+            DragHandleCollection.AddDefaultDragHandle();
+        }
         #endregion
 
         #region 绘制
@@ -211,7 +217,7 @@ namespace System.Work.ImageBoxLib
                     box.Invalidate();
                 }
             }
-            else if( e.Button== MouseButtons.None)
+            else if (e.Button == MouseButtons.None)
             {
                 SetCursor(e.Location, box);
             }

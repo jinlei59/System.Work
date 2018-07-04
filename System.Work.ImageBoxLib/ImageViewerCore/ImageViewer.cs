@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
 
-namespace System.Work.ImageBoxLib.ImageViewerCore
+namespace System.Work.ImageBoxLib
 {
     public partial class ImageViewer : UserControl
     {
@@ -24,9 +24,77 @@ namespace System.Work.ImageBoxLib.ImageViewerCore
 
         #region 属性
 
+        public bool ToolStripVisible
+        {
+            get; set;
+        }
+
+        public bool StatusStripVisible
+        {
+            get; set;
+        }
+
+        public Element SelectRoi
+        {
+            get
+            {
+                return _selectRoi;
+            }
+
+            set
+            {
+                _selectRoi = value;
+                var e = _roiElements.FirstOrDefault(x => x.Selected);
+                if (e != null)
+                {
+                    if (_selectRoi == null || !_selectRoi.uid.Equals(e.uid))
+                        SelectedRoiChanaged?.Invoke(this, _selectRoi);
+                }
+                else
+                {
+                    if (_selectRoi != null)
+                        SelectedRoiChanaged?.Invoke(this, _selectRoi);
+                }
+            }
+        }
+
+        public int DragHandleSize { get; private set; } = 8;
+
+
+        public virtual int MinimumRoiSize { get; set; } = 1;
+
+        public bool AllowZoom
+        {
+            get { return imageBox1.AllowZoom; }
+            set
+            {
+                imageBox1.AllowZoom = value;
+            }
+        }
+
+        /// <summary>
+        ///   Gets a value indicating whether painting of the control is allowed.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if painting of the control is allowed; otherwise, <c>false</c>.
+        /// </value>
+        public virtual bool AllowPainting
+        {
+            get { return imageBox1.AllowPainting; }
+        }
+
+        public float ZoomScale
+        {
+            get
+            {
+                return imageBox1.ZoomFactor;
+            }
+        }
         #endregion
 
         #region 事件
+
+        public event EventHandler<Element> SelectedRoiChanaged;
 
         #endregion
 
@@ -91,6 +159,10 @@ namespace System.Work.ImageBoxLib.ImageViewerCore
             SetRoiSelected(element);
         }
 
+        public void ZoomToFit()
+        {
+            this.imageBox1.ZoomToFit();
+        }
         #endregion
 
         #region 界面事件
@@ -102,13 +174,13 @@ namespace System.Work.ImageBoxLib.ImageViewerCore
                 var imagePt = imageBox1.PointToImage(e.Location);
                 if (imageBox1.Cursor == Cursors.Default)
                 {
-                    _selectRoi = _roiElements.Where(x => x.Visible && x.Enable && x.Contains(imagePt.X, imagePt.Y) || x.HitTest(e.Location) != DragHandleAnchor.None).OrderBy(x => x.AreaValue()).FirstOrDefault();
+                    SelectRoi = _roiElements.Where(x => x.Visible && x.Enable && x.Contains(imagePt.X, imagePt.Y) || x.HitTest(e.Location) != DragHandleAnchor.None).OrderBy(x => x.AreaValue()).FirstOrDefault();
                     _roiElements.ForEach(x => x.Selected = false);
                 }
-                if (_selectRoi != null)
+                if (SelectRoi != null)
                 {
-                    _selectRoi.Selected = true;
-                    _selectRoi.MouseDown(e, imageBox1);
+                    SelectRoi.Selected = true;
+                    SelectRoi.MouseDown(e, imageBox1);
                 }
                 else
                     imageBox1.Invalidate();
@@ -124,9 +196,9 @@ namespace System.Work.ImageBoxLib.ImageViewerCore
         {
             if (e.Button == MouseButtons.Left)
             {//操作ROI
-                if (_selectRoi != null)
+                if (SelectRoi != null)
                 {
-                    _selectRoi.MouseMove(e, imageBox1);
+                    SelectRoi.MouseMove(e, imageBox1);
                 }
             }
             else if (e.Button == MouseButtons.Right)
@@ -134,9 +206,9 @@ namespace System.Work.ImageBoxLib.ImageViewerCore
             }
             else if (e.Button == MouseButtons.None)
             {
-                if (_selectRoi != null)
+                if (SelectRoi != null)
                 {
-                    _selectRoi.MouseMove(e, imageBox1);
+                    SelectRoi.MouseMove(e, imageBox1);
                 }
             }
             this.OnMouseMove(e);
@@ -147,10 +219,11 @@ namespace System.Work.ImageBoxLib.ImageViewerCore
             if (e.Button == MouseButtons.Left)
             {
                 _isLeftMouseDown = false;
-                if (_selectRoi != null)
+                if (SelectRoi != null)
                 {
-                    _selectRoi.MouseUp(e, imageBox1);
+                    SelectRoi.MouseUp(e, imageBox1);
                 }
+                imageBox1.Cursor = Cursors.Default;
             }
             else if (e.Button == MouseButtons.Right)
             {

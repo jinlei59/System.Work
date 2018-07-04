@@ -13,7 +13,7 @@ namespace System.Work.ImageBoxLib
         private PointF[] _points = null;
         public DotMatrixElement(PointF[] points)
         {
-            Type = ElementType.Blob;
+            Type = ElementType.DotMatrix;
             _points = points;
         }
 

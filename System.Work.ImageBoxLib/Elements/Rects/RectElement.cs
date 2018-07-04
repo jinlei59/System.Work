@@ -25,6 +25,13 @@ namespace System.Work.ImageBoxLib
             Rect = rect;
             Angle = angle;
         }
+
+        public RectElement(float x, float y, float w, float h, float angle = 0f)
+        {
+            Type = ElementType.Rectangle;
+            Rect = new RectangleF(x, y, w, h);
+            Angle = angle;
+        }
         #endregion
 
         #region 重写

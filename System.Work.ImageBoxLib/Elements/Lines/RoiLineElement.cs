@@ -21,7 +21,7 @@ namespace System.Work.ImageBoxLib
         #endregion
 
         #region 构造函数
-        public RoiLineElement(Point pt1, PointF pt2) : base(pt1, pt2)
+        public RoiLineElement(PointF pt1, PointF pt2) : base(pt1, pt2)
         {
             ShowArrow = true;
             DragHandleCollection = new DragHandleCollection();
