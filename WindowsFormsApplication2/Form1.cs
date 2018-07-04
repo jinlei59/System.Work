@@ -58,12 +58,22 @@ namespace WindowsFormsApplication2
 
         private void button4_Click(object sender, EventArgs e)
         {
-            imageViewer1.NewAddOtherElements(new List<System.Work.ImageBoxLib.Element>() { new RectLineElement(new RectangleF(10, 10, 200, 200), 0) { LineCount=4} });
+            imageViewer1.NewAddOtherElements(new List<System.Work.ImageBoxLib.Element>() { new RectLineElement(new RectangleF(10, 10, 200, 200), 0) { LineCount = 4 } });
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
-            imageViewer1.NewAddRoiElements(new List<System.Work.ImageBoxLib.Element>() { new RoiDispersePointLineElement(new Point(0, 0), new PointF(100, 100)) { BorderWidth = 2,DispersePointCount=2 } });
+            imageViewer1.NewAddRoiElements(new List<System.Work.ImageBoxLib.Element>() { new RoiDispersePointLineElement(new Point(0, 0), new PointF(100, 100)) { BorderWidth = 2, DispersePointCount = 2 } });
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            imageViewer1.NewAddOtherElements(new List<System.Work.ImageBoxLib.Element>() { new BlobElement(new PointF[] { new PointF(100, 100), new PointF(100, 200), new PointF(200, 200), new PointF(200, 100) }) { ForeColor= Color.Yellow} });
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            imageViewer1.NewAddOtherElements(new List<System.Work.ImageBoxLib.Element>() { new DotMatrixElement(new PointF[] { new PointF(10, 10), new PointF(10, 20), new PointF(20, 10), new PointF(20, 20) }) });
         }
     }
 }

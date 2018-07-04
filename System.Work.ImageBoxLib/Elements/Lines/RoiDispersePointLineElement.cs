@@ -175,5 +175,14 @@ namespace System.Work.ImageBoxLib
             //}
             #endregion
         }
+
+        public override void Dispose()
+        {
+            if (_rects != null)
+            {
+                _rects.Clear();
+                _rects = null;
+            }
+        }
     }
 }

@@ -9,7 +9,7 @@ using System.Windows.Forms;
 namespace System.Work.ImageBoxLib
 {
     [Serializable]
-    public abstract class Element
+    public abstract class Element:IDisposable
     {
         #region 公共属性
         public Guid uid { get; set; }
@@ -171,6 +171,11 @@ namespace System.Work.ImageBoxLib
 
         internal virtual void MouseUp(MouseEventArgs e, ImageBox box)
         { }
+
+        public virtual void Dispose()
+        {
+            
+        }
 
         #endregion
     }

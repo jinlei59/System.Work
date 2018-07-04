@@ -87,6 +87,8 @@ namespace System.Work.ImageBoxLib
 
         internal override void Draw(Graphics g, ImageBox box)
         {
+            if (!Visible || this.IsEmpty())
+                return;
             using (Pen p = new Pen(ForeColor, BorderWidth * box.ZoomFactor))
             {
                 if (ShowArrow)
