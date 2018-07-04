@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -97,13 +98,20 @@ namespace System.Work.ImageBoxLib
 
                 int halfW = PointLineWidth / 2;
                 int halfH = PointLineHeight / 2;
+
+                double aphla = Math.Atan((Pt2.Y - Pt1.Y) / (Pt2.X - Pt1.X));
+                int angle = (int)(aphla / Math.PI * 180);
+                if ((Pt2.X - Pt1.X) < 0)
+                    angle = angle + 180;
+                Debug.WriteLine($"aphla={aphla} angle={angle}");
+
                 for (int i = 0; i < DispersePointCount; i++)
                 {
                     float x = Pt1.X + i * offsetX;
                     float y = -(a * x + c) / b;
 
                     RectangleF rect = new RectangleF(x - halfW, y - halfH, PointLineWidth, PointLineHeight);
-                    _rects.Add(new RectLineElement(rect) { AutoChangeSize = false });
+                    _rects.Add(new RectLineElement(rect, angle) { AutoChangeSize = false, BorderWidth = this.BorderWidth });
                 }
             }
             return _rects;

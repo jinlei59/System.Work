@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
@@ -42,9 +43,8 @@ namespace System.Work.ImageBoxLib
                         g.DrawString(Angle.ToString(), new Font(FontFamily.Families.First(), 15f * box.ZoomFactor), Brushes.DeepPink, rect.X, rect.Y);
                     }
                 }
-                catch (Exception)
+                catch (Exception )
                 {
-
                 }
                 finally
                 {

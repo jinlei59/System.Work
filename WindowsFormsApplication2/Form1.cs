@@ -63,7 +63,7 @@ namespace WindowsFormsApplication2
 
         private void button5_Click(object sender, EventArgs e)
         {
-            imageViewer1.NewAddRoiElements(new List<System.Work.ImageBoxLib.Element>() { new RoiDispersePointLineElement(new Point(0, 0), new PointF(100, 100)) { BorderWidth = 1 } });
+            imageViewer1.NewAddRoiElements(new List<System.Work.ImageBoxLib.Element>() { new RoiDispersePointLineElement(new Point(0, 0), new PointF(100, 100)) { BorderWidth = 2,DispersePointCount=2 } });
         }
     }
 }
