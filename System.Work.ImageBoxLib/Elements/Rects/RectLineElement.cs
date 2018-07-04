@@ -58,12 +58,13 @@ namespace System.Work.ImageBoxLib
             float offset = rect.Width /( LineCount + 1);
             using (Pen pp = new Pen(ForeColor, BorderWidth * box.ZoomFactor) { DashStyle = DashStyle.Dash })
             {
+                float len = 5 * box.ZoomFactor;
                 for (int i = 0; i < LineCount; i++)
                 {
                     PointF p1 = new PointF(rect.Left + offset * (i + 1), rect.Top);
                     PointF p2 = new PointF(rect.Left + offset * (i + 1), rect.Bottom);
-                    PointF p3 = new PointF(p2.X - 5, p2.Y - 5);
-                    PointF p4 = new PointF(p2.X + 5, p2.Y - 5);
+                    PointF p3 = new PointF(p2.X - len, p2.Y - len);
+                    PointF p4 = new PointF(p2.X + len, p2.Y - len);
                     g.DrawLine(pp, p1, p2);
                     g.DrawLine(pp, p3, p2);
                     g.DrawLine(pp, p4, p2);

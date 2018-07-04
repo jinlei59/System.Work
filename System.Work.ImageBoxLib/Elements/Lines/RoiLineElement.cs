@@ -37,18 +37,18 @@ namespace System.Work.ImageBoxLib
         {
             if (!Visible || this.IsEmpty())
                 return;
+            var pt1 = box.GetOffsetPoint(Pt1);
+            var pt2 = box.GetOffsetPoint(Pt2);
             #region 绘制线段
-            using (Pen p = new Pen(ForeColor, BorderWidth * box.ZoomFactor))
+            using (Pen p = new Pen(ForeColor, BorderWidth))
             {
                 if (ShowArrow)
                 {
-                    float len = 8 / box.ZoomFactor;
-                    len = len > Length * 0.4f ? Length * 0.4f : len;
-                    System.Drawing.Drawing2D.AdjustableArrowCap lineArrow = new System.Drawing.Drawing2D.AdjustableArrowCap(len, len, false);
+                    float len = GetLength(pt1.X, pt1.Y, pt2.X, pt2.Y) * 0.2f;
+                    len = len < 2 ? 2 : len > 6 ? 6 : len;
+                    System.Drawing.Drawing2D.AdjustableArrowCap lineArrow = new System.Drawing.Drawing2D.AdjustableArrowCap(len, len, true);
                     p.CustomEndCap = lineArrow;
                 }
-                var pt1 = box.GetOffsetPoint(Pt1);
-                var pt2 = box.GetOffsetPoint(Pt2);
                 g.DrawLine(p, pt1, pt2);
             }
             #endregion
@@ -57,19 +57,12 @@ namespace System.Work.ImageBoxLib
             if (Selected)
             {
                 int halfDragHandleSize = DragHandleSize / 2;
-                Rectangle viewport = box.GetImageViewPort();
-                int offsetX = viewport.Left + box.Padding.Left + box.AutoScrollPosition.X;
-                int offsetY = viewport.Top + box.Padding.Top + box.AutoScrollPosition.Y;
-                int x1 = Convert.ToInt32((Pt1.X * box.ZoomFactor) + offsetX - halfDragHandleSize);
-                int y1 = Convert.ToInt32((Pt1.Y * box.ZoomFactor) + offsetX - halfDragHandleSize);
-                int x2 = Convert.ToInt32((Pt2.X * box.ZoomFactor) + offsetX - halfDragHandleSize);
-                int y2 = Convert.ToInt32((Pt2.Y * box.ZoomFactor) + offsetX - halfDragHandleSize);
-                int cx = Convert.ToInt32((x1 + x2) / 2);
-                int cy = Convert.ToInt32((y1 + y2) / 2);
+                int cx = Convert.ToInt32((pt1.X + pt2.X) / 2) - halfDragHandleSize;
+                int cy = Convert.ToInt32((pt1.Y + pt2.Y) / 2) - halfDragHandleSize;
 
-                DragHandleCollection[DragHandleAnchor.MiddleLeft].Bounds = new Rectangle(x1, y1, this.DragHandleSize, this.DragHandleSize);
+                DragHandleCollection[DragHandleAnchor.MiddleLeft].Bounds = new Rectangle((int)pt1.X - halfDragHandleSize, (int)pt1.Y - halfDragHandleSize, this.DragHandleSize, this.DragHandleSize);
                 DragHandleCollection[DragHandleAnchor.MiddleCenter].Bounds = new Rectangle(cx, cy, this.DragHandleSize, this.DragHandleSize);
-                DragHandleCollection[DragHandleAnchor.MiddleRight].Bounds = new Rectangle(x2, y2, this.DragHandleSize, this.DragHandleSize);
+                DragHandleCollection[DragHandleAnchor.MiddleRight].Bounds = new Rectangle((int)pt2.X - halfDragHandleSize, (int)pt2.Y - halfDragHandleSize, this.DragHandleSize, this.DragHandleSize);
 
                 DrawDragHandles(g);
             }

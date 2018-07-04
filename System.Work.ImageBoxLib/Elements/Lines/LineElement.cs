@@ -91,8 +91,7 @@ namespace System.Work.ImageBoxLib
             {
                 if (ShowArrow)
                 {
-                    float len = 8 / box.ZoomFactor;
-                    len = len > Length * 0.4f ? Length * 0.4f : len;
+                    float len = 8 * box.ZoomFactor;
                     System.Drawing.Drawing2D.AdjustableArrowCap lineArrow = new System.Drawing.Drawing2D.AdjustableArrowCap(len, len, false);
                     p.CustomEndCap = lineArrow;
                 }
