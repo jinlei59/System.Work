@@ -14,7 +14,6 @@ namespace System.Work.ImageBoxLib
 
         private bool _isLeftMouseDown = false;
         private DragHandleAnchor _leftMouseDownAnchor = DragHandleAnchor.None;
-        private RectangleF _lastRoiRegion = RectangleF.Empty;
         private Point _lastMousePoint = Point.Empty;
         private PointF _lastImagePoint1 = PointF.Empty;
         private PointF _lastImagePoint2 = PointF.Empty;
@@ -57,10 +56,20 @@ namespace System.Work.ImageBoxLib
 
             if (Selected)
             {
-                int x = 0, y = 0;
-                DragHandleCollection[DragHandleAnchor.MiddleLeft].Bounds = new Rectangle(x, y, this.DragHandleSize, this.DragHandleSize);
-                DragHandleCollection[DragHandleAnchor.MiddleCenter].Bounds = new Rectangle(x, y, this.DragHandleSize, this.DragHandleSize);
-                DragHandleCollection[DragHandleAnchor.MiddleRight].Bounds = new Rectangle(x, y, this.DragHandleSize, this.DragHandleSize);
+                int halfDragHandleSize = DragHandleSize / 2;
+                Rectangle viewport = box.GetImageViewPort();
+                int offsetX = viewport.Left + box.Padding.Left + box.AutoScrollPosition.X;
+                int offsetY = viewport.Top + box.Padding.Top + box.AutoScrollPosition.Y;
+                int x1 = Convert.ToInt32((Pt1.X * box.ZoomFactor) + offsetX - halfDragHandleSize);
+                int y1 = Convert.ToInt32((Pt1.Y * box.ZoomFactor) + offsetX - halfDragHandleSize);
+                int x2 = Convert.ToInt32((Pt2.X * box.ZoomFactor) + offsetX - halfDragHandleSize);
+                int y2 = Convert.ToInt32((Pt2.Y * box.ZoomFactor) + offsetX - halfDragHandleSize);
+                int cx = Convert.ToInt32((x1 + x2) / 2);
+                int cy = Convert.ToInt32((y1 + y2) / 2);
+
+                DragHandleCollection[DragHandleAnchor.MiddleLeft].Bounds = new Rectangle(x1, y1, this.DragHandleSize, this.DragHandleSize);
+                DragHandleCollection[DragHandleAnchor.MiddleCenter].Bounds = new Rectangle(cx, cy, this.DragHandleSize, this.DragHandleSize);
+                DragHandleCollection[DragHandleAnchor.MiddleRight].Bounds = new Rectangle(x2, y2, this.DragHandleSize, this.DragHandleSize);
 
                 DrawDragHandles(g);
             }
@@ -77,6 +86,8 @@ namespace System.Work.ImageBoxLib
                 _isLeftMouseDown = true;
                 _leftMouseDownAnchor = SetCursor(e.Location, box);
                 _lastMousePoint = e.Location;
+                _lastImagePoint1 = Pt1;
+                _lastImagePoint2 = Pt2;
                 box.Invalidate();
             }
         }
@@ -88,15 +99,24 @@ namespace System.Work.ImageBoxLib
                 {
                     if (_leftMouseDownAnchor == DragHandleAnchor.MiddleCenter)
                     {
-                        float x = _lastImagePoint.X + (e.Location.X - _lastMousePoint.X) / box.ZoomFactor;
-                        float y = _lastImagePoint.Y + (e.Location.Y - _lastMousePoint.Y) / box.ZoomFactor;
-                        Rect = new RectangleF(x, y, Rect.Width, Rect.Height);
+                        float x = _lastImagePoint1.X + (e.Location.X - _lastMousePoint.X) / box.ZoomFactor;
+                        float y = _lastImagePoint1.Y + (e.Location.Y - _lastMousePoint.Y) / box.ZoomFactor;
+                        Pt1 = new PointF(x, y);
+                        x = _lastImagePoint2.X + (e.Location.X - _lastMousePoint.X) / box.ZoomFactor;
+                        y = _lastImagePoint2.Y + (e.Location.Y - _lastMousePoint.Y) / box.ZoomFactor;
+                        Pt2 = new PointF(x, y);
                     }
                     else if (_leftMouseDownAnchor == DragHandleAnchor.MiddleLeft)
                     {
+                        float x = _lastImagePoint1.X + (e.Location.X - _lastMousePoint.X) / box.ZoomFactor;
+                        float y = _lastImagePoint1.Y + (e.Location.Y - _lastMousePoint.Y) / box.ZoomFactor;
+                        Pt1 = new PointF(x, y);
                     }
                     else if (_leftMouseDownAnchor == DragHandleAnchor.MiddleRight)
                     {
+                        float x = _lastImagePoint2.X + (e.Location.X - _lastMousePoint.X) / box.ZoomFactor;
+                        float y = _lastImagePoint2.Y + (e.Location.Y - _lastMousePoint.Y) / box.ZoomFactor;
+                        Pt2 = new PointF(x, y);
                     }
                     box.Invalidate();
                 }

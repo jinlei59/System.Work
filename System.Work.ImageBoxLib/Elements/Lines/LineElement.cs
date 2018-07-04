@@ -45,7 +45,7 @@ namespace System.Work.ImageBoxLib
 
         protected float GetLength(float x1, float y1, float x2, float y2)
         {
-            return (float)Math.Sqrt((Pt1.X - Pt2.X) * (Pt1.X - Pt2.X) + (Pt1.Y - Pt2.Y) * (Pt1.Y - Pt2.Y));
+            return (float)Math.Sqrt((x1 -x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
         }
 
         protected bool IsEmpty()
@@ -59,12 +59,12 @@ namespace System.Work.ImageBoxLib
         public override bool Contains(float x, float y)
         {
             float len1 = GetLength(x, y, Pt1.X, Pt1.Y), len2 = GetLength(x, y, Pt2.X, Pt2.Y);
-            return len1 + len2 <= Length * 1.2f;
+            return len1 + len2 <= Length * 1.02f;
         }
 
         public override double AreaValue()
         {
-            return Length * LineWidth * 2;
+            return Length ;
         }
 
         internal override void Draw(Graphics g, ImageBox box)

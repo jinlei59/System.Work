@@ -22,6 +22,12 @@ namespace System.Work.ImageBoxLib
         public float BorderWidth { get; set; }
         #endregion
 
+        #region 事件
+
+        public event EventHandler<ElementEventArgs> ROIShapeChannged;
+
+        #endregion
+
         #region 特殊属性
 
         internal DragHandleCollection DragHandleCollection { get; set; }
@@ -94,6 +100,11 @@ namespace System.Work.ImageBoxLib
             graphics.DrawLine(outerPen, left, top + 1, left, top + height - 2);
             graphics.DrawLine(outerPen, left + 1, top + height - 1, left + width - 2, top + height - 1);
             graphics.DrawLine(outerPen, left + width - 1, top + 1, left + width - 1, top + height - 2);
+        }
+
+        internal virtual void OnROIShapeChannged(object sender, ElementEventArgs e)
+        {
+            ROIShapeChannged?.Invoke(sender, e);
         }
         #endregion
 
@@ -177,4 +188,7 @@ namespace System.Work.ImageBoxLib
         /// </summary>
         LineCap = 9
     }
+
+    public class ElementEventArgs : EventArgs
+    { }
 }
