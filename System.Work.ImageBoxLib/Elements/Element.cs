@@ -9,8 +9,14 @@ using System.Windows.Forms;
 namespace System.Work.ImageBoxLib
 {
     [Serializable]
-    public abstract class Element:IDisposable
+    public abstract class Element : IDisposable
     {
+        #region 变量
+
+        protected readonly object _lock = new object();
+
+        #endregion
+
         #region 公共属性
         public Guid uid { get; set; }
         public Guid ParentUid { get; set; }
@@ -109,7 +115,8 @@ namespace System.Work.ImageBoxLib
 
         internal virtual void OnROIShapeChannged(object sender, ElementEventArgs e)
         {
-            ROIShapeChannged?.Invoke(sender, e);
+            lock (_lock)
+                ROIShapeChannged?.Invoke(sender, e);
         }
         #endregion
 
@@ -176,7 +183,7 @@ namespace System.Work.ImageBoxLib
 
         public virtual void Dispose()
         {
-            
+
         }
 
         #endregion

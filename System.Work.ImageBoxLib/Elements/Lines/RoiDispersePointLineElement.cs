@@ -14,7 +14,18 @@ namespace System.Work.ImageBoxLib
     public class RoiDispersePointLineElement : RoiLineElement
     {
         List<Element> _rects = null;
-        private int _dispersePointCount = 3;
+
+        /// <summary>
+        /// 需要进行检测的边缘点
+        /// 按照从起点到终点顺序依次存储并存储起点和终点
+        /// </summary>
+        public List<PointF> Pts { get; set; }
+        public float A { get; set; }
+        public float B { get; set; }
+        public float C { get; set; }
+
+
+        private int _dispersePointCount = 4;
         /// <summary>
         /// 包含两个端点(ex: DispersePointCount=3表示中间一个点两端两个点)
         /// 最小值为2
@@ -34,7 +45,7 @@ namespace System.Work.ImageBoxLib
             }
         }
 
-        private int _pointLineWidth = 10;
+        private int _pointLineWidth = 100;
         public int PointLineWidth
         {
             get { return _pointLineWidth; }
@@ -50,7 +61,7 @@ namespace System.Work.ImageBoxLib
             }
         }
 
-        private int _pointLineHeight = 10;
+        private int _pointLineHeight = 100;
         public int PointLineHeight
         {
             get { return _pointLineHeight; }
@@ -68,15 +79,18 @@ namespace System.Work.ImageBoxLib
 
         public RoiDispersePointLineElement(PointF pt1, PointF pt2) : base(pt1, pt2)
         {
-            DispersePointCount = 3;
-            PointLineWidth = 10;
-            PointLineHeight = 10;
+            DispersePointCount = 4;
+            PointLineWidth = 100;
+            PointLineHeight = 100;
             _rects = new List<Element>();
+            Pts = new List<PointF>();
+            A = B = C = 0;
             GetRects();
         }
 
         private List<Element> GetRects()
         {
+            Pts.Clear();
             _rects.Clear();
             if (Pt1.Equals(Pt2))
             {
@@ -90,11 +104,12 @@ namespace System.Work.ImageBoxLib
             }
             else
             {
-                float a = Pt2.Y - Pt1.Y;
-                float b = Pt1.X - Pt2.X;
-                float c = Pt2.X * Pt1.Y - Pt1.X * Pt2.Y;
+                A = Pt2.Y - Pt1.Y;
+                B = Pt1.X - Pt2.X;
+                C = Pt2.X * Pt1.Y - Pt1.X * Pt2.Y;
 
                 float offsetX = (Pt2.X - Pt1.X) / (DispersePointCount - 1);
+                float offsetY = (Pt2.Y - Pt1.Y) / (DispersePointCount - 1);
 
                 int halfW = PointLineWidth / 2;
                 int halfH = PointLineHeight / 2;
@@ -108,7 +123,9 @@ namespace System.Work.ImageBoxLib
                 for (int i = 0; i < DispersePointCount; i++)
                 {
                     float x = Pt1.X + i * offsetX;
-                    float y = -(a * x + c) / b;
+                    float y = B == 0 ? Pt1.Y + i * offsetY : -(A * x + C) / B;
+
+                    Pts.Add(new PointF(x, y));
 
                     RectangleF rect = new RectangleF(x - halfW, y - halfH, PointLineWidth, PointLineHeight);
                     _rects.Add(new RectLineElement(rect, angle) { AutoChangeSize = false, BorderWidth = this.BorderWidth });

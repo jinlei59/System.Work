@@ -10,17 +10,43 @@ namespace System.Work.ImageBoxLib
     public class LineElement : Element
     {
         protected int LineWidth = 3;
+        protected PointF _pt1 = PointF.Empty;
+        protected PointF _pt2 = PointF.Empty;
 
         public bool ShowArrow { get; set; }
 
         /// <summary>
         /// 起点
         /// </summary>
-        public PointF Pt1 { get; set; }
+        public PointF Pt1
+        {
+            get { return _pt1; }
+            set
+            {
+                if (!_pt1.Equals(value))
+                {
+                    _pt1 = value;
+                    var e = new LineElementEventArgs() { Pt1 = _pt1, Pt2 = _pt2 };
+                    OnROIShapeChannged(this, e);
+                }
+            }
+        }
         /// <summary>
         /// 终点
         /// </summary>
-        public PointF Pt2 { get; set; }
+        public PointF Pt2
+        {
+            get { return _pt2; }
+            set
+            {
+                if (!_pt2.Equals(value))
+                {
+                    _pt2 = value;
+                    var e = new LineElementEventArgs() { Pt1 = _pt1, Pt2 = _pt2 };
+                    OnROIShapeChannged(this, e);
+                }
+            }
+        }
         protected float Length
         {
             get
@@ -89,7 +115,7 @@ namespace System.Work.ImageBoxLib
         {
             if (!Visible || this.IsEmpty())
                 return;
-            using (Pen p = new Pen(ForeColor, BorderWidth * box.ZoomFactor))
+            using (Pen p = new Pen(ForeColor, AutoChangeSize ? BorderWidth * box.ZoomFactor : BorderWidth))
             {
                 if (ShowArrow)
                 {
@@ -104,5 +130,14 @@ namespace System.Work.ImageBoxLib
         }
 
         #endregion
+    }
+
+    public class LineElementEventArgs : ElementEventArgs
+    {
+        public PointF Pt1 { get; set; }
+        public PointF Pt2 { get; set; }
+
+        public LineElementEventArgs()
+        { }
     }
 }
