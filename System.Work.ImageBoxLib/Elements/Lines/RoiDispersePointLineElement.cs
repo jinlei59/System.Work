@@ -99,7 +99,7 @@ namespace System.Work.ImageBoxLib
                 for (int i = 0; i < DispersePointCount; i++)
                 {
                     RectangleF rect = new RectangleF(Pt1.X - halfW, Pt1.Y - halfH, PointLineWidth, PointLineHeight);
-                    _rects.Add(new RectLineElement(rect) { AutoChangeSize = false });
+                    _rects.Add(new RectLineElement(rect) { AutoChangeSize = false, BorderWidth = this.BorderWidth, ForeColor = this.ForeColor });
                 }
             }
             else
@@ -128,7 +128,7 @@ namespace System.Work.ImageBoxLib
                     Pts.Add(new PointF(x, y));
 
                     RectangleF rect = new RectangleF(x - halfW, y - halfH, PointLineWidth, PointLineHeight);
-                    _rects.Add(new RectLineElement(rect, angle) { AutoChangeSize = false, BorderWidth = this.BorderWidth });
+                    _rects.Add(new RectLineElement(rect, angle) { AutoChangeSize = false, BorderWidth = this.BorderWidth,ForeColor= this.ForeColor });
                 }
             }
             return _rects;
