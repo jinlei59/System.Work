@@ -2937,11 +2937,11 @@ namespace System.Work.ImageBoxLib
 
             try
             {
-                // Animation. Thanks to teamalpha5441 for the contribution
-                if (this.IsAnimating && !this.DesignMode)
-                {
-                    ImageAnimator.UpdateFrames(this.Image);
-                }
+                //// Animation. Thanks to teamalpha5441 for the contribution
+                //if (this.IsAnimating && !this.DesignMode)
+                //{
+                //    ImageAnimator.UpdateFrames(this.Image);
+                //}
 
                 g.DrawImage(this.Image, this.GetImageViewPort(), this.GetSourceImageRegion(), GraphicsUnit.Pixel);
             }
@@ -2953,6 +2953,8 @@ namespace System.Work.ImageBoxLib
             {
                 // also ignore errors that occur due to running out of memory
             }
+            catch(Exception ex)
+            { }
 
             if (ZoomFactor >= 8)
             {
@@ -3681,23 +3683,23 @@ namespace System.Work.ImageBoxLib
         {
             EventHandler handler;
 
-            this.IsAnimating = false;
+            //this.IsAnimating = false;
 
-            if (this.Image != null)
-            {
-                try
-                {
-                    this.IsAnimating = ImageAnimator.CanAnimate(this.Image);
-                    if (this.IsAnimating)
-                    {
-                        ImageAnimator.Animate(this.Image, this.OnFrameChangedHandler);
-                    }
-                }
-                catch (ArgumentException)
-                {
-                    // probably a disposed image, ignore
-                }
-            }
+            //if (this.Image != null)
+            //{
+            //    try
+            //    {
+            //        this.IsAnimating = ImageAnimator.CanAnimate(this.Image);
+            //        if (this.IsAnimating)
+            //        {
+            //            ImageAnimator.Animate(this.Image, this.OnFrameChangedHandler);
+            //        }
+            //    }
+            //    catch (ArgumentException)
+            //    {
+            //        // probably a disposed image, ignore
+            //    }
+            //}
 
             this.AdjustLayout();
 
@@ -3916,17 +3918,17 @@ namespace System.Work.ImageBoxLib
                     //    this.DrawPixelGrid(e.Graphics);
                     //}
 
-                    // draw the selection
-                    if (this.SelectionRegion != Rectangle.Empty)
-                    {
-                        this.DrawSelection(e);
-                    }
+                    //// draw the selection
+                    //if (this.SelectionRegion != Rectangle.Empty)
+                    //{
+                    //    this.DrawSelection(e);
+                    //}
 
-                    // text
-                    if (!string.IsNullOrEmpty(this.Text) && this.TextDisplayMode != ImageBoxGridDisplayMode.None)
-                    {
-                        this.DrawText(e);
-                    }
+                    //// text
+                    //if (!string.IsNullOrEmpty(this.Text) && this.TextDisplayMode != ImageBoxGridDisplayMode.None)
+                    //{
+                    //    this.DrawText(e);
+                    //}
 
                     base.OnPaint(e);
                 }
