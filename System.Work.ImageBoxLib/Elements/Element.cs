@@ -212,7 +212,8 @@ namespace System.Work.ImageBoxLib
         /// 带箭头的线
         /// </summary>
         LineCap = 9,
-        Ring = 10
+        Ring = 10,
+        Polygon = 11
     }
 
     public class ElementEventArgs : EventArgs
