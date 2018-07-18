@@ -11,6 +11,17 @@ namespace System.Work.ImageBoxLib
     [Serializable]
     public class RoiRingElement : RingElement
     {
+        #region 变量
+
+        private bool _isLeftMouseDown = false;
+        private DragHandleAnchor _leftMouseDownAnchor = DragHandleAnchor.None;
+        private Point _lastMousePoint = Point.Empty;
+        private PointF _lastImagePoint = PointF.Empty;
+        private float _lastSradius = 1f;
+        private float _lastEradius = 1f;
+
+        #endregion
+
         #region 属性
         /// <summary>
         /// 外-上-TopLeft
@@ -166,6 +177,12 @@ namespace System.Work.ImageBoxLib
         {
             if (e.Button == MouseButtons.Left)
             {
+                _isLeftMouseDown = true;
+                _leftMouseDownAnchor = SetCursor(e.Location, box);
+                _lastMousePoint = e.Location;
+                _lastImagePoint = Cpt;
+                _lastSradius = Sradius;
+                _lastEradius = Eradius;
                 box.Invalidate();
             }
         }
@@ -173,7 +190,57 @@ namespace System.Work.ImageBoxLib
         {
             if (e.Button == MouseButtons.Left)
             {//移动、改变大小
+                if (_isLeftMouseDown && _leftMouseDownAnchor != DragHandleAnchor.None)
+                {
+                    if (_leftMouseDownAnchor == DragHandleAnchor.MiddleCenter)
+                    {
+                        float x = _lastImagePoint.X + (e.Location.X - _lastMousePoint.X) / box.ZoomFactor;
+                        float y = _lastImagePoint.Y + (e.Location.Y - _lastMousePoint.Y) / box.ZoomFactor;
+                        Cpt = new PointF(x, y);
+                    }
+                    else
+                    {
+                        float offx = (e.Location.X - _lastMousePoint.X) / box.ZoomFactor;
+                        float offy = (e.Location.Y - _lastMousePoint.Y) / box.ZoomFactor;
+                        switch (_leftMouseDownAnchor)
+                        {
+                            #region Resize
+                            #region 外圆
+                            case DragHandleAnchor.TopLeft:
+                                Eradius = _lastEradius - offy;
+                                break;
+                            case DragHandleAnchor.TopRight:
+                                Eradius = _lastEradius + offy;
+                                break;
+                            case DragHandleAnchor.BottomLeft:
+                                Eradius = _lastEradius - offx;
+                                break;
+                            case DragHandleAnchor.BottomRight:
+                                Eradius = _lastEradius + offx;
+                                break;
+                            #endregion
 
+                            #region 内圆
+                            case DragHandleAnchor.TopCenter:
+                                Sradius = _lastSradius - offy;
+                                break;
+                            case DragHandleAnchor.BottomCenter:
+                                Sradius = _lastSradius + offy;
+                                break;
+                            case DragHandleAnchor.MiddleLeft:
+                                Sradius = _lastSradius - offx;
+                                break;
+                            case DragHandleAnchor.MiddleRight:
+                                Sradius = _lastSradius + offx;
+                                break;
+                            #endregion
+                            #endregion
+                            default:
+                                break;
+                        }
+                    }
+                    box.Invalidate();
+                }
             }
             else if (e.Button == MouseButtons.None)
             {
@@ -184,7 +251,7 @@ namespace System.Work.ImageBoxLib
         {
             if (e.Button == MouseButtons.Left)
             {
-
+                _isLeftMouseDown = false;
             }
         }
 

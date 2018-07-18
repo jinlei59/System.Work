@@ -84,7 +84,7 @@ namespace WindowsFormsApplication2
 
         private void button9_Click(object sender, EventArgs e)
         {
-            imageViewer1.NewAddRoiElements(new List<Element>() { new RoiRingElement(new PointF(400, 400), 50f, 100f) });
+            imageViewer1.NewAddRoiElements(new List<Element>() { new RoiRingElement(new PointF(400, 400), 50f, 100f) { ForeColor = Color.Yellow } });
         }
     }
 }

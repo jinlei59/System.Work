@@ -11,6 +11,9 @@ namespace System.Work.ImageBoxLib
     public class RingElement : Element
     {
         #region 变量
+
+        protected readonly float MinRadiusValue = 1f;
+
         private PointF _cpt = PointF.Empty;
         private float _sradius = 10;
         private float _eradius = 30;
@@ -45,6 +48,8 @@ namespace System.Work.ImageBoxLib
 
             set
             {
+                if (value <= MinRadiusValue)
+                    value = MinRadiusValue;
                 if (_sradius != value)
                 {
                     _sradius = value;
@@ -63,6 +68,8 @@ namespace System.Work.ImageBoxLib
 
             set
             {
+                if (value <= MinRadiusValue)
+                    value = MinRadiusValue;
                 if (_eradius != value)
                 {
                     _eradius = value;
@@ -139,7 +146,7 @@ namespace System.Work.ImageBoxLib
                 float len = 8;
                 System.Drawing.Drawing2D.AdjustableArrowCap lineArrow = new System.Drawing.Drawing2D.AdjustableArrowCap(len, len, false);
                 p.CustomEndCap = lineArrow;
-                p.DashStyle = Drawing.Drawing2D.DashStyle.Dot;
+                p.DashStyle = Drawing.Drawing2D.DashStyle.Dash;
                 var pp1 = box.GetOffsetPoint(pt1);
                 var pp2 = box.GetOffsetPoint(pt2);
 
