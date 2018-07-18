@@ -81,5 +81,10 @@ namespace WindowsFormsApplication2
         {
             imageViewer1.NewAddOtherElements(new List<Element>() { new RingElement(new PointF(400, 400), 50f, 100f) });
         }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            imageViewer1.NewAddRoiElements(new List<Element>() { new RoiRingElement(new PointF(400, 400), 50f, 100f) });
+        }
     }
 }

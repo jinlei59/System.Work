@@ -47,6 +47,7 @@
     <Compile Include="Elements\Blobs\BlobElement.cs" />
     <Compile Include="Elements\DotMatrix\DotMatrixElement.cs" />
     <Compile Include="Elements\Element.cs" />
+    <Compile Include="Elements\Ellipse\RoiRingElement.cs" />
     <Compile Include="Elements\Ellipse\RingElement.cs" />
     <Compile Include="Elements\Lines\LineElement.cs" />
     <Compile Include="Elements\Lines\RoiDispersePointLineElement.cs" />

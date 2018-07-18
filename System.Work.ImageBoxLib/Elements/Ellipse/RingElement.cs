@@ -86,14 +86,14 @@ namespace System.Work.ImageBoxLib
 
         #region 自定义
 
-        private RectangleF GetRect(float radius)
+        protected RectangleF GetRect(float radius)
         {
             if (radius <= 0)
                 return RectangleF.Empty;
             return new RectangleF(Cpt.X - radius, Cpt.Y - radius, 2 * radius, 2 * radius);
         }
 
-        private void GetEdgePoint(out PointF pt1, out PointF pt2)
+        protected void GetEdgePoint(out PointF pt1, out PointF pt2)
         {
             pt1 = new PointF(Cpt.X + Sradius, Cpt.Y);
             pt2 = new PointF(Cpt.X + Eradius, Cpt.Y);
