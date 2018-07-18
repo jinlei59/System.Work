@@ -37,11 +37,13 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.imageViewer1 = new System.Work.ImageBoxLib.ImageViewer();
+            this.button8 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.button8);
             this.panel1.Controls.Add(this.button7);
             this.panel1.Controls.Add(this.button6);
             this.panel1.Controls.Add(this.button5);
@@ -127,12 +129,27 @@
             // 
             // imageViewer1
             // 
+            this.imageViewer1.AllowZoom = true;
             this.imageViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.imageViewer1.Location = new System.Drawing.Point(0, 95);
             this.imageViewer1.Margin = new System.Windows.Forms.Padding(0);
+            this.imageViewer1.MinimumRoiSize = 1;
             this.imageViewer1.Name = "imageViewer1";
+            this.imageViewer1.SelectRoi = null;
             this.imageViewer1.Size = new System.Drawing.Size(627, 393);
+            this.imageViewer1.StatusStripVisible = false;
             this.imageViewer1.TabIndex = 0;
+            this.imageViewer1.ToolStripVisible = false;
+            // 
+            // button8
+            // 
+            this.button8.Location = new System.Drawing.Point(489, 32);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(75, 23);
+            this.button8.TabIndex = 0;
+            this.button8.Text = "ring";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // Form1
             // 
@@ -159,6 +176,7 @@
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button button8;
     }
 }
 

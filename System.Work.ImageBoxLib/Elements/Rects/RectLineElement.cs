@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace System.Work.ImageBoxLib
 {
+    [Serializable]
     public class RectLineElement : RectElement
     {
         public int LineCount { get; set; }

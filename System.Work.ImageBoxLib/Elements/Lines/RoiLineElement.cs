@@ -8,6 +8,7 @@ using System.Windows.Forms;
 
 namespace System.Work.ImageBoxLib
 {
+    [Serializable]
     public class RoiLineElement : LineElement
     {
         #region 变量

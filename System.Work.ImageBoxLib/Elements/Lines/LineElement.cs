@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace System.Work.ImageBoxLib
 {
+    [Serializable]
     public class LineElement : Element
     {
         protected int LineWidth = 3;
@@ -67,14 +68,8 @@ namespace System.Work.ImageBoxLib
 
         #endregion
 
-        #region 自定义
-
-        protected float GetLength(float x1, float y1, float x2, float y2)
-        {
-            return (float)Math.Sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
-        }
-
-        protected bool IsEmpty()
+        #region 自定义    
+        protected override bool IsEmpty()
         {
             return Length <= 0;
         }

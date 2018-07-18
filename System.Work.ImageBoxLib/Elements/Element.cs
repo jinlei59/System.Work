@@ -74,14 +74,13 @@ namespace System.Work.ImageBoxLib
         {
             return;
         }
-
-        protected void DrawDragHandles(Graphics g)
+        protected virtual void DrawDragHandles(Graphics g)
         {
             if (DragHandleCollection != null && DragHandleCollection.Count > 0)
                 foreach (var handle in DragHandleCollection)
                     DrawDragHandle(g, handle);
         }
-        private void DrawDragHandle(Graphics graphics, DragHandle handle)
+        protected virtual void DrawDragHandle(Graphics graphics, DragHandle handle)
         {
             int left;
             int top;
@@ -112,11 +111,20 @@ namespace System.Work.ImageBoxLib
             graphics.DrawLine(outerPen, left + 1, top + height - 1, left + width - 2, top + height - 1);
             graphics.DrawLine(outerPen, left + width - 1, top + 1, left + width - 1, top + height - 2);
         }
-
         internal virtual void OnROIShapeChannged(object sender, ElementEventArgs e)
         {
             lock (_lock)
                 ROIShapeChannged?.Invoke(sender, e);
+        }
+
+
+        protected virtual float GetLength(float x1, float y1, float x2, float y2)
+        {
+            return (float)Math.Sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
+        }
+        protected virtual bool IsEmpty()
+        {
+            return false;
         }
         #endregion
 
@@ -203,7 +211,8 @@ namespace System.Work.ImageBoxLib
         /// <summary>
         /// 带箭头的线
         /// </summary>
-        LineCap = 9
+        LineCap = 9,
+        Ring = 10
     }
 
     public class ElementEventArgs : EventArgs

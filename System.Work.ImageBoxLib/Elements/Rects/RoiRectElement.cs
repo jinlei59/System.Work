@@ -8,6 +8,7 @@ using System.Windows.Forms;
 
 namespace System.Work.ImageBoxLib
 {
+    [Serializable]
     public class RoiRectElement : RectElement
     {
         #region 变量

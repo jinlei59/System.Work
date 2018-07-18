@@ -47,7 +47,7 @@ namespace WindowsFormsApplication2
         private void button2_Click(object sender, EventArgs e)
         {
             //imageViewer1.NewAddOtherElements(new List<System.Work.ImageBoxLib.Element>() { new RectElement(new RectangleF(10, 10, 200, 200), 30) });
-            imageViewer1.NewAddRoiElements(new List<Element>() { new RoiRectElement(new RectangleF(10, 10, 200, 200))  });
+            imageViewer1.NewAddRoiElements(new List<Element>() { new RoiRectElement(new RectangleF(10, 10, 200, 200)) });
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -69,12 +69,17 @@ namespace WindowsFormsApplication2
 
         private void button6_Click(object sender, EventArgs e)
         {
-            imageViewer1.NewAddOtherElements(new List<System.Work.ImageBoxLib.Element>() { new BlobElement(new PointF[] { new PointF(100, 100), new PointF(100, 200), new PointF(200, 200), new PointF(200, 100) }) { ForeColor= Color.Yellow} });
+            imageViewer1.NewAddOtherElements(new List<System.Work.ImageBoxLib.Element>() { new BlobElement(new PointF[] { new PointF(100, 100), new PointF(100, 200), new PointF(200, 200), new PointF(200, 100) }) { ForeColor = Color.Yellow } });
         }
 
         private void button7_Click(object sender, EventArgs e)
         {
             imageViewer1.NewAddOtherElements(new List<System.Work.ImageBoxLib.Element>() { new DotMatrixElement(new PointF[] { new PointF(10, 10), new PointF(10, 20), new PointF(20, 10), new PointF(20, 20) }) });
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            imageViewer1.NewAddOtherElements(new List<Element>() { new RingElement(new PointF(400, 400), 50f, 100f) });
         }
     }
 }

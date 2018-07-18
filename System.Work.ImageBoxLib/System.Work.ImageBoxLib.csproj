@@ -45,8 +45,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Elements\Blobs\BlobElement.cs" />
-    <Compile Include="Elements\Blobs\DotMatrixElement.cs" />
+    <Compile Include="Elements\DotMatrix\DotMatrixElement.cs" />
     <Compile Include="Elements\Element.cs" />
+    <Compile Include="Elements\Ellipse\RingElement.cs" />
     <Compile Include="Elements\Lines\LineElement.cs" />
     <Compile Include="Elements\Lines\RoiDispersePointLineElement.cs" />
     <Compile Include="Elements\Lines\RoiLineElement.cs" />
@@ -106,9 +107,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Elements\DotMatrix\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

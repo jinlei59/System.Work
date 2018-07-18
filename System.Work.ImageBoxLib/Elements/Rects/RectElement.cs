@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace System.Work.ImageBoxLib
 {
+    [Serializable]
     public class RectElement : Element
     {
         private RectangleF _rect = RectangleF.Empty;

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace System.Work.ImageBoxLib
 {
+    [Serializable]
     public class DotMatrixElement : Element
     {
         private PointF[] _points = null;

@@ -11,6 +11,7 @@ namespace System.Work.ImageBoxLib
     /// <summary>
     /// 离散点线
     /// </summary>
+    [Serializable]
     public class RoiDispersePointLineElement : RoiLineElement
     {
         List<Element> _rects = null;
