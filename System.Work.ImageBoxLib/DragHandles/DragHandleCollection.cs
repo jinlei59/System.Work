@@ -75,21 +75,17 @@ namespace System.Work.ImageBoxLib
             return _items.Values.GetEnumerator();
         }
 
-        public DragHandleAnchor HitTest(Point point)
+        public DragHandle HitTest(Point point)
         {
-            DragHandleAnchor result;
-
-            result = DragHandleAnchor.None;
-
+            DragHandle result = null;
             foreach (DragHandle handle in this)
             {
                 if (handle.Visible && handle.Bounds.Contains(point))
                 {
-                    result = handle.Anchor;
+                    result = handle;
                     break;
                 }
             }
-
             return result;
         }
 

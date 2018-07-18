@@ -89,7 +89,8 @@ namespace WindowsFormsApplication2
 
         private void button10_Click(object sender, EventArgs e)
         {
-            imageViewer1.NewAddOtherElements(new List<Element>() { new PolygonElement() { ForeColor = Color.Blue } });
+            //imageViewer1.NewAddOtherElements(new List<Element>() { new PolygonElement() { ForeColor = Color.Blue } });
+            imageViewer1.NewAddRoiElements(new List<Element>() { new RoiPolygonElement() { ForeColor = Color.Blue } });
         }
     }
 }

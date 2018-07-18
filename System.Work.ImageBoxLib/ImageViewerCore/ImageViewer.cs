@@ -174,7 +174,7 @@ namespace System.Work.ImageBoxLib
                 var imagePt = imageBox1.PointToImage(e.Location);
                 if (imageBox1.Cursor == Cursors.Default)
                 {
-                    SelectRoi = _roiElements.Where(x => x.Visible && x.Enable && x.Contains(imagePt.X, imagePt.Y) || x.HitTest(e.Location) != DragHandleAnchor.None).OrderBy(x => x.AreaValue()).FirstOrDefault();
+                    SelectRoi = _roiElements.Where(x => x.Visible && x.Enable && x.Contains(imagePt.X, imagePt.Y) || (x.HitTest(e.Location) != null && x.HitTest(e.Location).Anchor != DragHandleAnchor.None)).OrderBy(x => x.AreaValue()).FirstOrDefault();
                     _roiElements.ForEach(x => x.Selected = false);
                 }
                 if (SelectRoi != null)

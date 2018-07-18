@@ -66,7 +66,7 @@ namespace System.Work.ImageBoxLib
         {
             return 0;
         }
-        public virtual DragHandleAnchor HitTest(Point point)
+        public virtual DragHandle HitTest(Point point)
         {
             return DragHandleCollection.HitTest(point);
         }
@@ -141,7 +141,8 @@ namespace System.Work.ImageBoxLib
             }
             else
             {
-                handleAnchor = HitTest(point);
+                var handle = HitTest(point);
+                handleAnchor = handle == null ? DragHandleAnchor.None : handle.Anchor;
                 if (handleAnchor != DragHandleAnchor.None && DragHandleCollection[handleAnchor].Enabled)
                 {
                     switch (handleAnchor)

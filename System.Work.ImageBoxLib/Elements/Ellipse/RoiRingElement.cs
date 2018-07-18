@@ -85,7 +85,8 @@ namespace System.Work.ImageBoxLib
             }
             else
             {
-                handleAnchor = HitTest(point);
+                var handle = HitTest(point);
+                handleAnchor = handle == null ? DragHandleAnchor.None : handle.Anchor;
                 if (handleAnchor != DragHandleAnchor.None && DragHandleCollection[handleAnchor].Enabled)
                 {
                     switch (handleAnchor)
