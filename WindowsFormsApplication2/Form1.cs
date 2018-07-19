@@ -92,5 +92,11 @@ namespace WindowsFormsApplication2
             //imageViewer1.NewAddOtherElements(new List<Element>() { new PolygonElement() { ForeColor = Color.Blue } });
             imageViewer1.NewAddRoiElements(new List<Element>() { new RoiPolygonElement() { ForeColor = Color.Blue } });
         }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            //imageViewer1.NewAddRoiElements(new List<Element>() { new PointElement(110, 110) { ForeColor = Color.Blue } });
+            imageViewer1.NewAddRoiElements(new List<Element>() { new RoiPointElement(110, 110) { ForeColor = Color.Blue } });
+        }
     }
 }

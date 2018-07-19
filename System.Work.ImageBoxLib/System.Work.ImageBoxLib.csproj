@@ -70,6 +70,8 @@
     <Compile Include="Elements\Lines\LineElement.cs" />
     <Compile Include="Elements\Lines\RoiDispersePointLineElement.cs" />
     <Compile Include="Elements\Lines\RoiLineElement.cs" />
+    <Compile Include="Elements\Points\PointElement.cs" />
+    <Compile Include="Elements\Points\RoiPointElement.cs" />
     <Compile Include="Elements\Polygons\PolygonElement.cs" />
     <Compile Include="Elements\Polygons\RoiPolygonElement.cs" />
     <Compile Include="Elements\Rects\RectElement.cs" />

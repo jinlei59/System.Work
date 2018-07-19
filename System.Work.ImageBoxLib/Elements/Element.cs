@@ -68,7 +68,7 @@ namespace System.Work.ImageBoxLib
         }
         public virtual DragHandle HitTest(Point point)
         {
-            return DragHandleCollection.HitTest(point);
+            return DragHandleCollection == null ? null : DragHandleCollection.HitTest(point);
         }
         internal virtual void Draw(Graphics g, ImageBox box)
         {
