@@ -173,24 +173,24 @@ namespace System.Work.ImageBoxLib
             if (_polygonPts == null || _polygonPts.Count < 3)
                 return false;
             bool br = OuterRect.Contains(x, y);
-            if (br)
-            {//再次判断是否在多边形里面
-                int count = _polygonPts.Count;
-                var pt0 = new PointF(x, y);
-                float sumArea = 0f;
-                for (int i = 0; i < count - 1; i++)
-                {
-                    var pt1 = GetPt(i);
-                    var pt2 = GetPt(i + 1);
-                    sumArea += Math.Abs(GetTriangleArea(pt0, pt1, pt2));
-                }
-                {
-                    var pt1 = GetPt(0);
-                    var pt2 = GetPt(count - 1);
-                    sumArea += Math.Abs(GetTriangleArea(pt0, pt1, pt2));
-                }
-                br = sumArea <= AreaValue();
-            }
+            //if (br)
+            //{//再次判断是否在多边形里面
+            //    int count = _polygonPts.Count;
+            //    var pt0 = new PointF(x, y);
+            //    float sumArea = 0f;
+            //    for (int i = 0; i < count - 1; i++)
+            //    {
+            //        var pt1 = GetPt(i);
+            //        var pt2 = GetPt(i + 1);
+            //        sumArea += GetTriangleArea(pt0, pt1, pt2);
+            //    }
+            //    {
+            //        var pt1 = GetPt(0);
+            //        var pt2 = GetPt(count - 1);
+            //        sumArea += GetTriangleArea(pt0, pt1, pt2);
+            //    }
+            //    br = sumArea <= AreaValue();
+            //}
             return br;
         }
 

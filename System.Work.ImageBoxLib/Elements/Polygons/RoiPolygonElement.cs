@@ -137,7 +137,7 @@ namespace System.Work.ImageBoxLib
                         switch (handleAnchor)
                         {
                             case DragHandleAnchor.TopLeft:
-                                cursor = Cursors.SizeWE;
+                                cursor = Cursors.SizeAll;
                                 break;
                             case DragHandleAnchor.MiddleCenter:
                                 cursor = Cursors.SizeAll;
