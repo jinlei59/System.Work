@@ -214,10 +214,11 @@ namespace System.Work.ImageBoxLib
         /// </summary>
         LineCap = 9,
         Ring = 10,
-        Polygon = 11
+        Polygon = 11,
+        Image=12
     }
 
-    public class ElementEventArgs : EventArgs
+    public class ElementEventArgs : EventArgs,IDisposable
     {
         public bool Cancel { get; set; }
         public RectangleF OldRegion { get; }
@@ -234,6 +235,11 @@ namespace System.Work.ImageBoxLib
             NewRegion = newRegion;
             OldAngle = oldAngle;
             NewAngle = newAngle;
+        }
+
+        public virtual void Dispose()
+        {
+            return;
         }
     }
 }

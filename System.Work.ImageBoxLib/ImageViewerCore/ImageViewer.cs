@@ -17,6 +17,9 @@ namespace System.Work.ImageBoxLib
 
         private List<Element> _roiElements = null;
         private List<Element> _otherElements = null;
+        private List<ImageElement> _imageElements = null;
+        private List<RoiImageElement> _roiImageElements = null;
+
         private bool _isLeftMouseDown = false;
         private Element _selectRoi = null;
 
@@ -104,6 +107,8 @@ namespace System.Work.ImageBoxLib
             InitializeComponent();
             _roiElements = new List<Element>();
             _otherElements = new List<Element>();
+            _imageElements = new List<ImageElement>();
+            _roiImageElements = new List<RoiImageElement>();
         }
         #endregion
 
@@ -136,6 +141,46 @@ namespace System.Work.ImageBoxLib
         public void NewClearOtherElements()
         {
             _otherElements.Clear();
+        }
+
+        public void NewAddImageElements(List<ImageElement> images)
+        {
+            if (images != null)
+                _imageElements.AddRange(images);
+        }
+        public void NewClearImageElements(bool disposed = false)
+        {
+            if (_imageElements != null && _imageElements.Count > 0)
+            {
+                if (!disposed)
+                    _imageElements.Clear();
+                else
+                {
+                    foreach (var image in _imageElements)
+                        image.Dispose();
+                    _imageElements.Clear();
+                }
+            }
+        }
+
+        public void NewAddRoiImageElements(List<RoiImageElement> images)
+        {
+            if (images != null)
+                _roiImageElements.AddRange(images);
+        }
+        public void NewClearRoiImageElements(bool disposed = false)
+        {
+            if (_roiImageElements != null && _roiImageElements.Count > 0)
+            {
+                if (!disposed)
+                    _roiImageElements.Clear();
+                else
+                {
+                    foreach (var image in _roiImageElements)
+                        image.Dispose();
+                    _roiImageElements.Clear();
+                }
+            }
         }
 
         public void NewEndDisplay()
@@ -174,8 +219,16 @@ namespace System.Work.ImageBoxLib
                 var imagePt = imageBox1.PointToImage(e.Location);
                 if (imageBox1.Cursor == Cursors.Default)
                 {
-                    SelectRoi = _roiElements.Where(x => x.Visible && x.Enable && x.Contains(imagePt.X, imagePt.Y) || (x.HitTest(e.Location) != null && x.HitTest(e.Location).Anchor != DragHandleAnchor.None)).OrderBy(x => x.AreaValue()).FirstOrDefault();
+                    var roirect = _roiElements.Where(x => x.Visible && x.Enable && x.Contains(imagePt.X, imagePt.Y) || (x.HitTest(e.Location) != null && x.HitTest(e.Location).Anchor != DragHandleAnchor.None)).OrderBy(x => x.AreaValue()).FirstOrDefault();
+                    var imagerect = _roiImageElements.Where(x => x.Visible && x.Enable && x.Contains(imagePt.X, imagePt.Y) || (x.HitTest(e.Location) != null && x.HitTest(e.Location).Anchor != DragHandleAnchor.None)).OrderBy(x => x.AreaValue()).FirstOrDefault();
+                    if (roirect == null)
+                        SelectRoi = imagerect;
+                    else if (imagerect == null)
+                        SelectRoi = roirect;
+                    else
+                        SelectRoi = roirect.AreaValue() <= imagerect.AreaValue() ? roirect : imagerect;
                     _roiElements.ForEach(x => x.Selected = false);
+                    _roiImageElements.ForEach(x => x.Selected = false);
                 }
                 if (SelectRoi != null)
                 {
@@ -243,6 +296,10 @@ namespace System.Work.ImageBoxLib
                 if (!imageBox1.AllowPainting)
                     return;
 
+                foreach (var element in _imageElements)
+                    element.Draw(e.Graphics, imageBox1);
+                foreach (var element in _roiImageElements)
+                    element.Draw(e.Graphics, imageBox1);
                 foreach (var element in _otherElements)
                     element.Draw(e.Graphics, imageBox1);
                 foreach (var element in _roiElements)

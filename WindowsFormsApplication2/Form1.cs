@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -97,6 +98,12 @@ namespace WindowsFormsApplication2
         {
             //imageViewer1.NewAddRoiElements(new List<Element>() { new PointElement(110, 110) { ForeColor = Color.Blue } });
             imageViewer1.NewAddRoiElements(new List<Element>() { new RoiPointElement(110, 110) { ForeColor = Color.Blue } });
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            var bmp = new Bitmap(@"D:\11111.jpg");
+            imageViewer1.NewAddRoiImageElements(new List<RoiImageElement>() { new RoiImageElement(bmp, new RectangleF(100,200,50,50)) });
         }
     }
 }

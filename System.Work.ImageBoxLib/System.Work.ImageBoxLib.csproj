@@ -67,6 +67,8 @@
     <Compile Include="Elements\Element.cs" />
     <Compile Include="Elements\Ellipse\RoiRingElement.cs" />
     <Compile Include="Elements\Ellipse\RingElement.cs" />
+    <Compile Include="Elements\Images\ImageElement.cs" />
+    <Compile Include="Elements\Images\RoiImageElement.cs" />
     <Compile Include="Elements\Lines\LineElement.cs" />
     <Compile Include="Elements\Lines\RoiDispersePointLineElement.cs" />
     <Compile Include="Elements\Lines\RoiLineElement.cs" />
