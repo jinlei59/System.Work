@@ -46,10 +46,10 @@ namespace System.Work.ImageBoxLib
 
             if (Selected)
             {
-                var pt = box.GetOffsetPoint(Pt);
+                var pt = box.GetOffsetPoint((int)Pt.X, (int)Pt.Y);
                 int halfDragHandleSize = DragHandleSize / 2;
-                int cx = (int)pt.X - halfDragHandleSize;
-                int cy = (int)pt.Y - halfDragHandleSize;
+                int cx = pt.X - halfDragHandleSize;
+                int cy = pt.Y - halfDragHandleSize;
 
                 DragHandleCollection[DragHandleAnchor.MiddleCenter].Bounds = new Rectangle(cx, cy, this.DragHandleSize, this.DragHandleSize);
 

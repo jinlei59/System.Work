@@ -81,22 +81,38 @@ namespace System.Work.ImageBoxLib
                 return;
             using (Pen p = new Pen(ForeColor, AutoChangeSize ? BorderWidth * box.ZoomFactor : BorderWidth))
             {
-                float len = 8;
-                float halfLen = len / 2;
+                //if (box.ZoomFactor < 1)
+                //{
+                int len = 8;
+                int halfLen = len / 2;
 
-                var pt = box.GetOffsetPoint(Pt);
+                var pt = box.GetOffsetPoint((int)Pt.X, (int)Pt.Y);
 
-                var pt1 = new PointF(pt.X - len, pt.Y);
-                var pt2 = new PointF(pt.X + len, pt.Y);
+                var pt1 = new Point(pt.X - len, pt.Y);
+                var pt2 = new Point(pt.X + len, pt.Y);
                 g.DrawLine(p, pt1, pt2);
 
-                pt1 = new PointF(pt.X, pt.Y - len);
-                pt2 = new PointF(pt.X, pt.Y + len);
+                pt1 = new Point(pt.X, pt.Y - len);
+                pt2 = new Point(pt.X, pt.Y + len);
                 g.DrawLine(p, pt1, pt2);
 
-                var rect = new RectangleF(pt.X - halfLen, pt.Y - halfLen, len, len);
+                var rect = new Rectangle((int)(pt.X - halfLen), (int)(pt.Y - halfLen), len, len);
 
-                g.DrawEllipse(p, rect);
+                g.DrawRectangle(p, rect);
+                //}
+                //else
+                //{
+                //    var pt1 = box.GetOffsetPoint(new PointF(Pt.X - 2, Pt.Y));
+                //    var pt2 = box.GetOffsetPoint(new PointF(Pt.X + 2, Pt.Y));
+                //    g.DrawLine(p, pt1, pt2);
+
+                //    pt1 = box.GetOffsetPoint(new PointF(Pt.X, Pt.Y - 2));
+                //    pt2 = box.GetOffsetPoint(new PointF(Pt.X, Pt.Y + 2));
+                //    g.DrawLine(p, pt1, pt2);
+
+                //    var rect = box.GetOffsetRectangle(new RectangleF(Pt.X - 1f, Pt.Y - 1f, 2, 2));
+                //    g.DrawEllipse(p, rect);
+                //}
             }
         }
         #endregion
