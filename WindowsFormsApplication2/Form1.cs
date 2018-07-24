@@ -91,7 +91,7 @@ namespace WindowsFormsApplication2
         private void button10_Click(object sender, EventArgs e)
         {
             //imageViewer1.NewAddOtherElements(new List<Element>() { new PolygonElement() { ForeColor = Color.Blue } });
-            imageViewer1.NewAddRoiElements(new List<Element>() { new RoiPolygonElement() { ForeColor = Color.Blue } });
+            imageViewer1.NewAddRoiElements(new List<Element>() { new RoiPolygonElement() { ForeColor = Color.Blue, IsBlobPolyton = true  } });
         }
 
         private void button11_Click(object sender, EventArgs e)
@@ -103,7 +103,7 @@ namespace WindowsFormsApplication2
         private void button12_Click(object sender, EventArgs e)
         {
             var bmp = new Bitmap(@"D:\11111.jpg");
-            imageViewer1.NewAddRoiImageElements(new List<RoiImageElement>() { new RoiImageElement(bmp, new RectangleF(100,200,50,50)) });
+            imageViewer1.NewAddRoiImageElements(new List<RoiImageElement>() { new RoiImageElement(bmp, new RectangleF(100, 200, 50, 50))});
         }
     }
 }

@@ -50,6 +50,7 @@ namespace System.Work.ImageBoxLib
             }
         }
 
+        public bool IsBlobPolyton { get; set; }
         #endregion
 
         #region 构造函数
@@ -85,6 +86,7 @@ namespace System.Work.ImageBoxLib
 
             Type = ElementType.Polygon;
             AutoChangeSize = false;
+            IsBlobPolyton = false;
         }
 
         #endregion
@@ -97,7 +99,7 @@ namespace System.Work.ImageBoxLib
             OnROIShapeChannged(this, e);
         }
 
-        protected PointF GetPt(int index)
+        public PointF GetPt(int index)
         {
             var key = _polygonPts.Keys.ToList()[index];
             var pt = PointF.Empty;
@@ -105,18 +107,31 @@ namespace System.Work.ImageBoxLib
             return pt;
         }
 
-        protected PointF GetPt(Guid key)
+        public PointF GetPt(Guid key)
         {
             var pt = PointF.Empty;
             _polygonPts.TryGetValue(key, out pt);
             return pt;
         }
 
-        protected void SetPt(Guid key, PointF value)
+        public void SetPt(Guid key, PointF value)
         {
             try
             {
                 _polygonPts[key] = value;
+            }
+            catch (KeyNotFoundException)
+            {
+                //忽略
+            }
+        }
+
+        public void SetPt(int index, PointF value)
+        {
+            try
+            {
+                var key = _polygonPts.Keys.ToList()[index];
+                SetPt(key, value);
             }
             catch (KeyNotFoundException)
             {
@@ -212,7 +227,10 @@ namespace System.Work.ImageBoxLib
             using (Pen p = new Pen(ForeColor, AutoChangeSize ? BorderWidth * box.ZoomFactor : BorderWidth))
             {
                 var pts = GetPolygonPts(box);
-                g.DrawPolygon(p, pts);
+                if (IsBlobPolyton)
+                    g.FillPolygon(new SolidBrush(Color.FromArgb(75, ForeColor)), pts);
+                else
+                    g.DrawPolygon(p, pts);
                 //var gravity = box.GetOffsetPoint(GetGravityPt());
                 //g.DrawRectangle(p, gravity.X, gravity.Y, 2, 2);
                 //var are = AreaValue();
