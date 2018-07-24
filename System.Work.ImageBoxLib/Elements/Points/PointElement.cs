@@ -120,7 +120,7 @@ namespace System.Work.ImageBoxLib
 
     public class PointElementEventArgs : ElementEventArgs
     {
-        protected PointF Pt { get; set; }
+        public PointF Pt { get; set; }
 
         public static new readonly PointElementEventArgs Empty = new PointElementEventArgs();
 
