@@ -81,7 +81,7 @@ namespace System.Work.ImageBoxLib
         {
             if (!Visible || Rect.IsEmpty)
                 return;
-            using (Pen p = new Pen(ForeColor, BorderWidth * box.ZoomFactor))
+            using (Pen p = new Pen(ForeColor, AutoChangeSize? BorderWidth * box.ZoomFactor: BorderWidth))
             {
                 try
                 {
