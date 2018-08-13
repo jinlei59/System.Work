@@ -122,6 +122,29 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ImageBox\ImageBox.bmp" />
+    <None Include="Resources\save.png" />
+    <None Include="Resources\zone.png" />
+    <None Include="Resources\selection-select.png" />
+    <None Include="Resources\selection1.png" />
+    <None Include="Resources\selection.png" />
+    <None Include="Resources\Open.png" />
+    <None Include="Resources\Object Size1.ico" />
+    <None Include="Resources\Object Size.ico" />
+    <None Include="Resources\Object Position1.ico" />
+    <None Include="Resources\Object Position.ico" />
+    <None Include="Resources\monitor-sidebar.png" />
+    <None Include="Resources\markdownpad-github.css" />
+    <None Include="Resources\MapMarker.png" />
+    <None Include="Resources\map.png" />
+    <None Include="Resources\magnifier-zoom-out.png" />
+    <None Include="Resources\magnifier-zoom-in.png" />
+    <None Include="Resources\magnifier-zoom.png" />
+    <None Include="Resources\image-resize-actual.png" />
+    <None Include="Resources\image-crop.png" />
+    <None Include="Resources\icon-32a.png" />
+    <None Include="Resources\icon-32.png" />
+    <None Include="Resources\grid-dot.png" />
+    <None Include="Resources\cursor.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ImageViewerCore\ImageViewer.resx">

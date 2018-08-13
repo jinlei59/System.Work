@@ -2927,7 +2927,7 @@ namespace System.Work.ImageBoxLib
         {
             InterpolationMode currentInterpolationMode = g.InterpolationMode;
             PixelOffsetMode currentPixelOffsetMode = g.PixelOffsetMode;
-            if (ZoomFactor >= 8)
+            if (ZoomFactor >= 1)
             {
                 g.InterpolationMode = this.GetInterpolationMode();
                 //// disable pixel offsets. Thanks to Rotem for the info.
@@ -2956,7 +2956,7 @@ namespace System.Work.ImageBoxLib
             catch(Exception ex)
             { }
 
-            if (ZoomFactor >= 8)
+            if (ZoomFactor >= 1)
             {
                 g.PixelOffsetMode = currentPixelOffsetMode;
                 g.InterpolationMode = currentInterpolationMode;

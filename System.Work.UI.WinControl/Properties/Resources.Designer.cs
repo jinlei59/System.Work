@@ -61,12 +61,42 @@ namespace System.Work.UI.WinControl.Properties {
         }
         
         /// <summary>
+        ///   查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Icon AddedIcon {
+            get {
+                object obj = ResourceManager.GetObject("AddedIcon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Icon ConflictIcon {
+            get {
+                object obj = ResourceManager.GetObject("ConflictIcon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
         internal static System.Drawing.Bitmap cursor {
             get {
                 object obj = ResourceManager.GetObject("cursor", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Icon DeletedIcon {
+            get {
+                object obj = ResourceManager.GetObject("DeletedIcon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
         
@@ -101,6 +131,16 @@ namespace System.Work.UI.WinControl.Properties {
         }
         
         /// <summary>
+        ///   查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Icon IgnoredIcon {
+            get {
+                object obj = ResourceManager.GetObject("IgnoredIcon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
         internal static System.Drawing.Bitmap image_crop {
@@ -117,6 +157,16 @@ namespace System.Work.UI.WinControl.Properties {
             get {
                 object obj = ResourceManager.GetObject("image_resize_actual", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Icon LockedIcon {
+            get {
+                object obj = ResourceManager.GetObject("LockedIcon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
         
@@ -188,6 +238,16 @@ namespace System.Work.UI.WinControl.Properties {
         }
         
         /// <summary>
+        ///   查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Icon ModifiedIcon {
+            get {
+                object obj = ResourceManager.GetObject("ModifiedIcon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
         internal static System.Drawing.Bitmap monitor_sidebar {
@@ -198,7 +258,17 @@ namespace System.Work.UI.WinControl.Properties {
         }
         
         /// <summary>
-        ///   查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        ///   查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Icon NormalIcon {
+            get {
+                object obj = ResourceManager.GetObject("NormalIcon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         /// </summary>
         internal static System.Drawing.Icon Object_Position {
             get {
@@ -208,7 +278,7 @@ namespace System.Work.UI.WinControl.Properties {
         }
         
         /// <summary>
-        ///   查找类似于 (图标) 的 System.Drawing.Icon 类型的本地化资源。
+        ///   查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
         /// </summary>
         internal static System.Drawing.Icon Object_Size {
             get {
@@ -233,6 +303,26 @@ namespace System.Work.UI.WinControl.Properties {
         internal static System.Drawing.Bitmap Position {
             get {
                 object obj = ResourceManager.GetObject("Position", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Icon ReadOnlyIcon {
+            get {
+                object obj = ResourceManager.GetObject("ReadOnlyIcon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap save {
+            get {
+                object obj = ResourceManager.GetObject("save", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -274,6 +364,16 @@ namespace System.Work.UI.WinControl.Properties {
             get {
                 object obj = ResourceManager.GetObject("Size", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Icon UnversionedIcon {
+            get {
+                object obj = ResourceManager.GetObject("UnversionedIcon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
         

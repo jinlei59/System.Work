@@ -94,6 +94,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ImageBox\ImageBox.bmp" />
+    <None Include="Resources\save.png" />
+    <None Include="Resources\ReadOnlyIcon.ico" />
+    <None Include="Resources\NormalIcon.ico" />
+    <None Include="Resources\ModifiedIcon.ico" />
+    <None Include="Resources\LockedIcon.ico" />
+    <None Include="Resources\IgnoredIcon.ico" />
+    <None Include="Resources\DeletedIcon.ico" />
+    <None Include="Resources\ConflictIcon.ico" />
+    <None Include="Resources\AddedIcon.ico" />
+    <None Include="Resources\UnversionedIcon.ico" />
     <None Include="Resources\Object Size1.ico" />
     <None Include="Resources\selection1.png" />
     <None Include="Resources\Object Position1.ico" />

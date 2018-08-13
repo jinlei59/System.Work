@@ -8,6 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
+using System.IO;
+using System.Drawing.Imaging;
+using System.Runtime.InteropServices;
 
 namespace System.Work.ImageBoxLib
 {
@@ -23,18 +26,21 @@ namespace System.Work.ImageBoxLib
         private bool _isLeftMouseDown = false;
         private Element _selectRoi = null;
 
+        private Bitmap _displayImage = null;
         #endregion
 
         #region 属性
 
         public bool ToolStripVisible
         {
-            get; set;
+            get { return toolStrip1.Visible; }
+            set { toolStrip1.Visible = value; }
         }
 
         public bool StatusStripVisible
         {
-            get; set;
+            get { return statusStrip1.Visible; }
+            set { statusStrip1.Visible = value; }
         }
 
         public Element SelectRoi
@@ -121,7 +127,7 @@ namespace System.Work.ImageBoxLib
 
         public void NewDisplayImage(Bitmap bmp)
         {
-            imageBox1.Image = bmp;
+            DisplayImage(bmp);
         }
 
         public void NewAddRoiElements(List<Element> rois)
@@ -210,7 +216,90 @@ namespace System.Work.ImageBoxLib
         }
         #endregion
 
-        #region 界面事件
+        #region 私有方法
+
+        private void DisposeDisplayImage()
+        {
+            if (_displayImage != null)
+            {
+                _displayImage.Dispose();
+                _displayImage = null;
+            }
+        }
+
+        private void DisplayImage(Bitmap bmp)
+        {
+            var temp = _displayImage;
+            _displayImage = (Bitmap)bmp.Clone();
+            imageBox1.Image = _displayImage;
+            if (temp != null)
+                temp.Dispose();
+            SetWHText();
+        }
+
+        private void SetWHText()
+        {
+            if (_displayImage == null)
+                tssWH.Text = $"W:0 H:0";
+            else
+                tssWH.Text = $"W:{_displayImage.Width} H:{_displayImage.Height}";
+        }
+
+        private void SetXYText(Point pt)
+        {
+            var ptr = imageBox1.PointToImage(pt);
+            tssXY.Text = $"X:{ptr.X} Y:{ptr.Y}";
+        }
+
+        #region 获取RGB
+
+        [DllImport("gdi32.dll")]
+        private static extern bool BitBlt(IntPtr hdcDest, int nXDest, int nYDest, int nWidth, int nHeight, IntPtr hdcSrc, int nXSrc, int nYSrc, int dwRop);
+
+        [DllImport("gdi32.dll")]
+        private static extern IntPtr CreateDC(string lpszDriver, string lpszDevice, string lpszOutput, IntPtr lpInitData);
+
+        [DllImport("user32.dll")]
+        private static extern IntPtr GetDC(IntPtr hwnd);
+
+        [DllImport("user32.dll")]
+        private static extern int ReleaseDC(IntPtr hwnd, IntPtr hdc);
+
+        [DllImport("gdi32.dll")]
+        private static extern uint GetPixel(IntPtr hdc, int nXPos, int nYPos);
+
+        public void SetRGBText(Point location)
+        {
+            if (imageBox1.IsPointInImage(location))
+            {
+                int x = location.X, y = location.Y;
+                Color c = GetPointColor(x, y);
+                tssRGB.Text = string.Format("R:{0} G:{1} B:{2}", c.R, c.G, c.B);
+            }
+            else
+            {
+                tssRGB.Text = string.Format("R:{0} G:{1} B:{2}", 0, 0, 0);
+            }
+        }
+
+        private Color GetPointColor(int x, int y)
+        {
+            try
+            {
+                IntPtr dC = GetDC(imageBox1.Handle);
+                uint pixel = GetPixel(dC, x, y);
+                ReleaseDC(IntPtr.Zero, dC);
+                return Color.FromArgb((int)(pixel & 255u), (int)(pixel & 65280u) >> 8, (int)(pixel & 16711680u) >> 16);
+            }
+            catch (Exception ex)
+            {
+                return Color.Black;
+            }
+        }
+        #endregion
+        #endregion
+
+        #region 绘图控件事件
         private void imageBox1_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -247,6 +336,8 @@ namespace System.Work.ImageBoxLib
 
         private void imageBox1_MouseMove(object sender, MouseEventArgs e)
         {
+            SetXYText(e.Location);
+            SetRGBText(e.Location);
             if (e.Button == MouseButtons.Left)
             {//操作ROI
                 if (SelectRoi != null)
@@ -311,6 +402,80 @@ namespace System.Work.ImageBoxLib
             {
                 Console.WriteLine(ex.Message);
             }
+        }
+        #endregion
+
+        #region 工具栏
+        private void tsOpen_Click(object sender, EventArgs e)
+        {
+            using (FileDialog dialog = new OpenFileDialog())
+            {
+                dialog.Filter = "BMP图像|*.bmp|JPG图像|*.jpg|PNG图像|*.png";
+                dialog.DefaultExt = "bmp";
+
+                if (dialog.ShowDialog(this) == DialogResult.OK)
+                {
+                    try
+                    {
+                        Bitmap bmp = new Bitmap(dialog.FileName);
+                        DisplayImage(bmp);
+                        bmp.Dispose();
+                        bmp = null;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+
+        private void tsSave_Click(object sender, EventArgs e)
+        {
+            if (_displayImage == null)
+                return;
+            using (SaveFileDialog dialog = new SaveFileDialog())
+            {
+                dialog.Filter = "BMP图像|*.bmp|JPG图像|*.jpg|PNG图像|*.png";
+                dialog.DefaultExt = "bmp";
+
+                if (dialog.ShowDialog() != DialogResult.OK)
+                    return;
+                string ex = Path.GetExtension(dialog.FileName);
+                ImageFormat format = ImageFormat.Bmp;
+                switch (ex)
+                {
+                    case ".jpg":
+                        format = ImageFormat.Jpeg;
+                        break;
+                    case ".png":
+                        format = ImageFormat.Png;
+                        break;
+                    default:
+                        break;
+                }
+                _displayImage.Save(dialog.FileName, format);
+            }
+        }
+
+        private void tsZoomFit_Click(object sender, EventArgs e)
+        {
+            ZoomToFit();
+        }
+
+        private void tsActualSize_Click(object sender, EventArgs e)
+        {
+            imageBox1.ActualSize();
+        }
+
+        private void tsExpand_Click(object sender, EventArgs e)
+        {
+            imageBox1.ZoomIn();
+        }
+
+        private void tsShrink_Click(object sender, EventArgs e)
+        {
+            imageBox1.ZoomOut();
         }
         #endregion
     }
