@@ -230,7 +230,10 @@ namespace System.Work.ImageBoxLib
         private void DisplayImage(Bitmap bmp)
         {
             var temp = _displayImage;
-            _displayImage = (Bitmap)bmp.Clone();
+            if (bmp == null)
+                _displayImage = null;
+            else
+                _displayImage = (Bitmap)bmp.Clone();
             imageBox1.Image = _displayImage;
             if (temp != null)
                 temp.Dispose();
