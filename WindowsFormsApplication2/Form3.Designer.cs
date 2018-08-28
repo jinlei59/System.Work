@@ -47,6 +47,7 @@
             this.imageViewer1.StatusStripVisible = true;
             this.imageViewer1.TabIndex = 0;
             this.imageViewer1.ToolStripVisible = true;
+            this.imageViewer1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.imageViewer1_MouseDoubleClick);
             // 
             // button1
             // 

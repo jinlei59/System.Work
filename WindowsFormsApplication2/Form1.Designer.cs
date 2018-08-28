@@ -36,12 +36,12 @@
             this.button5 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.button12 = new System.Windows.Forms.Button();
             this.button11 = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.imageViewer1 = new System.Work.ImageBoxLib.ImageViewer();
-            this.button12 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -135,6 +135,16 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
+            // button12
+            // 
+            this.button12.Location = new System.Drawing.Point(165, 61);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(75, 23);
+            this.button12.TabIndex = 0;
+            this.button12.Text = "image";
+            this.button12.UseVisualStyleBackColor = true;
+            this.button12.Click += new System.EventHandler(this.button12_Click);
+            // 
             // button11
             // 
             this.button11.Location = new System.Drawing.Point(84, 61);
@@ -188,16 +198,7 @@
             this.imageViewer1.StatusStripVisible = false;
             this.imageViewer1.TabIndex = 0;
             this.imageViewer1.ToolStripVisible = false;
-            // 
-            // button12
-            // 
-            this.button12.Location = new System.Drawing.Point(165, 61);
-            this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(75, 23);
-            this.button12.TabIndex = 0;
-            this.button12.Text = "image";
-            this.button12.UseVisualStyleBackColor = true;
-            this.button12.Click += new System.EventHandler(this.button12_Click);
+            this.imageViewer1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.imageViewer1_MouseDoubleClick);
             // 
             // Form1
             // 

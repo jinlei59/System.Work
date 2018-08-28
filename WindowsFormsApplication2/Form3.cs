@@ -41,5 +41,10 @@ namespace WindowsFormsApplication2
                 }
             }
         }
+
+        private void imageViewer1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+
+        }
     }
 }

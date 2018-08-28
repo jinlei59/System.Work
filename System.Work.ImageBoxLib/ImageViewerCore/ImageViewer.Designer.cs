@@ -181,6 +181,7 @@
             // 
             // imageBox1
             // 
+            this.imageBox1.AllowDoubleClick = true;
             this.imageBox1.BackColor = System.Drawing.Color.Gray;
             this.imageBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.imageBox1.Dock = System.Windows.Forms.DockStyle.Fill;

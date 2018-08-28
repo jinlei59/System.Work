@@ -68,8 +68,8 @@ namespace System.Work.ImageBoxLib
 
         public PolygonElement(List<PointF> pts)
         {
-            if (pts == null || pts.Count < 3)
-                throw new ArgumentException("多边形点数最少为3");
+            if (pts == null)
+                return;
             foreach (var pt in pts)
                 _polygonPts.Add(Guid.NewGuid(), pt);
 
@@ -79,8 +79,8 @@ namespace System.Work.ImageBoxLib
 
         public PolygonElement(Dictionary<Guid, PointF> pts)
         {
-            if (pts == null || pts.Count < 3)
-                throw new ArgumentException("多边形点数最少为3");
+            if (pts == null)
+                return;
             foreach (var keyVal in pts)
                 _polygonPts.Add(keyVal.Key, keyVal.Value);
 
@@ -148,11 +148,14 @@ namespace System.Work.ImageBoxLib
         {
             int count = _polygonPts.Count;
             var pts = new PointF[count];
-            int index = 0;
-            foreach (var keyVal in _polygonPts)
+            if (_polygonPts != null && _polygonPts.Count > 0)
             {
-                pts[index] = box.GetOffsetPoint(keyVal.Value);
-                index++;
+                int index = 0;
+                foreach (var keyVal in _polygonPts)
+                {
+                    pts[index] = box.GetOffsetPoint(keyVal.Value);
+                    index++;
+                }
             }
             return pts;
         }
@@ -178,6 +181,24 @@ namespace System.Work.ImageBoxLib
             }
             gravity = new PointF(sumXa / sumArea, sumYa / sumArea);
             return gravity;
+        }
+
+        public virtual void AddPt(PointF pt)
+        {
+            _polygonPts.Add(Guid.NewGuid(), pt);
+        }
+        public virtual void AddPts(IList<PointF> pts)
+        {
+            if (pts == null || pts.Count < 1 || _polygonPts == null)
+                return;
+            foreach (var pt in pts)
+                _polygonPts.Add(Guid.NewGuid(), pt);
+        }
+
+        public virtual void ClearPts()
+        {
+            if (_polygonPts != null)
+                _polygonPts.Clear();
         }
         #endregion
 
@@ -227,15 +248,18 @@ namespace System.Work.ImageBoxLib
             using (Pen p = new Pen(ForeColor, AutoChangeSize ? BorderWidth * box.ZoomFactor : BorderWidth))
             {
                 var pts = GetPolygonPts(box);
-                if (IsBlobPolyton)
-                    g.FillPolygon(new SolidBrush(Color.FromArgb(75, ForeColor)), pts);
-                else
-                    g.DrawPolygon(p, pts);
-                //var gravity = box.GetOffsetPoint(GetGravityPt());
-                //g.DrawRectangle(p, gravity.X, gravity.Y, 2, 2);
-                //var are = AreaValue();
-                //var rect = box.GetOffsetRectangle( OuterRect);
-                //g.DrawRectangle(p, rect.X, rect.Y, rect.Width, rect.Height);
+                if (pts != null && pts.Length > 0)
+                {
+                    if (IsBlobPolyton)
+                        g.FillPolygon(new SolidBrush(Color.FromArgb(75, ForeColor)), pts);
+                    else
+                        g.DrawPolygon(p, pts);
+                    //var gravity = box.GetOffsetPoint(GetGravityPt());
+                    //g.DrawRectangle(p, gravity.X, gravity.Y, 2, 2);
+                    //var are = AreaValue();
+                    //var rect = box.GetOffsetRectangle( OuterRect);
+                    //g.DrawRectangle(p, rect.X, rect.Y, rect.Width, rect.Height);
+                }
             }
         }
 

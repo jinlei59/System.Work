@@ -214,6 +214,11 @@ namespace System.Work.ImageBoxLib
         {
             this.imageBox1.ZoomToFit();
         }
+
+        public Point PointToImage(Point pt)
+        {
+            return imageBox1.PointToImage(pt);
+        }
         #endregion
 
         #region 私有方法

@@ -105,5 +105,10 @@ namespace WindowsFormsApplication2
             var bmp = new Bitmap(@"D:\11111.jpg");
             imageViewer1.NewAddRoiImageElements(new List<RoiImageElement>() { new RoiImageElement(bmp, new RectangleF(100, 200, 50, 50))});
         }
+
+        private void imageViewer1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+
+        }
     }
 }

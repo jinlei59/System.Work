@@ -46,6 +46,7 @@ namespace System.Work.ImageBoxLib
 
         protected virtual void InitDragHandleList()
         {
+            DragHandleList.Clear();
             foreach (var keyVal in _polygonPts)
             {
                 DragHandleList.Add(new DragHandle(DragHandleAnchor.TopLeft) { Uid = keyVal.Key });
@@ -227,6 +228,22 @@ namespace System.Work.ImageBoxLib
 
         #endregion
 
+        public override void AddPt(PointF pt)
+        {
+            base.AddPt(pt);
+            InitDragHandleList();
+        }
+
+        public override void AddPts(IList<PointF> pts)
+        {
+            base.AddPts(pts);
+            InitDragHandleList();
+        }
+
+        public override void ClearPts()
+        {
+            base.ClearPts();
+        }
         #endregion
     }
 }
