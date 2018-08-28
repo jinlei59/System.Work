@@ -378,6 +378,11 @@ namespace System.Work.ImageBoxLib
             this.OnMouseUp(e);
         }
 
+        private void imageBox1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            this.OnMouseDoubleClick(e);
+        }
+
         private void imageBox1_MouseWheel(object sender, MouseEventArgs e)
         {
 
@@ -480,6 +485,7 @@ namespace System.Work.ImageBoxLib
         {
             imageBox1.ZoomOut();
         }
+
         #endregion
     }
 }

@@ -192,6 +192,7 @@
             this.imageBox1.TabIndex = 0;
             this.imageBox1.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.imageBox1_MouseWheel);
             this.imageBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.imageBox1_Paint);
+            this.imageBox1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.imageBox1_MouseDoubleClick);
             this.imageBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.imageBox1_MouseDown);
             this.imageBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.imageBox1_MouseMove);
             this.imageBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.imageBox1_MouseUp);
