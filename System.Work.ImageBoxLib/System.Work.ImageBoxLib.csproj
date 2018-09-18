@@ -70,6 +70,7 @@
     <Compile Include="Elements\Images\ImageElement.cs" />
     <Compile Include="Elements\Images\RoiImageElement.cs" />
     <Compile Include="Elements\Lines\LineElement.cs" />
+    <Compile Include="Elements\Lines\DispersePointLineElement.cs" />
     <Compile Include="Elements\Lines\RoiDispersePointLineElement.cs" />
     <Compile Include="Elements\Lines\RoiLineElement.cs" />
     <Compile Include="Elements\Points\PointElement.cs" />
